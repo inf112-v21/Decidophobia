@@ -2,7 +2,7 @@
 
 Username -> Decidophobia
 
-##Spiller
+## Spiller
 
 - Som spiller vil jeg se spillbrettet.
 - Som spiller vil jeg se roboten på spillbrettet.
