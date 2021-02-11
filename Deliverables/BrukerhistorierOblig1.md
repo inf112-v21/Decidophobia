@@ -4,11 +4,15 @@
 ## Spiller:
 
 - Som spiller vil jeg se spillbrettet, slik at jeg kan se hvor roboten er.
+    - Akseptansekriterier: 
+        - Spiller må kunne se brettet og se roboten sin på spillbrettet ved å ha en GUI som viser spillbrettet og roboten på skjermen.
+    - Arbeidsoppgaver: 
+      - En Graphical User Interface(GUI) for spillbrettet.
 - Som spiller vil jeg bruke piltastene for å flytte roboten rundt på spillbrettet.
 - Som spiller vil jeg flytte roboten for å besøke flaggene som er på spillbrettet.
 - Som spiller vil jeg vinne spillet ved å besøke flaggene i stigende rekkefølge (fra 1 til det høyeste tallet).
 - Som spiller vil jeg spille spillet med andre spillere som bruker andre maskiner.
-- Som spiller vil jeg kunne gå utenfor brettet, slik at jeg kan dø
+- Som spiller vil jeg kunne gå utenfor brettet, slik at jeg kan dø.
 
 ## Brett:
 
