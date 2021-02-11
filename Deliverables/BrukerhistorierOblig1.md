@@ -4,39 +4,22 @@
 ## Spiller:
 
 - Som spiller vil jeg se spillbrettet, slik at jeg kan se hvor roboten er.
-    - Akseptansekriterier: 
-        - Spiller må kunne se brettet og se roboten sin på spillbrettet ved å ha en GUI som viser spillbrettet og roboten på skjermen.
-    - Arbeidsoppgaver: 
-      - En Graphical User Interface(GUI) for spillbrettet.
-    
-
 - Som spiller vil jeg bruke piltastene for å flytte roboten rundt på spillbrettet.
-    - Akseptansekriterier:
-        - Spiller skal kunne flytte på roboten sin rundt på spillbrettet ved bruk av tastaturets piltaster.
-    - Arbeidsoppgaver:
-    
-
 - Som spiller vil jeg flytte roboten for å besøke flaggene som er på spillbrettet.
-    - Akseptansekriterier:
-        - Spilleren skal kunne flytte på sin robot til hvert av flaggene som er på spillbrettet. 
-    - Arbeidsoppgaver:
-    
-
 - Som spiller vil jeg vinne spillet ved å besøke flaggene i stigende rekkefølge (fra 1 til det høyeste tallet).
-    - Akseptansekriterier:
-        - Spiller skal kunne vinne spillet ved å ha vært på hver tile hvor flaggene er plassert,
-          så lenge spilleren gjør det i stigende rekkefølge.
-    - Arbeidsoppgaver:
-
 - Som spiller vil jeg spille spillet med andre spillere som bruker andre maskiner.
-    - Akseptansekriterier:
-    - Arbeidsoppgaver:
-    
-
 - Som spiller vil jeg kunne gå utenfor brettet, slik at jeg kan dø.
-    - Akseptansekriterier:
-    - Arbeidsoppgaver:
 
+
+- Akseptansekriterier:
+    - Spilleren skal kunne flytte på sin robot til hvert av flaggene som er på spillbrettet. 
+    - Spiller skal kunne vinne spillet ved å ha vært på hver tile hvor flaggene er plassert,
+      så lenge spilleren gjør det i stigende rekkefølge.
+    - Spiller skal kunne flytte på roboten sin rundt på spillbrettet ved bruk av tastaturets piltaster.
+    - Spiller må kunne se brettet og se roboten sin på spillbrettet ved å ha en GUI som viser spillbrettet og roboten på skjermen.
+        
+- Arbeidsoppgaver: 
+    - En Graphical User Interface(GUI) for spillbrettet.
 
 ## Brett:
 
