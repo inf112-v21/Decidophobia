@@ -23,7 +23,7 @@ Alexander Gullestad: </br>
 **Rolle**: Kodetester
 
 Isak Hølleland: </br>
-**Kompetanse**: Har hatt INF100, INF101 og INF102 </br>
+**Kompetanse**: Har hatt INF100, INF101, INF102 og INF122 </br>
 **Rolle**: Teamlead
 
 Lars Andre Sande: </br>
@@ -54,7 +54,7 @@ vil deretter kontrolleres av tester, som har ansvar for å følge opp at feil i 
 rettet.
 
 ## Deloppgave 3
-### RoboRally Applikasjon  <br>
+### RoboRally Applikasjonen  <br>
 RoboRally er et brettspill og målet med denne applikasjonen  <br>
 er å være en digital versjon av dette spillet som kan spilles  <br>
 med andre digitalt.  <br>
