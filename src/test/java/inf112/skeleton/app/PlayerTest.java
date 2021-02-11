@@ -15,10 +15,7 @@ public class PlayerTest {
 
     @Before
     public void setUp() throws Exception {
-        player = new LocalPlayer();
-        playerPosition = new Vector2(2, 1);
-        player.setPosition(playerPosition);
-        player.setFacingDirection(Direction.NORTH);
+        player = new LocalPlayer(new Vector2(2, 1),Direction.NORTH);
     }
 
     @Test

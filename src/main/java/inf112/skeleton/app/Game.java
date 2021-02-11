@@ -7,22 +7,15 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
+import inf112.skeleton.app.player.LocalPlayer;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import static inf112.skeleton.app.DirectionTools.directionToVector;
-import static inf112.skeleton.app.DirectionTools.rotationToDirection;
 
 public class Game extends InputAdapter implements ApplicationListener {
     private SpriteBatch batch;
@@ -36,10 +29,8 @@ public class Game extends InputAdapter implements ApplicationListener {
     private OrthographicCamera cam;
 
     //PLayer
+    LocalPlayer p1;
     private boolean activePlayer = true;
-    private Vector2 playerPos;
-    private Direction playerOrientation;
-    private Map<Direction, TiledMapTileLayer.Cell> playerOrientationToTiles;
 
     @Override
     public void create() {
@@ -47,24 +38,6 @@ public class Game extends InputAdapter implements ApplicationListener {
         batch = new SpriteBatch();
         font = new BitmapFont();
         font.setColor(Color.RED);
-
-        //Setting up texture for different player orientations
-        TextureRegion[][] playerTexture = TextureRegion.split(new Texture("src/assets/player.png"),300,300);
-        TiledMapTileLayer.Cell playerNorth = new TiledMapTileLayer.Cell();
-        TiledMapTileLayer.Cell playerWest = new TiledMapTileLayer.Cell();
-        TiledMapTileLayer.Cell playerSouth = new TiledMapTileLayer.Cell();
-        TiledMapTileLayer.Cell playerEast = new TiledMapTileLayer.Cell();
-        playerNorth.setTile(new StaticTiledMapTile(playerTexture[0][0]));
-        playerWest.setTile(new StaticTiledMapTile(playerTexture[0][1]));
-        playerSouth.setTile(new StaticTiledMapTile(playerTexture[0][2]));
-        playerEast.setTile(new StaticTiledMapTile(playerTexture[0][3]));
-        //Putting the textures in a map where orientation is the keys.
-        playerOrientationToTiles = new HashMap<>();
-        playerOrientationToTiles.put(Direction.NORTH,playerNorth);
-        playerOrientationToTiles.put(Direction.WEST,playerWest);
-        playerOrientationToTiles.put(Direction.SOUTH,playerSouth);
-        playerOrientationToTiles.put(Direction.EAST,playerEast);
-
 
         //Loading the map
         mapTile = new TmxMapLoader().load("src/assets/tiledTest.tmx");
@@ -74,9 +47,9 @@ public class Game extends InputAdapter implements ApplicationListener {
         playerLayer = (TiledMapTileLayer) mapTile.getLayers().get("Player");
 
         //Placing the player
-        playerPos = new Vector2(0,0);
-        playerOrientation = Direction.NORTH;
-        playerLayer.setCell((int)playerPos.x,(int) playerPos.y, playerOrientationToTiles.get(playerOrientation));
+        p1 = new LocalPlayer(new Vector2(0,0),Direction.NORTH);
+        Vector2 pos = p1.getPosition();
+        playerLayer.setCell((int)pos.x,(int) pos.y, p1.getPlayerTileCell());
 
 
         cam = new OrthographicCamera();
@@ -102,15 +75,17 @@ public class Game extends InputAdapter implements ApplicationListener {
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
         //Collision with flag -> player dissapear and can't move
-        if(!(flagLayer.getCell((int) playerPos.x,(int) playerPos.y)==null)){
-            playerLayer.setCell((int) playerPos.x, (int) playerPos.y, null);
-            activePlayer = false;
+        Vector2 p1Pos = p1.getPosition();
+        if(!(flagLayer.getCell((int) p1Pos.x,(int) p1Pos.y)==null)){
+            playerLayer.setCell((int) p1Pos.x, (int) p1Pos.y, null);
+            p1.setActivePlayer(false);
 
         }
         //Collision with hole -> player dissapear and can't move
-        if(!(obstacleLayer.getCell((int) playerPos.x,(int) playerPos.y)==null)){
-            playerLayer.setCell((int) playerPos.x, (int) playerPos.y, null);
-            activePlayer = false;
+        if(!(obstacleLayer.getCell((int) p1Pos.x,(int) p1Pos.y)==null)){
+            playerLayer.setCell((int) p1Pos.x, (int) p1Pos.y, null);
+            p1.setActivePlayer(false);
+
         }
         batch.begin();
         font.draw(batch,"You Won!", 2, 1);
@@ -143,29 +118,25 @@ public class Game extends InputAdapter implements ApplicationListener {
         if(!activePlayer)
             return super.keyUp(keycode);
 
-        playerLayer.setCell((int) playerPos.x,(int) playerPos.y,null);
+        playerLayer.setCell((int) p1.getPosition().x,(int) p1.getPosition().y,null);
         if(keycode==19 || keycode == 51){
-            //clicked up or w -> move backwards
-            playerPos.add(directionToVector(playerOrientation));
+            //clicked up or w -> move Forward
+            p1.move(Action.FORWARD);
         }
         if(keycode==21 || keycode == 29){
             //clicked left or a -> rotate counterClockwise
-            playerOrientation = rotationToDirection(playerOrientation, false);
+            p1.move(Action.ROTATE_LEFT);
         }
         if(keycode==20 || keycode == 47){
             //clicked down or s -> move backwards
-            playerPos.sub(directionToVector(playerOrientation));
+            p1.move(Action.REVERSE);
         }
         if(keycode==22 || keycode == 32){
             //clicked right or d -> rotate clockwise
-            playerOrientation = rotationToDirection(playerOrientation, true);
+            p1.move(Action.ROTATE_RIGHT);
         }
-        playerPos.x = playerPos.x>=boardLayer.getWidth() ? boardLayer.getWidth()-1 : playerPos.x;
-        playerPos.x = playerPos.x<0 ? 0 : playerPos.x;
-        playerPos.y = playerPos.y>=boardLayer.getHeight() ? boardLayer.getHeight()-1 : playerPos.y;
-        playerPos.y = playerPos.y<0 ? 0 : playerPos.y;
 
-        playerLayer.setCell((int)playerPos.x,(int) playerPos.y, playerOrientationToTiles.get(playerOrientation));
+        playerLayer.setCell((int)p1.getPosition().x,(int) p1.getPosition().y, p1.getPlayerTileCell());
 
         return super.keyUp(keycode);
     }
