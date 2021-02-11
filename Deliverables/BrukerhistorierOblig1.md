@@ -38,7 +38,7 @@
 - Som flagg ønsker jeg at spilleren skal starte hos meg dersom han dør, slik at spilleren ikke starter fra starten hver gang.
 
 #### Akseptansekriterier:
-         - Spiller må kunne se flagg.
+    - Spiller må kunne se flagg.
        
 #### Arbeidsoppgaver:
-         - En Graphival User Interface (GUI) for flagg
+    - En Graphival User Interface (GUI) for flagg
