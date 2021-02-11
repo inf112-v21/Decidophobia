@@ -1,6 +1,5 @@
 # Brukerhistorier (Oblig 1)
 
-Username -> Decidophobia
 
 ## Spiller:
 
@@ -10,6 +9,8 @@ Username -> Decidophobia
 - Som spiller vil jeg flytte roboten for å besøke flaggene som er på spillbrettet.
 - Som spiller vil jeg vinne spillet ved å besøke flaggene i stigende rekkefølge (fra 1 til det høyeste tallet).
 - Som spiller vil jeg spille spillet med andre spillere som bruker andre maskiner.
+- Som spiller vil jeg kunne gå utenfor brettet, slik at jeg kan dø
+- Som spiller vil jeg kunne ende en runde på en skiftenøkkel rute, slik at jeg kan fikse en skade
 
 ## Vegg:
 
@@ -21,9 +22,9 @@ Username -> Decidophobia
 
 - Som spiller ønsker jeg å gå i flagg, slik at jeg kan vinne spillet.
 - Som flagg ønsker jeg at spilleren følger meg i rekkefølge, slik at spilleren ikke ta korteste veien til hvert flagg.
-- Som flagg øsnker jeg at spilleren skal starte hos meg dersom han dør, slik at spilleren ikke starter fra starten hver gang.
+- Som flagg ønsker jeg at spilleren skal starte hos meg dersom han dør, slik at spilleren ikke starter fra starten hver gang.
 
-## Kort
+## Kort:
 
 - Som spiller ønsker jeg at jeg kan velge ut fra kort hvilken veg jeg skal gå, slik at spilleren ikke bestemmer med tastene.
 - Som kort ønsker jeg at kortene, kan variere mellom bevegelse og rotasjon, slik at spilleren kan snu
@@ -33,7 +34,18 @@ Username -> Decidophobia
 
 - Som spiller ønsker jeg at jeg kan ta skade fra laser, slik at jeg kan dø.
 - Som laser ønsker jeg at jeg kun kan skyte laser en retning, slik at spilleren kan unngå meg.
-- Som laser øsnker jeg at en laserstråle skal gjøre 1 skade, slik at spilleren ikke dør med en gang.
+- Som laser ønsker jeg at en laserstråle skal gjøre 1 skade, slik at spilleren ikke dør med en gang.
 - Som laser ønsker jeg at jeg kan skyte 1 eller 3 laserstråler, slik at spilleren kan ha variasjon.
+
+## Hull:
+
+- Som robot vil jeg at jeg forsvinner når jeg går på et hull, slik at jeg kan dø
+
+## Transportbånd:
+- Som transportbånd ønsker jeg å bevege på spiller, slik at spiller mister kontroll
+- Som transportbånd ønsker jeg å vite hvor mange piler jeg har, slik at jeg vet hvor mange ganger jeg skal flytte roboter
+
+## Dytter:
+- Som dytter ønsker jeg robot stopper foran meg, slik at jeg kan dytte den vekk
 
 
