@@ -11,14 +11,14 @@
 - Som spiller vil jeg kunne gå utenfor brettet, slik at jeg kan dø.
 
 
-### Akseptansekriterier:
+#### Akseptansekriterier:
     - Spilleren skal kunne flytte på sin robot til hvert av flaggene som er på spillbrettet. 
     - Spiller skal kunne vinne spillet ved å ha vært på hver tile hvor flaggene er plassert,
       så lenge spilleren gjør det i stigende rekkefølge.
     - Spiller skal kunne flytte på roboten sin rundt på spillbrettet ved bruk av tastaturets piltaster.
     - Spiller må kunne se brettet og se roboten sin på spillbrettet ved å ha en GUI som viser spillbrettet og roboten på skjermen.
         
-### Arbeidsoppgaver: 
+#### Arbeidsoppgaver: 
     - En Graphical User Interface(GUI) for spillbrettet.
 
 ## Brett:
