@@ -21,4 +21,27 @@ public class PlayerTest {
         player.setPosition(playerPosition);
         assertEquals(new Vector2(2,1), player.getPosition());
     }
+    @Test
+    public void playerFaceNorthAndGoesOneStepForwardAndThenOneBackward(){
+        LocalPlayer player = new LocalPlayer();
+        player.setPosition(new Vector2(2,1));
+        player.setFacingDirection(Direction.NORTH);
+        player.move(Action.FORWARD);
+        assertEquals(new Vector2(2,2), player.getPosition());
+        player.move(Action.REVERSE);
+        assertEquals(new Vector2(2,1), player.getPosition());
+    }
+    @Test
+    public void playerTurnsLeftThenRightAndLastUturn(){
+        LocalPlayer player = new LocalPlayer();
+        player.setPosition(new Vector2(2,1));
+        player.setFacingDirection(Direction.NORTH);
+        player.move(Action.ROTATE_LEFT);
+        assertEquals(Direction.WEST, player.getFacingDirection());
+        player.move(Action.ROTATE_RIGHT);
+        assertEquals(Direction.NORTH, player.getFacingDirection());
+        player.move(Action.U_TURN);
+        assertEquals(Direction.SOUTH, player.getFacingDirection());
+
+    }
 }
