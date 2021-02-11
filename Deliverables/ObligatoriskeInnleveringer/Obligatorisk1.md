@@ -1,8 +1,8 @@
 # Obligatorisk innlevering 1
 
-##Deloppgave 1
+## Deloppgave 1
 
-###Roller og forventninger til hver:
+### Roller og forventninger til hver:
 
 Alle skal bidra med kode i prosjektet uavhengig av rolle.
 
@@ -16,7 +16,7 @@ Alle skal bidra med kode i prosjektet uavhengig av rolle.
 
 **UI-Designer**: Ansvaret for design av spillet
 
-###Kompetanse og roller i teamet
+### Kompetanse og roller i teamet
 
 Alexander Gullestad: </br>
 **Kompetanse**: Har hatt INF100, INF101 og INF102</br>
@@ -38,7 +38,7 @@ Petter Paulsen: </br>
 **Kompetanse**: Har hatt INF100, INF102, og INF122 </br>
 **Rolle**: Sekretær 
 
-##Deloppgave 2
+## Deloppgave 2
 Vi har valgt å følge XP som prosjektmetodikk. Den første tiden av
 Vi har tildelt klare ansvarsoppgaver og bestemt faste tidspunkter for team-møter. 
 I de fast oppsatte møtene vil alle deltakere stille. Dette er som følge av at 
@@ -53,5 +53,5 @@ at hver leveranse samsvarer med kundens forventning. Oppfølging av utført arbe
 vil deretter kontrolleres av tester, som har ansvar for å følge opp at feil i koden blir 
 rettet.
 
-##Deloppgave 3
+## Deloppgave 3
 Se brukerhistorier.md
