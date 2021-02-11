@@ -29,14 +29,14 @@ public class LocalPlayer implements IPlayer{
     }
 
     public void move(Action move) {
-        if(move == Action.FORWARD)
-            playerPosition.add(directionToVector(facingDirection));
-        else if(move == Action.REVERSE)
-            playerPosition.sub(directionToVector(facingDirection));
-        if(move == Action.ROTATE_LEFT)
-            facingDirection=(rotationToDirection(facingDirection,false));
-        else if(move == Action.ROTATE_RIGHT)
-            facingDirection=(rotationToDirection(facingDirection,true));
+        if(move == Action.FORWARD){playerPosition.add(directionToVector(facingDirection));}
+
+        else if(move == Action.REVERSE) {playerPosition.sub(directionToVector(facingDirection));}
+
+        if(move == Action.ROTATE_LEFT) {facingDirection = rotationToDirection(facingDirection,false);}
+
+        else if(move == Action.ROTATE_RIGHT) {facingDirection = rotationToDirection(facingDirection,true);}
+
         else if(move == Action.U_TURN) {
             facingDirection = (rotationToDirection(facingDirection, true));
             facingDirection = (rotationToDirection(facingDirection, true));
