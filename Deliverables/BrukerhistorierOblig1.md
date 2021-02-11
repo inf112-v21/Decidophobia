@@ -22,6 +22,10 @@
 ## Flagg:
 
 - Som spiller ønsker jeg å gå i flagg, slik at jeg kan vinne spillet.
+    - Akseptansekriterier:
+        -Spiller må kunne se flagg.
+    - Arbeidsoppgaver:
+        En Graphival User Interface (GUI) for flagg
 - Som flagg ønsker jeg at spilleren følger meg i rekkefølge, slik at spilleren ikke ta korteste veien til hvert flagg.
 - Som flagg ønsker jeg at spilleren skal starte hos meg dersom han dør, slik at spilleren ikke starter fra starten hver gang.
 
