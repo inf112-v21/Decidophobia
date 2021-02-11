@@ -119,21 +119,25 @@ public class Game extends InputAdapter implements ApplicationListener {
             return super.keyUp(keycode);
 
         playerLayer.setCell((int) p1.getPosition().x,(int) p1.getPosition().y,null);
-        if(keycode==19 || keycode == 51){
+        if(keycode == 19 || keycode == 51){
             //clicked up or w -> move Forward
             p1.move(Action.FORWARD);
         }
-        if(keycode==21 || keycode == 29){
+        else if(keycode == 21 || keycode == 29){
             //clicked left or a -> rotate counterClockwise
             p1.move(Action.ROTATE_LEFT);
         }
-        if(keycode==20 || keycode == 47){
+        else if(keycode == 20 || keycode == 47){
             //clicked down or s -> move backwards
             p1.move(Action.REVERSE);
         }
-        if(keycode==22 || keycode == 32){
+        else if(keycode == 22 || keycode == 32){
             //clicked right or d -> rotate clockwise
             p1.move(Action.ROTATE_RIGHT);
+        }
+        else if(keycode == 49){
+            //clicked u -> do U-turn
+            p1.move(Action.U_TURN);
         }
 
         playerLayer.setCell((int)p1.getPosition().x,(int) p1.getPosition().y, p1.getPlayerTileCell());

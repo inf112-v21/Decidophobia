@@ -77,7 +77,7 @@ public class LocalPlayer{
 
         else if(move == Action.REVERSE) {playerPosition.sub(directionToVector(facingDirection));}
 
-        if(move == Action.ROTATE_LEFT) {facingDirection = rotationToDirection(facingDirection,false);}
+        else if(move == Action.ROTATE_LEFT) {facingDirection = rotationToDirection(facingDirection,false);}
 
         else if(move == Action.ROTATE_RIGHT) {facingDirection = rotationToDirection(facingDirection,true);}
 
