@@ -54,4 +54,12 @@ vil deretter kontrolleres av tester, som har ansvar for å følge opp at feil i 
 rettet.
 
 ## Deloppgave 3
-Se brukerhistorier.md
+### RoboRally Applikasjon  <br>
+RoboRally er et brettspill og målet med denne applikasjonen  <br>
+er å være en digital versjon av dette spillet som kan spilles  <br>
+med andre digitalt.  <br>
+Spillet handler om roboter som skal nå ett eller flere  <br>
+punkter på et spillbrett, spillere kan flytte sin robot  <br>
+med bevegelseskort der han må planlegge 5 kort om gangen.  <br>
+
+for brukerhistorier se brukerhistorier.md

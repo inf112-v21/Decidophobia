@@ -17,7 +17,7 @@ import static inf112.skeleton.app.DirectionTools.rotationToDirection;
 public class LocalPlayer{
     private Vector2 playerPosition;
     private Direction facingDirection;
-    private boolean activePlayer; //Won or dead
+    private boolean activePlayer;
     private Map<Direction, TiledMapTileLayer.Cell> playerOrientationToTiles;
 
     public LocalPlayer(Vector2 position, Direction facingDirection, String playerImagePath){
@@ -73,7 +73,7 @@ public class LocalPlayer{
         if(!activePlayer)
             return;
 
-        if(move == Action.FORWARD){playerPosition.add(directionToVector(facingDirection));}
+        if(move == Action.FORWARD) {playerPosition.add(directionToVector(facingDirection));}
 
         else if(move == Action.REVERSE) {playerPosition.sub(directionToVector(facingDirection));}
 

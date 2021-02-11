@@ -59,8 +59,6 @@ public class Game extends InputAdapter implements ApplicationListener {
         //Divide uniiteScale on width with the assumption that tiles as equal height and width (300x300).
         renderer = new OrthogonalTiledMapRenderer(mapTile, (float) 1/boardLayer.getTileWidth());
         renderer.setView(cam);
-
-
     }
 
     @Override
@@ -87,10 +85,6 @@ public class Game extends InputAdapter implements ApplicationListener {
             p1.setActivePlayer(false);
 
         }
-        batch.begin();
-        font.draw(batch,"You Won!", 2, 1);
-        batch.end();
-
         renderer.render();
 
     }
@@ -113,6 +107,7 @@ public class Game extends InputAdapter implements ApplicationListener {
 		Found keycodes
 		up,left,down,right: 19,21,20,22
 		w,a,s,d: 51,29,47,32
+		u: 49
 		 */
         //Player Dead or Won
         if(!activePlayer)
