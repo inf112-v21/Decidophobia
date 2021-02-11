@@ -12,6 +12,11 @@
 - Som spiller vil jeg kunne gå utenfor brettet, slik at jeg kan dø
 - Som spiller vil jeg kunne ende en runde på en skiftenøkkel rute, slik at jeg kan fikse en skade
 
+## Brett:
+
+- Som brett ønsker jeg at jeg kan bli lagd av spelere, slik at spilleren får variasjon.
+- Som brett ønsker jeg at jeg kan bli plasert objekter på, slik at spilleren kan spille på meg.
+
 ## Vegg:
 
 - Som spiller ønsker jeg at jeg kan se veggen, slik at jeg kan unngå å bli stoppet
