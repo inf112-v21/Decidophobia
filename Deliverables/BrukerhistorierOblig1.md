@@ -26,6 +26,11 @@
 - Som brett ønsker jeg at jeg kan bli lagd av spelere, slik at spilleren får variasjon.
 - Som brett ønsker jeg at jeg kan bli plasert objekter på, slik at spilleren kan spille på meg.
 
+
+#### Akseptansekriterier:
+
+#### Arbeidsoppgaver:
+
 ## Flagg:
 
 - Som spiller ønsker jeg å gå i flagg, slik at jeg kan vinne spillet.
