@@ -17,3 +17,9 @@ Username -> Decidophobia
 - Som vegg ønsker jeg at det ikke er fire vegger i en rute, slik at ruten er mulig å besøke
 - Som vegg ønsker jeg å stoppe laser, slit at spiller ikke blir skadet bak meg
 
+## Laser:
+
+- Som spiller ønsker jeg at jeg kan ta skade fra laser, slik at jeg kan dø.
+- Som laser ønsker jeg at jeg kun kan skyte laser en retning, slik at spilleren kan unngå meg.
+- Som laser øsnker jeg at en laserstråle skal gjøre 1 skade, slik at spilleren ikke dør med en gang.
+- Som laser ønsker jeg at jeg kan skyte 1 eller 3 laserstråler, slik at spilleren kan ha variasjon.
