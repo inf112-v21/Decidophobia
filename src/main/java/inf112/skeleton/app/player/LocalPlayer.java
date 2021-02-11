@@ -20,27 +20,29 @@ public class LocalPlayer{
     private boolean activePlayer; //Won or dead
     private Map<Direction, TiledMapTileLayer.Cell> playerOrientationToTiles;
 
-    public LocalPlayer(Vector2 position, Direction facingDirection){
+    public LocalPlayer(Vector2 position, Direction facingDirection, String playerImagePath){
         this.playerPosition = position;
         this.facingDirection = facingDirection;
         this.activePlayer=true;
 
-        //Setting up texture for different player orientations
-        TextureRegion[][] playerTexture = TextureRegion.split(new Texture("src/assets/player.png"),300,300);
-        TiledMapTileLayer.Cell playerNorth = new TiledMapTileLayer.Cell();
-        TiledMapTileLayer.Cell playerWest = new TiledMapTileLayer.Cell();
-        TiledMapTileLayer.Cell playerSouth = new TiledMapTileLayer.Cell();
-        TiledMapTileLayer.Cell playerEast = new TiledMapTileLayer.Cell();
-        playerNorth.setTile(new StaticTiledMapTile(playerTexture[0][0]));
-        playerWest.setTile(new StaticTiledMapTile(playerTexture[0][1]));
-        playerSouth.setTile(new StaticTiledMapTile(playerTexture[0][2]));
-        playerEast.setTile(new StaticTiledMapTile(playerTexture[0][3]));
-        //Putting the textures in a map where orientation is the keys.
-        playerOrientationToTiles = new HashMap<>();
-        playerOrientationToTiles.put(Direction.NORTH,playerNorth);
-        playerOrientationToTiles.put(Direction.WEST,playerWest);
-        playerOrientationToTiles.put(Direction.SOUTH,playerSouth);
-        playerOrientationToTiles.put(Direction.EAST,playerEast);
+        if(!(playerImagePath==null)) {
+            //Setting up texture for different player orientations
+            TextureRegion[][] playerTexture = TextureRegion.split(new Texture(playerImagePath), 300, 300);
+            TiledMapTileLayer.Cell playerNorth = new TiledMapTileLayer.Cell();
+            TiledMapTileLayer.Cell playerWest = new TiledMapTileLayer.Cell();
+            TiledMapTileLayer.Cell playerSouth = new TiledMapTileLayer.Cell();
+            TiledMapTileLayer.Cell playerEast = new TiledMapTileLayer.Cell();
+            playerNorth.setTile(new StaticTiledMapTile(playerTexture[0][0]));
+            playerWest.setTile(new StaticTiledMapTile(playerTexture[0][1]));
+            playerSouth.setTile(new StaticTiledMapTile(playerTexture[0][2]));
+            playerEast.setTile(new StaticTiledMapTile(playerTexture[0][3]));
+            //Putting the textures in a map where orientation is the keys.
+            playerOrientationToTiles = new HashMap<>();
+            playerOrientationToTiles.put(Direction.NORTH, playerNorth);
+            playerOrientationToTiles.put(Direction.WEST, playerWest);
+            playerOrientationToTiles.put(Direction.SOUTH, playerSouth);
+            playerOrientationToTiles.put(Direction.EAST, playerEast);
+        }
     }
     public TiledMapTileLayer.Cell getPlayerTileCell(){
         return playerOrientationToTiles.get(facingDirection);

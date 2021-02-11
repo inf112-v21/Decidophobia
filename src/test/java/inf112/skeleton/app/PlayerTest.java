@@ -4,9 +4,7 @@ import static org.junit.Assert.*;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.player.LocalPlayer;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
 
 
 public class PlayerTest {
@@ -14,8 +12,9 @@ public class PlayerTest {
     private Vector2 playerPosition;
 
     @Before
-    public void setUp() throws Exception {
-        player = new LocalPlayer(new Vector2(2, 1),Direction.NORTH);
+    public void setUp() {
+        System.out.println(getClass());
+        player = new LocalPlayer(new Vector2(2, 1),Direction.NORTH, null);
     }
 
     @Test

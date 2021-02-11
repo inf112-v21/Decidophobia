@@ -47,7 +47,7 @@ public class Game extends InputAdapter implements ApplicationListener {
         playerLayer = (TiledMapTileLayer) mapTile.getLayers().get("Player");
 
         //Placing the player
-        p1 = new LocalPlayer(new Vector2(0,0),Direction.NORTH);
+        p1 = new LocalPlayer(new Vector2(0,0),Direction.NORTH,"src/assets/player.png");
         Vector2 pos = p1.getPosition();
         playerLayer.setCell((int)pos.x,(int) pos.y, p1.getPlayerTileCell());
 
