@@ -30,7 +30,6 @@ public class Game extends InputAdapter implements ApplicationListener {
 
     //PLayer
     LocalPlayer p1;
-    private boolean activePlayer = true;
 
     @Override
     public void create() {
@@ -79,12 +78,14 @@ public class Game extends InputAdapter implements ApplicationListener {
             p1.setActivePlayer(false);
 
         }
-        //Collision with hole -> player dissapear and can't move
-        if(!(obstacleLayer.getCell((int) p1Pos.x,(int) p1Pos.y)==null)){
+        //Collision with hole or player goes off-board -> player dissapear and can't move (Dies)
+        boolean playerOnBoard = p1Pos.x>=0 && p1Pos.y>=0 && p1Pos.x<boardLayer.getWidth() && p1Pos.y<boardLayer.getHeight();
+        if(!(obstacleLayer.getCell((int) p1Pos.x,(int) p1Pos.y)==null) || !playerOnBoard){
             playerLayer.setCell((int) p1Pos.x, (int) p1Pos.y, null);
             p1.setActivePlayer(false);
 
         }
+
         renderer.render();
 
     }
@@ -110,7 +111,7 @@ public class Game extends InputAdapter implements ApplicationListener {
 		u: 49
 		 */
         //Player Dead or Won
-        if(!activePlayer)
+        if(!p1.isActivePlayer())
             return super.keyUp(keycode);
 
         playerLayer.setCell((int) p1.getPosition().x,(int) p1.getPosition().y,null);
