@@ -6,11 +6,23 @@ import com.esotericsoftware.kryonet.Listener;
 
 import java.io.IOException;
 
-public class OnlineClient {
-    public static void main(String[] args) throws IOException {
+public class OnlineClient extends Thread{
+
+    String serverAddress;
+
+    public OnlineClient(String serverAddress){
+        this.serverAddress = serverAddress;
+    }
+    @Override
+    public void run() {
+        super.run();
         Client client = new Client();
         client.start();
-        client.connect(5000, "192.168.10.179", 54555, 54777);
+        try {
+            client.connect(5000, serverAddress, 54555, 54777); //ip-addresse til server
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         String request = "";
         request = "Here is the request";
@@ -25,5 +37,4 @@ public class OnlineClient {
             }
         });
     }
-
 }

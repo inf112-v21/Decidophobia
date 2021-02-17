@@ -6,14 +6,20 @@ import com.esotericsoftware.kryonet.Server;
 
 import java.io.IOException;
 
-public class Host {
+public class Host extends Thread {
     
     Server server;
 
-    public static void main(String[] args) throws IOException {
+    @Override
+    public void run() {
+        super.run();
         Server server = new Server();
         server.start();
-        server.bind(54555, 54777);
+        try {
+            server.bind(54555, 54777);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         server.addListener(new Listener() {
             public void received (Connection connection, Object object) {
