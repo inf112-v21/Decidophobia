@@ -7,12 +7,16 @@ import com.esotericsoftware.kryonet.Server;
 import java.io.IOException;
 
 public class Host extends Thread {
-    
-    Server server;
+
+    String firstMessage ="";
+
+    public String getFirstMessage() {
+        return firstMessage;
+    }
 
     @Override
     public void run() {
-        super.run();
+
         Server server = new Server();
         server.start();
         try {
@@ -23,18 +27,17 @@ public class Host extends Thread {
 
         server.addListener(new Listener() {
             public void received (Connection connection, Object object) {
-
                 if (object instanceof String) {
-                    String request = (String)object;
+                    String request = (String) object;
+                    firstMessage += request;
                     System.out.println(request);
 
-                    String response = "";
-                    response = "Thanks";
+                    String response = "Thanks";
                     connection.sendTCP(response);
                 }
-
-
             }
         });
+
+        super.run();
     }
 }
