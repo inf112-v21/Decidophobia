@@ -10,12 +10,18 @@ public class OnlineClient{
 
     String serverAddress;
 
+    String response;
+
+    public String getResponse() {
+        return response;
+    }
+
     public OnlineClient(String serverAddress){
         this.serverAddress = serverAddress;
     }
 
 
-    public void send(String request) {
+    public void sendRequest(String request) {
 
         Client client = new Client();
         client.start();
@@ -31,7 +37,7 @@ public class OnlineClient{
         client.addListener(new Listener() {
             public void received (Connection connection, Object object) {
                 if (object instanceof String) {
-                    String response = (String)object;
+                    response = (String) object;
 
                 }
             }

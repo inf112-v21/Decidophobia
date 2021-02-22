@@ -29,11 +29,10 @@ public class Host extends Thread {
             public void received (Connection connection, Object object) {
                 if (object instanceof String) {
                     String request = (String) object;
-                    firstMessage += request;
+                    firstMessage = request;
                     System.out.println(request);
 
-                    String response = "Thanks";
-                    connection.sendTCP(response);
+                    connection.sendTCP("Thanks");
                 }
             }
         });
