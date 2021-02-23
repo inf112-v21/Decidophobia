@@ -43,4 +43,13 @@ public class OnlineClient{
             }
         });
     }
+
+    /**
+     * Made for running Clientrequest in main-thread, for testing Host-Client-relation over the internet
+     * @param args
+     */
+    public static void main(String[] args){
+        OnlineClient client = new OnlineClient("000.000.00.000");
+        client.sendRequest("Here is a request");
+    }
 }
