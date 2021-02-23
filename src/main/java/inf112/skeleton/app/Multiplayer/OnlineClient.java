@@ -38,10 +38,19 @@ public class OnlineClient{
             public void received (Connection connection, Object object) {
                 if (object instanceof String) {
                     response = (String) object;
+                    System.out.println(response);
 
                 }
             }
         });
+
+        while(true){
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -49,7 +58,7 @@ public class OnlineClient{
      * @param args
      */
     public static void main(String[] args){
-        OnlineClient client = new OnlineClient("000.000.00.000");
+        OnlineClient client = new OnlineClient(Host.getLANIp());
         client.sendRequest("Here is a request");
     }
 }
