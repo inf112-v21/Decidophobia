@@ -51,7 +51,7 @@ public class OnlineClient{
      * @param args
      */
     public static void main(String[] args){
-        OnlineClient client = new OnlineClient(Host.getLANIp());
+        OnlineClient client = new OnlineClient("158.248.45.160");
         client.sendRequest("Here is a request");
     }
 }
