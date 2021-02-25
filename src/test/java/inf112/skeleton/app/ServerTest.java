@@ -4,8 +4,6 @@ import inf112.skeleton.app.Multiplayer.Host;
 import inf112.skeleton.app.Multiplayer.OnlineClient;
 import org.junit.Test;
 
-import java.net.InetAddress;
-
 import static java.lang.Thread.sleep;
 import static org.junit.Assert.*;
 
