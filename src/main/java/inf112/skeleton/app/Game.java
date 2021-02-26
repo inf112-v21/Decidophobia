@@ -4,15 +4,22 @@ package inf112.skeleton.app;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.player.LocalPlayer;
 
@@ -21,12 +28,18 @@ public class Game extends InputAdapter implements ApplicationListener {
     private SpriteBatch batch;
     private BitmapFont font;
     private TiledMap mapTile;
+    private AssetManager assetManager;
+
     private TiledMapTileLayer boardLayer;
     private TiledMapTileLayer flagLayer;
     private TiledMapTileLayer obstacleLayer;
     private TiledMapTileLayer playerLayer;
+    private MapLayer deckLayer;
+
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera cam;
+
+    private TextureRegion[][] cards;
 
     //PLayer
     LocalPlayer p1;
@@ -38,26 +51,38 @@ public class Game extends InputAdapter implements ApplicationListener {
         font = new BitmapFont();
         font.setColor(Color.RED);
 
+        //Setting up map an asset manager
+        String mapFile = "src/assets/tiledTest.tmx";
+        assetManager = new AssetManager();
+        assetManager.setLoader(TiledMap.class, new TmxMapLoader());
+
         //Loading the map
-        mapTile = new TmxMapLoader().load("src/assets/tiledTest.tmx");
+        assetManager.load(mapFile, TiledMap.class);
+        assetManager.finishLoading();
+        mapTile = assetManager.get(mapFile);
+
+        //Declaring layers
         boardLayer = (TiledMapTileLayer) mapTile.getLayers().get("Board");
         flagLayer = (TiledMapTileLayer) mapTile.getLayers().get("Flag");
         obstacleLayer = (TiledMapTileLayer) mapTile.getLayers().get("Obstacles");
-        playerLayer = (TiledMapTileLayer) mapTile.getLayers().get("Player");
+        deckLayer = mapTile.getLayers().get("PlayerDeck");
 
         //Placing the player
-        p1 = new LocalPlayer(new Vector2(0,0),Direction.NORTH,"src/assets/player.png");
+        playerLayer = (TiledMapTileLayer) mapTile.getLayers().get("Player");
+        p1 = new LocalPlayer(new Vector2(1,3),Direction.NORTH,"src/assets/player.png");
         Vector2 pos = p1.getPosition();
         playerLayer.setCell((int)pos.x,(int) pos.y, p1.getPlayerTileCell());
 
-
+        //Setting up camera
         cam = new OrthographicCamera();
         cam.setToOrtho(false, boardLayer.getWidth(), boardLayer.getHeight());
-
         cam.update();
+
+        //Creating the map renderer
         //Divide uniiteScale on width with the assumption that tiles as equal height and width (300x300).
         renderer = new OrthogonalTiledMapRenderer(mapTile, (float) 1/boardLayer.getTileWidth());
-        renderer.setView(cam);
+
+        cards = TextureRegion.split(new Texture("src/assets/cardTiles.png"), 380, 600);
     }
 
     @Override
@@ -70,6 +95,11 @@ public class Game extends InputAdapter implements ApplicationListener {
     public void render() {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
+
+        //Renders the map
+        cam.update();
+        renderer.setView(cam);
+        renderer.render();
 
         //Collision with flag -> player dissapear and can't move
         Vector2 p1Pos = p1.getPosition();
@@ -86,7 +116,16 @@ public class Game extends InputAdapter implements ApplicationListener {
 
         }
 
-        renderer.render();
+        //Renders objects for player deck
+        batch.setProjectionMatrix(cam.combined);
+        for (MapObject object : deckLayer.getObjects()) {
+            if (object instanceof RectangleMapObject) {
+                Rectangle rect = ((RectangleMapObject) object).getRectangle();
+                batch.begin();
+                batch.draw(cards[0][0], rect.x/300, rect.y/300,380/300f, 600/300f);
+                batch.end();
+            }
+        }
 
     }
 
