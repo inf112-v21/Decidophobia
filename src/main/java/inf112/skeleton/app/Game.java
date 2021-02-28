@@ -180,4 +180,11 @@ public class Game extends InputAdapter implements ApplicationListener {
         return super.keyUp(keycode);
     }
 
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        System.out.println(screenX + " : " + screenY);
+        System.out.println(pointer + " and " + button);
+        return super.touchDown(screenX, screenY, pointer, button);
+    }
+
 }
