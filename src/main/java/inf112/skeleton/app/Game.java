@@ -25,6 +25,9 @@ import inf112.skeleton.app.player.LocalPlayer;
 
 
 public class Game extends InputAdapter implements ApplicationListener {
+    private int windowHeight;
+    private int windowWidth;
+
     private SpriteBatch batch;
     private BitmapFont font;
     private TiledMap mapTile;
@@ -47,6 +50,8 @@ public class Game extends InputAdapter implements ApplicationListener {
     @Override
     public void create() {
         Gdx.input.setInputProcessor(this);
+        windowHeight = 500;
+        windowWidth = 500;
         batch = new SpriteBatch();
         font = new BitmapFont();
         font.setColor(Color.RED);
@@ -131,6 +136,8 @@ public class Game extends InputAdapter implements ApplicationListener {
 
     @Override
     public void resize(int width, int height) {
+        windowHeight = height;
+        windowWidth = width;
     }
 
     @Override
@@ -183,8 +190,16 @@ public class Game extends InputAdapter implements ApplicationListener {
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         System.out.println(screenX + " : " + screenY);
-        System.out.println(pointer + " and " + button);
-        return super.touchDown(screenX, screenY, pointer, button);
+        int[] mousePos = screenToPos(screenX,screenY);
+        System.out.println(mousePos[0] + " : " + mousePos[1]);
+
+        System.out.println(deckLayer);
+
+        return super.touchUp(screenX, screenY, pointer, button);
+    }
+    private int[] screenToPos(int screenX, int screenY){
+        int[] pos = {screenX * boardLayer.getWidth()/windowWidth, (windowHeight-screenY) * boardLayer.getHeight()/windowHeight};
+        return pos;
     }
 
 }
