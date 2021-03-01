@@ -99,7 +99,7 @@ public class Game extends InputAdapter implements ApplicationListener {
 
         //Setting up camera for player deck
         deckCam = new OrthographicCamera();
-        deckCam.setToOrtho(false, gridLayer.getWidth(), gridLayer.getHeight()+5);
+        deckCam.setToOrtho(false, gridLayer.getWidth(), gridLayer.getHeight());
         deckCam.update();
         deckViewport = new ExtendViewport(boardLayer.getWidth(), gridLayer.getHeight()+5, deckCam);
 
@@ -124,7 +124,7 @@ public class Game extends InputAdapter implements ApplicationListener {
 
         //Renders the map
         boardCam.update();
-        mapRenderer.setView(boardViewport.getCamera().combined, 0, 0, boardLayer.getWidth(), boardLayer.getHeight());
+        mapRenderer.setView(boardCam);
         mapRenderer.render();
 
         //Collision with flag -> player dissapear and can't move
