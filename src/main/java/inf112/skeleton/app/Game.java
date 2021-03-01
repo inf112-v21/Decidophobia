@@ -21,6 +21,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import inf112.skeleton.app.player.LocalPlayer;
 
 
@@ -31,16 +32,22 @@ public class Game extends InputAdapter implements ApplicationListener {
     private SpriteBatch batch;
     private BitmapFont font;
     private TiledMap mapTile;
+    private TiledMap deckTile;
     private AssetManager assetManager;
 
     private TiledMapTileLayer boardLayer;
     private TiledMapTileLayer flagLayer;
     private TiledMapTileLayer obstacleLayer;
     private TiledMapTileLayer playerLayer;
+    private TiledMapTileLayer gridLayer;
     private MapLayer deckLayer;
 
-    private OrthogonalTiledMapRenderer renderer;
-    private OrthographicCamera cam;
+    private OrthogonalTiledMapRenderer deckRenderer;
+    private OrthogonalTiledMapRenderer mapRenderer;
+    private OrthographicCamera boardCam;
+    private OrthographicCamera deckCam;
+    private ExtendViewport boardViewport;
+    private ExtendViewport deckViewport;
 
     private TextureRegion[][] cards;
 
@@ -58,19 +65,25 @@ public class Game extends InputAdapter implements ApplicationListener {
 
         //Setting up map an asset manager
         String mapFile = "src/assets/tiledTest.tmx";
+        String deckFile = "src/assets/playerDeck.tmx";
         assetManager = new AssetManager();
         assetManager.setLoader(TiledMap.class, new TmxMapLoader());
 
         //Loading the map
         assetManager.load(mapFile, TiledMap.class);
+        assetManager.load(deckFile, TiledMap.class);
         assetManager.finishLoading();
         mapTile = assetManager.get(mapFile);
+        deckTile = assetManager.get(deckFile);
 
         //Declaring layers
+        // mapTile
         boardLayer = (TiledMapTileLayer) mapTile.getLayers().get("Board");
         flagLayer = (TiledMapTileLayer) mapTile.getLayers().get("Flag");
         obstacleLayer = (TiledMapTileLayer) mapTile.getLayers().get("Obstacles");
-        deckLayer = mapTile.getLayers().get("PlayerDeck");
+        //deckTile
+        deckLayer = deckTile.getLayers().get("Cards");
+        gridLayer = (TiledMapTileLayer) deckTile.getLayers().get("Grid");
 
         //Placing the player
         playerLayer = (TiledMapTileLayer) mapTile.getLayers().get("Player");
@@ -78,14 +91,22 @@ public class Game extends InputAdapter implements ApplicationListener {
         Vector2 pos = p1.getPosition();
         playerLayer.setCell((int)pos.x,(int) pos.y, p1.getPlayerTileCell());
 
-        //Setting up camera
-        cam = new OrthographicCamera();
-        cam.setToOrtho(false, boardLayer.getWidth(), boardLayer.getHeight());
-        cam.update();
+        //Setting up camera for game board
+        boardCam = new OrthographicCamera();
+        boardCam.setToOrtho(false, boardLayer.getWidth(), boardLayer.getHeight());
+        boardCam.update();
+        boardViewport = new ExtendViewport(boardLayer.getWidth()*1.5f, boardLayer.getHeight()*1.5f, boardCam);
+
+        //Setting up camera for player deck
+        deckCam = new OrthographicCamera();
+        deckCam.setToOrtho(false, gridLayer.getWidth(), gridLayer.getHeight()+5);
+        deckCam.update();
+        deckViewport = new ExtendViewport(boardLayer.getWidth(), gridLayer.getHeight()+5, deckCam);
 
         //Creating the map renderer
         //Divide uniiteScale on width with the assumption that tiles as equal height and width (300x300).
-        renderer = new OrthogonalTiledMapRenderer(mapTile, (float) 1/boardLayer.getTileWidth());
+        mapRenderer = new OrthogonalTiledMapRenderer(mapTile, (float) 1/boardLayer.getTileWidth());
+        deckRenderer = new OrthogonalTiledMapRenderer(deckTile, (float) 1/gridLayer.getTileWidth());
 
         cards = TextureRegion.split(new Texture("src/assets/cardTiles.png"), 380, 600);
     }
@@ -102,9 +123,9 @@ public class Game extends InputAdapter implements ApplicationListener {
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
         //Renders the map
-        cam.update();
-        renderer.setView(cam);
-        renderer.render();
+        boardCam.update();
+        mapRenderer.setView(boardViewport.getCamera().combined, 0, 0, boardLayer.getWidth(), boardLayer.getHeight());
+        mapRenderer.render();
 
         //Collision with flag -> player dissapear and can't move
         Vector2 p1Pos = p1.getPosition();
@@ -118,11 +139,15 @@ public class Game extends InputAdapter implements ApplicationListener {
         if(!(obstacleLayer.getCell((int) p1Pos.x,(int) p1Pos.y)==null) || !playerOnBoard){
             playerLayer.setCell((int) p1Pos.x, (int) p1Pos.y, null);
             p1.setActivePlayer(false);
-
         }
 
+        //Renders the player deck
+        deckCam.update();
+        deckRenderer.setView(deckCam);
+        deckRenderer.render();
+
         //Renders objects for player deck
-        batch.setProjectionMatrix(cam.combined);
+        batch.setProjectionMatrix(deckCam.combined);
         for (MapObject object : deckLayer.getObjects()) {
             if (object instanceof RectangleMapObject) {
                 Rectangle rect = ((RectangleMapObject) object).getRectangle();
@@ -138,6 +163,14 @@ public class Game extends InputAdapter implements ApplicationListener {
     public void resize(int width, int height) {
         windowHeight = height;
         windowWidth = width;
+        boardViewport.update(width, height, false);
+        deckViewport.update(width, height, false);
+
+        //Sets the position for map and player deck in the game screen
+        boardViewport.getCamera().position.set(2.5f, 1.5f, 0);
+        deckViewport.getCamera().position.set(5, 5, 0);
+        boardViewport.getCamera().update();
+        deckViewport.getCamera().update();
     }
 
     @Override

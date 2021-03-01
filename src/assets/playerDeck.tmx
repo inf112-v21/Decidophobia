@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="10" height="4" tilewidth="300" tileheight="300" infinite="0" nextlayerid="3" nextobjectid="6">
+ <layer id="1" name="Grid" width="10" height="4">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup id="2" name="Cards">
+  <object id="1" x="300" y="300" width="380" height="600"/>
+  <object id="2" x="800" y="300" width="380" height="600"/>
+  <object id="3" x="1380" y="300" width="380" height="600"/>
+  <object id="4" x="1869.25" y="294.925" width="380" height="600"/>
+  <object id="5" x="2300" y="300" width="380" height="600"/>
+ </objectgroup>
+</map>
