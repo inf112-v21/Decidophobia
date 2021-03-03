@@ -12,17 +12,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.UnknownHostException;
 
-public class Host extends Thread {
+public class Host {
 
-    @Override
-    public void run() {
-
-        runServer();
-
-        super.run();
-    }
-
-    private void runServer() {
+    public void runServer() {
         Server server = new Server();
         server.start();
         try {
