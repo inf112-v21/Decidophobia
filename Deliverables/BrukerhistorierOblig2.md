@@ -114,3 +114,35 @@
 #### Arbeidsoppgaver:
     h1 | Passe på at tiles med dyttere er en del av det traverserbare brettet.
     h2 | 
+## Client/Sever:
+#### Brukerhistorier:
+    client1 | Som client vil jeg at jeg skal kunne bli med i spillet.
+    client2 | Som client vil jeg levere kortene mine til server.
+    client3 | Som client vil jeg kunne forlate spillet.
+    client4 | Som client vil jeg ikke kunne bli med i påbegynte spill.'
+
+    server1 | Som server vil jeg kunne legge til clients i spillet.
+    server2 | Som server vil jeg få kort av clienter og sende de videre til alle andre clienter.
+    server3 | Som server vil jeg kunne fjerne spillere fra spillet.
+    server4 | Som server ignorerer jeg clienter som vil være med i et påbegynt spill.
+
+#### Akseptansekriterier
+    client1 | Dersom client vil bli med i spill, blir han lagt til.
+    client2 | Dersom client leverer kortene sine blir disse brukt i alle clienters spill for denne clienten.
+    client3 | Dersom client vil forlate spill, så forsvinner spillerens robot fra alles brett.
+    client4 | Dersom spill er i gang, så får ikke ny client være med.
+
+    server1 | Dersom server får melding fra client om å bli med, legger server clienten til i spill.
+    server2 | Dersom server får kort fra client, må de samme kortene bli sendt til alle clienter.
+    server3 | Dersom server får melding fra client om å forlate spill, så påvirker ikke client lenger spillet.
+    server4 | Dersom spill er begynt, tar ikke server inn flere clienter i spillet.
+    
+#### Arbeidsoppgaver
+    client1 | Skrive "join" request fra client til server
+    client2 | Skrive "lockCards" request fra client til server, som leverer kort fra client.
+    client3 | Skrive "quit" request fra client til server.
+    client4 | Skrive en håndtering av "gameFull"- eller "gameStarted"-respons.
+    
+    server1 server 4 | Skrive en håndtering og respons av "join"-request.
+    server2 | Skrive en håndtering og respons av "lockCards"-request.
+    server3 | Slrive en håndtering og respons av "quit"-request.

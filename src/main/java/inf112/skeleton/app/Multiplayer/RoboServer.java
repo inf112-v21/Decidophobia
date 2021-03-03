@@ -12,7 +12,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.UnknownHostException;
 
-public class Host {
+public class RoboServer {
+    private boolean gameStarted;
+    public RoboServer(){
+        gameStarted = false;
+    }
 
     public void runServer() {
         Server server = new Server();
@@ -28,8 +32,14 @@ public class Host {
                 if (object instanceof String) {
                     String request = (String) object;
                     System.out.println(request);
-
-                    connection.sendTCP("Thanks");
+                    if(request.equals("Join")){
+                        if(!gameStarted) {
+                            connection.sendTCP("Joined");
+                        }
+                        else {
+                            connection.sendTCP("GameFull");
+                        }
+                    }
                 }
             }
         });
@@ -70,7 +80,7 @@ public class Host {
      * @param args
      */
     public static void main(String[] args){
-        Host host = new Host();
+        RoboServer host = new RoboServer();
         host.runServer();
     }
 }

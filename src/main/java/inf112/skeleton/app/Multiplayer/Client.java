@@ -1,29 +1,28 @@
 package inf112.skeleton.app.Multiplayer;
 
-import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
 import java.io.IOException;
 
-public class OnlineClient{
+public class Client {
 
-    String serverAddress;
+    private String serverAddress;
 
-    String response;
+    private String response;
 
     public String getResponse() {
         return response;
     }
 
-    public OnlineClient(String serverAddress){
+    public Client(String serverAddress){
         this.serverAddress = serverAddress;
     }
 
 
     public void sendRequest(String request) {
 
-        Client client = new Client();
+        com.esotericsoftware.kryonet.Client client = new com.esotericsoftware.kryonet.Client();
         client.start();
         try {
             System.out.println(serverAddress);
@@ -51,7 +50,7 @@ public class OnlineClient{
      * @param args
      */
     public static void main(String[] args){
-        OnlineClient client = new OnlineClient("158.248.45.160");
-        client.sendRequest("Here is a request");
+        Client client = new Client("000.000.000.00");
+        client.sendRequest("Join");
     }
 }
