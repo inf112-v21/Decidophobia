@@ -49,6 +49,7 @@ public class Game extends InputAdapter implements ApplicationListener {
     private ExtendViewport boardViewport;
     private ExtendViewport deckViewport;
 
+    private Rectangle[] cardRectangles = new Rectangle[5];
     private TextureRegion[][] cards;
 
     //PLayer
@@ -57,8 +58,6 @@ public class Game extends InputAdapter implements ApplicationListener {
     @Override
     public void create() {
         Gdx.input.setInputProcessor(this);
-        windowHeight = 500;
-        windowWidth = 500;
         batch = new SpriteBatch();
         font = new BitmapFont();
         font.setColor(Color.RED);
@@ -95,7 +94,7 @@ public class Game extends InputAdapter implements ApplicationListener {
         boardCam = new OrthographicCamera();
         boardCam.setToOrtho(false, boardLayer.getWidth(), boardLayer.getHeight());
         boardCam.update();
-        boardViewport = new ExtendViewport(boardLayer.getWidth()*1.5f, boardLayer.getHeight()*1.5f, boardCam);
+        boardViewport = new ExtendViewport(boardLayer.getWidth()*1.6f, boardLayer.getHeight()*1.6f, boardCam);
 
         //Setting up camera for player deck
         deckCam = new OrthographicCamera();
@@ -107,6 +106,15 @@ public class Game extends InputAdapter implements ApplicationListener {
         //Divide uniiteScale on width with the assumption that tiles as equal height and width (300x300).
         mapRenderer = new OrthogonalTiledMapRenderer(mapTile, (float) 1/boardLayer.getTileWidth());
         deckRenderer = new OrthogonalTiledMapRenderer(deckTile, (float) 1/gridLayer.getTileWidth());
+
+        //Setting up positions for the cards in player deck
+        int i = 0;
+        for (MapObject object : deckLayer.getObjects()) {
+            if (object instanceof RectangleMapObject) {
+                cardRectangles[i] = ((RectangleMapObject) object).getRectangle();
+                i++;
+            }
+        }
 
         cards = TextureRegion.split(new Texture("src/assets/cardTiles.png"), 380, 600);
     }
@@ -148,15 +156,13 @@ public class Game extends InputAdapter implements ApplicationListener {
 
         //Renders objects for player deck
         batch.setProjectionMatrix(deckCam.combined);
-        for (MapObject object : deckLayer.getObjects()) {
-            if (object instanceof RectangleMapObject) {
-                Rectangle rect = ((RectangleMapObject) object).getRectangle();
-                batch.begin();
-                batch.draw(cards[0][0], rect.x/300, rect.y/300,380/300f, 600/300f);
-                batch.end();
-            }
+        int i = 0;
+        for (Rectangle rect : cardRectangles) {
+            batch.begin();
+            batch.draw(cards[0][i], rect.x / 300, rect.y / 300, 380 / 300f, 600 / 300f);
+            batch.end();
+            i++;
         }
-
     }
 
     @Override
@@ -167,7 +173,7 @@ public class Game extends InputAdapter implements ApplicationListener {
         deckViewport.update(width, height, false);
 
         //Sets the position for map and player deck in the game screen
-        boardViewport.getCamera().position.set(2.5f, 1.5f, 0);
+        boardViewport.getCamera().position.set(5, 3, 0);
         deckViewport.getCamera().position.set(5, 5, 0);
         boardViewport.getCamera().update();
         deckViewport.getCamera().update();
@@ -230,6 +236,7 @@ public class Game extends InputAdapter implements ApplicationListener {
 
         return super.touchUp(screenX, screenY, pointer, button);
     }
+
     private int[] screenToPos(int screenX, int screenY){
         int[] pos = {screenX * boardLayer.getWidth()/windowWidth, (windowHeight-screenY) * boardLayer.getHeight()/windowHeight};
         return pos;

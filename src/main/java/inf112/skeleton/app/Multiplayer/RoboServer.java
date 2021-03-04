@@ -57,11 +57,15 @@ public class RoboServer {
         String tcpAddress = con.getRemoteAddressTCP().toString();
         return tcpAddress.substring(1,tcpAddress.length()-6);
     }
+
     private void handleMoveCardsRequest(Connection connection, MoveCardsPacket object) {
     }
 
     public void sendGameInstance(String game){
         gameStarted = true;
+        for(Connection cons : playerIpToConnect.values()){
+            cons.sendTCP(game);
+        }
 
     }
 
@@ -70,6 +74,9 @@ public class RoboServer {
             if(!gameStarted & !playerIpToConnect.containsKey(connectionToIp(connection))) {
                 playerIpToConnect.put(connectionToIp(connection), connection);
                 connection.sendTCP("Joined");
+            }
+            else if(playerIpToConnect.containsKey(connectionToIp(connection))) {
+                connection.sendTCP("AlreadyJoined");
             }
             else {
                 connection.sendTCP("Rejected");
