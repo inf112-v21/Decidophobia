@@ -4,6 +4,7 @@ package inf112.skeleton.app;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL30;
@@ -22,7 +23,9 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import inf112.skeleton.app.board.Board;
 import inf112.skeleton.app.player.LocalPlayer;
+import inf112.skeleton.app.screen.MainMenuScreen;
 
 
 public class Game extends InputAdapter implements ApplicationListener {
@@ -51,6 +54,8 @@ public class Game extends InputAdapter implements ApplicationListener {
 
     private Rectangle[] cardRectangles = new Rectangle[5];
     private TextureRegion[][] cards;
+
+    private static Board board;
 
     //PLayer
     LocalPlayer p1;
@@ -242,4 +247,14 @@ public class Game extends InputAdapter implements ApplicationListener {
         return pos;
     }
 
+    public Screen getBoard() {
+        return (Screen) board;
+    }
+
+    protected void setScreen(MainMenuScreen mainMenuScreen) {
+    }
+
+    protected Screen getScreen() {
+        return null;
+    }
 }

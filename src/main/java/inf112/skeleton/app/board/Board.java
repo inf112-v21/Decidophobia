@@ -1,5 +1,7 @@
 package inf112.skeleton.app.board;
 
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -8,16 +10,13 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 
-import java.util.*;
-
 public class Board {
 
     private final TiledMap tiledMap;
     private final int boardWidth;
     private final int boardHeight;
     private int numberOfFlags;
-//    private final List<MapLayers> layers = new ArrayList<>();
-
+    private AssetManager assetManager;
 
     /*
         The idea is to load the map from a file
@@ -72,5 +71,17 @@ public class Board {
 
     public int getNumberOfFlags() {
         return numberOfFlags;
+    }
+
+    public int getBoardWidth() {
+        return boardWidth;
+    }
+
+    public int getBoardHeight() {
+        return boardHeight;
+    }
+
+    public TiledMap getBoard() {
+        return tiledMap;
     }
 }
