@@ -56,6 +56,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
         mapRenderer.render();
 
+        //slite litt her ass :/
 
     }
 
@@ -63,7 +64,6 @@ public class GameScreen extends InputAdapter implements Screen {
     public void resize(int width, int height) {
 
         game.getBoard().resize(width, height);
-        //stage.getViewport().update(width, height, true);
     }
 
     @Override

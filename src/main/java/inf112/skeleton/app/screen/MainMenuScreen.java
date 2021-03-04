@@ -23,6 +23,8 @@ public class MainMenuScreen implements Screen {
         Table mainMenuComponents = new Table();
         Skin mainMenuTexture = new Skin(Gdx.files.internal("UI.png"));
 
+        //slite enda meir her ://
+
     }
 
     @Override
