@@ -1,7 +1,7 @@
 # Møtereferat
 
 __Sted:__ Dicord voice call  
-__Notater av:__ Petter Paulsen 
+__Notater av:__ Petter Paulsen  
 __Dato:__ 04.02.2021
 
 __Deltakere:__  
