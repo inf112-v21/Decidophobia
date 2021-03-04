@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class Launcher {
 
-    //Wanted full HD
+    //Wanted fullHD
     public static final int WIDTH = 1920;
     public static final int HEIGHT = 1080;
 
