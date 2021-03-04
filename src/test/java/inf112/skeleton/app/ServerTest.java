@@ -62,7 +62,7 @@ public class ServerTest {
         myClient.sendRequest("Join");
         sleep(1000); // Delay so host can respond
         assertEquals(1,server.getPlayerIpToConnect().size());
-        assertEquals("Rejected",myClient.getResponse());
+        assertEquals("AlreadyJoined",myClient.getResponse());
 
     }
 }
