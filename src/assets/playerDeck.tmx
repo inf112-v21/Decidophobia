@@ -9,11 +9,10 @@
 </data>
  </layer>
  <objectgroup id="2" name="Cards">
-  <object id="1" x="600" y="300" width="380" height="600"/>
-  <object id="2" x="2062.5" y="300" width="380" height="600"/>
-  <object id="3" x="1087.5" y="300" width="380" height="600"/>
-  <object id="4" x="1575" y="300" width="380" height="600"/>
-  <object id="5" x="2550" y="300" width="380" height="600"/>
-  <object id="6" x="50" y="300" width="380" height="600"/>
+  <object id="1" x="300" y="300" width="380" height="600"/>
+  <object id="2" x="805" y="300" width="380" height="600"/>
+  <object id="3" x="1310" y="300" width="380" height="600"/>
+  <object id="4" x="1815" y="300" width="380" height="600"/>
+  <object id="5" x="2320" y="300" width="380" height="600"/>
  </objectgroup>
 </map>
