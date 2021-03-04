@@ -13,8 +13,7 @@ import java.util.Map;
 public class Launcher {
 
     public static final int WIDTH = 1920;
-    private static final int DECK_WINDOW_SIZE = 360;
-    public static final int HEIGHT = 720 + DECK_WINDOW_SIZE;
+    public static final int HEIGHT = 1080;
 
     public static void main(String[] args) {
         Lwjgl3ApplicationConfiguration cfg = new Lwjgl3ApplicationConfiguration();
