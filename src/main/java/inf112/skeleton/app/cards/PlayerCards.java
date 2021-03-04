@@ -24,7 +24,6 @@ public class PlayerCards {
     }
 
     public void insertCard(Cards card) {
-
     }
 
     public void switchCards(int card1, int card2) {
