@@ -16,10 +16,11 @@
     a5 | Spilleren skal kunne velge en flerspiller-modus og kunne spille med andre spillere som bruker andre datamaskiner.
 #### Arbeidsoppgaver:
     a1 | Implementere en Graphical User Interface(GUI) for spillbrettet.
-    a2 |
+    a2 | 
     a3 | Spillerklassen som skal lagre hvilke flag som spiller har aktivert, og hvilke flagg spiller skal begynne på 
          når roboten knuser.
-    a4 |
+    a4 | Lage en funksjon som sjekker om spiller har besøkt alle flaggene på brettet i stigende rekkefølge, 
+         og resultere i at spiller vinner dersom det er tilfelle.
     a5 | Implementere flerspillermodus gjennom Kryonet API.
 
 ## Brett:
@@ -49,48 +50,60 @@
     c1 | Spiller må kunne se flagg.
     c2 | Spiller må kunne vinne spillet med å gå igjennom alle flaggene.
     c3 | Spiller kan kun aktivere flagg i en spesiell rekkefølge.
-    ?? | Når spiller har aktivert et flagg vil spiller begynne på dette flaget.
+    c4 | Når spilleren dør vil spiller starte på det siste aktiverte flagget.
 #### Arbeidsoppgaver:
     c1 | Lage en grafisk representasjon av flagg.
     c2 | Lage en funksjon som skjekker om spilleren har besøkt alle flagg i riktig rekkefølge, og at spiller vinner 
          dersom dette er oppfylt.
-    c3 | 
+    c3 | Gjøre det slik at det er tydlig for spiller hvilke rekkefølge flaggene skal besøkes gjennom å inkludere et tall 
+         som en del av den grafiske representasjonen av flagget.
+    c4 | 
 
 ## Kort:
 ####Brukerhistorier:
-    d1 | Som spiller ønsker jeg at jeg kan velge ut fra kortene mine hvilken veg jeg skal gå, slik at spilleren ikke bestemmer med tastene.
-    d2 | Som kort ønsker jeg at kortene kan variere mellom bevegelse (frem eller tilbake) og rotasjon, slik at spilleren kan snu.
-    d3 | Som kort ønsker jeg å eksistere i mange forskjellige varianter, slik at spilleren får velge hvilke veg han får gå.
+    d1 | Som kort ønsker jeg at spiller kan velge ut fra kortene sine hvilke veg det ønskes å gå, 
+         slik at spiller ikke bestemmer med piltastene.
+    d2 | Som kort ønsker jeg at kortene kan variere mellom bevegelse (frem eller tilbake) og rotasjon, 
+         slik at spilleren kan snu.
+    d3 | Som kort ønsker jeg å eksistere i mange forskjellige varianter, slik at spilleren 
+         får velge hvilke veg han får gå.
 #### Akseptansekriterier:
+    d1 | Spiller skal kunne velge hvilke veg å gå, og skal ikke kunne bestemme med piltastene.
+    d2 | Det skal finnes en tilstrekkelig mengde forskjellige kort som gjør det mulig at roboten kan bevege seg 
+         frem eller tilbake, eller rotere til høyre eller venstre. 
+    d3 | Spiller skal ha mulighet til å ha tilgang til flere forskjellige kort.
 #### Arbeidsoppgaver:
+    d1 | 
+    d2 | 
+    d3 | 
 
 ## Laser:
 ####Brukerhistorier:
-    e1 | Som spiller ønsker jeg at jeg kan ta skade fra laser, slik at jeg kan dø.
+    e1 | Som laser ønsker jeg å kunne skade spilleren, slik at spilleren kan dø.
     e2 | Som laser ønsker jeg at jeg kun kan skyte laser en retning, slik at spilleren kan unngå meg.
     e3 | Som laser ønsker jeg at en laserstråle skal gjøre 1 skade, slik at spilleren ikke dør med en gang.
     e4 | Som laser ønsker jeg at jeg kan skyte 1 eller 3 laserstråler, slik at spilleren kan ha variasjon.
 #### Akseptansekriterier:
-    e1 |
+    e1 | Lasere kan drepe roboter ved å skyte laser på dem.
     e2 | Lasere kan ikke skytes i flere en én retning.
     e3 | Lasere som skyter én laserstråle kan ikke gjøre mer en 1 skade på en robot.
     e4 | Lasere skal skyte enten 1 eller 3 laserstråler.
 #### Arbeidsoppgaver:
-    e1 |
-    e2 |
-    e3 |
-    e4 |
+    e1 | 
+    e2 | 
+    e3 | 
+    e4 | 
 
 ## Hull:
 ####Brukerhistorier:
-    f1 | Som robot vil jeg at jeg forsvinner når jeg går på et hull, slik at jeg kan dø.
-    f2 | Som hull vil jeg at spillere som går oppå meg dør.
+    f1 | Som hull ønsker jeg å være synlig for spillere, slik at de kan unngå meg.
+    f2 | Som hull ønsker jeg at spillere som går oppå meg dør.
 #### Akseptansekriterier:
-    f1 | 
+    f1 | Hull skal være synlig på spillbrettet for alle spillere.
     f2 | Spillere som går på tiles med hull skal dø.
 #### Arbeidsoppgaver:
-    f1 |
-    f2 | Gjøre det slik at hull dreper roboter.
+    f1 | Passe på at alle hull på brettet er synlige for alle spillere.
+    f2 | Gjøre det slik at hull dreper roboter som går oppå dem.
 
 ## Transportbånd:
 ####Brukerhistorier:
@@ -114,6 +127,7 @@
 #### Arbeidsoppgaver:
     h1 | Passe på at tiles med dyttere er en del av det traverserbare brettet.
     h2 | 
+
 ## Client/Sever:
 #### Brukerhistorier:
     client1 | Som client vil jeg at jeg skal kunne bli med i spillet.
