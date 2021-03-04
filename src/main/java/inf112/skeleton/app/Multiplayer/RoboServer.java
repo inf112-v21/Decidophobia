@@ -3,6 +3,8 @@ package inf112.skeleton.app.Multiplayer;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
+import inf112.skeleton.app.cards.Cards;
+import inf112.skeleton.app.cards.PlayerCards;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -11,15 +13,26 @@ import java.net.InetAddress;
 import java.io.IOException;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
 
 public class RoboServer {
     private boolean gameStarted;
+    Map<String, Connection> playerIpToConnect;
+    Server server;
+
     public RoboServer(){
         gameStarted = false;
+        playerIpToConnect = new HashMap<>();
+        server = new Server();
+        server.getKryo().register(PlayerCards.class);
+        server.getKryo().register(Cards.class);
+        server.getKryo().register(LinkedList.class);
+        server.getKryo().register(MoveCardsPacket.class);
     }
 
     public void runServer() {
-        Server server = new Server();
         server.start();
         try {
             server.bind(54555, 54777);
@@ -30,19 +43,41 @@ public class RoboServer {
         server.addListener(new Listener() {
             public void received (Connection connection, Object object) {
                 if (object instanceof String) {
-                    String request = (String) object;
-                    System.out.println(request);
-                    if(request.equals("Join")){
-                        if(!gameStarted) {
-                            connection.sendTCP("Joined");
-                        }
-                        else {
-                            connection.sendTCP("GameFull");
-                        }
-                    }
+                    System.out.println("Her er ip " + connectionToIp(connection));
+                    handleStringRequest(connection,(String) object);
+                }
+                else if (object instanceof MoveCardsPacket) {
+                    System.out.println(connection.getRemoteAddressTCP().toString());
+                    handleMoveCardsRequest(connection,(MoveCardsPacket) object);
                 }
             }
         });
+    }
+    private String connectionToIp(Connection con){
+        String tcpAddress = con.getRemoteAddressTCP().toString();
+        return tcpAddress.substring(1,tcpAddress.length()-6);
+    }
+    private void handleMoveCardsRequest(Connection connection, MoveCardsPacket object) {
+    }
+
+    public void sendGameInstance(String game){
+        gameStarted = true;
+
+    }
+
+    private void handleStringRequest(Connection connection, String request){
+        if(request.equals("Join")){
+            if(!gameStarted & !playerIpToConnect.containsKey(connectionToIp(connection))) {
+                playerIpToConnect.put(connectionToIp(connection), connection);
+                connection.sendTCP("Joined");
+            }
+            else {
+                connection.sendTCP("Rejected");
+            }
+        }
+    }
+    public void stopServer(){
+        server.stop();
     }
 
     public static String getLANIp(){
@@ -75,6 +110,11 @@ public class RoboServer {
         return systemipaddress;
     }
 
+
+    public Map<String, Connection> getPlayerIpToConnect() {
+        return playerIpToConnect;
+    }
+
     /**
      * Made for running server in main-thread, for testing Host-Client-relation over the internet
      * @param args
@@ -83,4 +123,5 @@ public class RoboServer {
         RoboServer host = new RoboServer();
         host.runServer();
     }
+
 }
