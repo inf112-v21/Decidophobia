@@ -10,3 +10,12 @@
             3. The host printed the request and then responded. 
             4. The client printed out the response. 
     This was successful both for LAN and Online.
+    
+### 2:
+    Tested if the flag makes the player dissapear.
+    The test was preformed like this:
+        1. The game starts
+        2. The Player Moves the player in the game
+        3. PLayer moves towards the flag
+        4. The player dissapears
+    It was a succsessfull test, the player dissapeared.
