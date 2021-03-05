@@ -43,7 +43,6 @@ public class RoboServer {
         server.addListener(new Listener() {
             public void received (Connection connection, Object object) {
                 if (object instanceof String) {
-                    System.out.println("Her er ip " + connectionToIp(connection));
                     handleStringRequest(connection,(String) object);
                 }
                 else if (object instanceof MoveCardsPacket) {

@@ -46,3 +46,44 @@ slik at alle får bidra, men lar hver enkelt få styre sin egen deltakelse etter
 
 
 
+### Deloppgave 3: 
+#### Spillet
+    Spillet startes ved å kjøre launcher.class,
+    Denne delen av spillet er foreløpig bare for
+    å manuelt kunne teste hvordan en robot kan
+    bevege seg, hvordan UI ser ut.
+
+#### Online - RoboServer & RoboClient
+    RoboServer/RoboClient klassene kan kjøres individuelt,
+    Man kan da kjøre først RoboServer for at server skal gå.
+    Helt nederst i RoboClient klassen kan man skrive inn input
+    som:
+        "Join" -> For å bli med i spill
+            Man får tilbake "Joined", "AlreadyJoined" eller 
+            "Rejected" ettersom om man er med i spillet fra før
+            eller om spillet allerede er startet.
+        Kan også sende et MoveCardPacket-objekt som er et objekt 
+        som sier hvilke kort som er lagt og hvilken spiller som
+        har lagt det.
+
+    Man kan teste LAN uten problem, men for å spille online må
+    man åpne porter for RoboServer (TCP:54555, UDP:54777).
+    Når ServerTest kjøres kan man ikke kjøre andre klass, som
+    spesielt RoboServer.
+
+#### Gang i spillet
+##### Nå
+    Gangen i spillet er slik:
+    Launcher setter i gang GUI som styrer spillet
+    GUI viser brett og tar input som piltaster og museklikk
+    Player beveger seg etter piltaster og GUI blir oppdatert av det
+    GUI tar seg av kollisjon med f.eks hull eller flagg.
+    Server og Client er enda ikke lagt inn
+
+##### Planen videre
+    Gangen i spillet blir slik:
+    Launcher setter i gang GUI som viser brettet
+    GUI viser brett og tar input som piltaster og museklikk
+    Player beveger seg etter piltaster og GUI blir oppdatert av det
+    GUI tar seg av kollisjon med f.eks hull eller flagg.
+    Server og Client er enda ikke lagt inn

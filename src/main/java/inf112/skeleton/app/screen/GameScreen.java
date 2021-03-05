@@ -6,7 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
-import inf112.skeleton.app.Game;
+import inf112.skeleton.app.GameGUI;
 import inf112.skeleton.app.Launcher;
 import inf112.skeleton.app.board.Board;
 import org.lwjgl.opengl.GL30;
@@ -15,7 +15,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
     private static final int TILE_SIZE = 250;
     private final OrthoCachedTiledMapRenderer mapRenderer;
-    private final Game game;
+    private final GameGUI game;
     private final TiledMap board;
     private final OrthographicCamera camera;
     private final Launcher launcher;
@@ -26,7 +26,7 @@ public class GameScreen extends InputAdapter implements Screen {
         this.mapRenderer = mapRenderer;
         this.board = board.getBoard();
         this.launcher = launcher;
-        game = new Game();
+        game = new GameGUI();
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, board.getBoardWidth() * TILE_SIZE, board.getBoardHeight() * TILE_SIZE);

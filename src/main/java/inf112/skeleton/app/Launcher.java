@@ -13,6 +13,6 @@ public class Launcher {
         cfg.setTitle("RoboRally");
         cfg.setWindowedMode(WIDTH, HEIGHT);
 
-        new Lwjgl3Application(new Game(), cfg);
+        new Lwjgl3Application(new GameGUI(), cfg);
     }
 }

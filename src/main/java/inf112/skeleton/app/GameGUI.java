@@ -27,8 +27,10 @@ import inf112.skeleton.app.board.Board;
 import inf112.skeleton.app.player.LocalPlayer;
 import inf112.skeleton.app.screen.MainMenuScreen;
 
+import java.util.Map;
 
-public class Game extends InputAdapter implements ApplicationListener {
+
+public class GameGUI extends InputAdapter implements ApplicationListener {
     private int windowHeight;
     private int windowWidth;
 
@@ -57,8 +59,9 @@ public class Game extends InputAdapter implements ApplicationListener {
 
     private static Board board;
 
-    //PLayer
+    //PLayers
     LocalPlayer p1;
+    Map<Integer, LocalPlayer> playerIdToPlayer;
 
     @Override
     public void create() {
@@ -93,6 +96,7 @@ public class Game extends InputAdapter implements ApplicationListener {
         playerLayer = (TiledMapTileLayer) mapTile.getLayers().get("Player");
         p1 = new LocalPlayer(new Vector2(1,3),Direction.NORTH,"src/assets/player.png");
         Vector2 pos = p1.getPosition();
+
         playerLayer.setCell((int)pos.x,(int) pos.y, p1.getPlayerTileCell());
 
         //Setting up camera for game board

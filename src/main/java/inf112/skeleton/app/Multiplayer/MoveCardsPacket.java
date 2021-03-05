@@ -10,5 +10,4 @@ public class MoveCardsPacket {
         this.playerNr = playerNr;
         this.playerCards = playerCards;
     }
-
 }
