@@ -2,131 +2,148 @@
 
 ## Spiller:
 #### Brukerhistorier:
-    a1 | Som spiller vil jeg se spillbrettet, slik at jeg kan se hvor roboten er.
-    a2 | Som spiller vil jeg bruke piltastene for å flytte roboten rundt på spillbrettet.
-    a3 | Som spiller vil jeg flytte roboten for å besøke flaggene som er på spillbrettet.
-    a4 | Som spiller vil jeg vinne spillet ved å besøke flaggene i stigende rekkefølge (fra 1 t.o.m det høyeste tallet).
-    a5 | Som spiller vil jeg spille spillet med andre spillere som bruker andre datamaskiner.
+    spiller1 | Som spiller vil jeg se spillbrettet, slik at jeg kan se hvor roboten er.
+    spiller2 | Som spiller vil jeg bruke piltastene for å flytte roboten rundt på spillbrettet.
+    spiller3 | Som spiller vil jeg flytte roboten for å besøke flaggene som er på spillbrettet.
+    spiller4 | Som spiller vil jeg vinne spillet ved å besøke flaggene i stigende rekkefølge (fra 1 t.o.m det høyeste tallet).
+    spiller5 | Som spiller vil jeg spille spillet med andre spillere som bruker andre datamaskiner.
+    spiller6 | Som spiller vil jeg kunne ende en runde på en skiftenøkkel-rute, slik at jeg kan fikse en skade
 #### Akseptansekriterier:
-    a1 | Spiller må kunne se brettet og se roboten sin på spillbrettet ved å ha en GUI som viser spillbrettet og roboten på skjermen.
-    a2 | Spiller skal kunne flytte på roboten sin rundt på spillbrettet ved bruk av tastaturets piltaster.
-    a3 | Spilleren skal kunne flytte på sin robot til hvert av flaggene som er på spillbrettet.
-    a4 | Spiller skal kunne vinne spillet ved å ha vært på hver tile hvor flaggene er plassert, så lenge  gjør det i stigende rekkefølge.
-    a5 | Spilleren skal kunne velge en flerspiller-modus og kunne spille med andre spillere som bruker andre datamaskiner.
+    spiller1 | Spiller må kunne se brettet og se roboten sin på spillbrettet ved å ha en GUI som viser spillbrettet og roboten på skjermen.
+    spiller2 | Spiller skal kunne flytte på roboten sin rundt på spillbrettet ved bruk av tastaturets piltaster.
+    spiller3 | Spilleren skal kunne flytte på sin robot til hvert av flaggene som er på spillbrettet.
+    spiller4 | Spiller skal kunne vinne spillet ved å ha vært på hver tile hvor flaggene er plassert, så lenge  gjør det i stigende rekkefølge.
+    spiller5 | Spilleren skal kunne velge en flerspiller-modus og kunne spille med andre spillere som bruker andre datamaskiner.
+    spiller6 | Det skal være mulig for en spiller å reparere roboten sin ved å ende runden på en skiftenøkkel-rute.
 #### Arbeidsoppgaver:
-    a1 | Implementere en Graphical User Interface(GUI) for spillbrettet.
-    a2 | 
-    a3 | Spillerklassen som skal lagre hvilke flag som spiller har aktivert, og hvilke flagg spiller skal begynne på 
-         når roboten knuser.
-    a4 | Lage en funksjon som sjekker om spiller har besøkt alle flaggene på brettet i stigende rekkefølge, 
-         og resultere i at spiller vinner dersom det er tilfelle.
-    a5 | Implementere flerspillermodus gjennom Kryonet API.
+    spiller1 | Implementere en Graphical User Interface(GUI) for spillbrettet.
+    spiller2 | 
+    spiller3 | Spillerklassen som skal lagre hvilke flag som spiller har aktivert, og hvilke flagg spiller skal begynne på 
+               når roboten knuser.
+    spiller4 | Lage en funksjon som sjekker om spiller har besøkt alle flaggene på brettet i stigende rekkefølge, 
+               og resultere i at spiller vinner dersom det er tilfelle.
+    spiller5 | Implementere flerspillermodus gjennom Kryonet API.
+    spiller6 | 
 
 ## Brett:
 #### Brukerhistorier:
-    b1 | Som spiller vil jeg kunne gå utenfor brettet, slik at jeg kan dø.
-    b2 | Som brett ønsker jeg at jeg kan bli lagd av spillere, slik at spilleren får en variert spillopplevelse.
-    b3 | Som brett ønsker jeg at jeg kan bli plasert objekter på, slik at spilleren kan spille på meg.
+    brett1 | Som spiller vil jeg kunne gå utenfor brettet, slik at jeg kan dø.
+    brett2 | Som brett ønsker jeg at jeg kan bli lagd av spillere, slik at spilleren får en variert spillopplevelse.
+    brett3 | Som brett ønsker jeg at jeg kan bli plasert objekter på, slik at spilleren kan spille på meg.
 #### Akseptansekriterier:
-    b1 | Spilleren sin robot skal knuse når den går utenfor brettet.
-    b2 | Spiller skal kunne lage sine egne brett, som vil si at spiller skal kunne velge størrelse og 
-         hvilke objekt som går hvor.
-    b3 | Et brett skal kunne ha forskellige objekt plassert på seg, F.eks vegger, laser og flagg.
+    brett1 | Spilleren sin robot skal knuse når den går utenfor brettet.
+    brett2 | Spiller skal kunne lage sine egne brett, som vil si at spiller skal kunne velge størrelse og 
+             hvilke objekt som går hvor.
+    brett3 | Et brett skal kunne ha forskellige objekt plassert på seg, F.eks vegger, laser og flagg.
 #### Arbeidsoppgaver:
-    b1 | Gjøre det slik at brettklassen skal drepe spiller hvis spiller går utenfor brettet.
-    b2 | Lage en MapEditor der spiller kan lage og forandre på brett.
-    b3 | Lage et brett som kan inneholde flere forskjellige objekter.
+    brett1 | Gjøre det slik at brettklassen skal drepe spiller hvis spiller går utenfor brettet.
+    brett2 | Lage en MapEditor der spiller kan lage og forandre på brett.
+    brett3 | Lage et brett som kan inneholde flere forskjellige objekter.
+
+## Vegg:
+#### Brukerhistorier:
+    vegg1 | Som vegg ønsker jeg at spiller kan se veggen, slik at spiller kan unngå å bli stoppet.
+    vegg2 | Som vegg ønsker jeg at det ikke er fire vegger i en rute, slik at ruten er mulig å besøke
+    vegg3 | Som vegg ønsker jeg å stoppe laser, slit at spiller ikke blir skadet bak meg
+#### Akseptansekriterier:
+    vegg1 | Spiller skal kunne se veggene på spillbrettet.
+    vegg2 | Det skal aldri være vegger på alle sider av en rute.
+    vegg3 | Vegger skal stoppe lasere og nullifisere den skaden de gjør normalt.
+#### Arbeidsoppgaver:
+    vegg1 | ``
+    vegg2 | 
+    vegg3 | 
 
 ## Flagg:
 #### Brukerhistorier:
-    c1 | Som flagg ønsker jeg å være synlig for spilleren.
-    c2 | Som flagg ønsker jeg at spilleren vinner dersom spilleren har besøkt alle flaggene i riktig rekkefølge.
-    c3 | Som flagg ønsker jeg at spilleren følger meg i rekkefølge, slik at spilleren ikke ta korteste veien til 
-         hvert flagg.
-    c4 | Som flagg ønsker jeg at spilleren skal starte hos meg dersom han dør, slik at spilleren ikke starter
-         fra starten hver gang.
+    flagg1 | Som flagg ønsker jeg å være synlig for spilleren.
+    flagg2 | Som flagg ønsker jeg at spilleren vinner dersom spilleren har besøkt alle flaggene i riktig rekkefølge.
+    flagg3 | Som flagg ønsker jeg at spilleren følger meg i rekkefølge, slik at spilleren ikke ta korteste veien til 
+             hvert flagg.
+    flagg4 | Som flagg ønsker jeg at spilleren skal starte hos meg dersom han dør, slik at spilleren ikke starter
+             fra starten hver gang.
 #### Akseptansekriterier:
-    c1 | Spiller må kunne se flagg.
-    c2 | Spiller må kunne vinne spillet med å gå igjennom alle flaggene.
-    c3 | Spiller kan kun aktivere flagg i en spesiell rekkefølge.
-    c4 | Når spilleren dør vil spiller starte på det siste flagget den spilleren har aktivert.
+    flagg1 | Spiller må kunne se flagg.
+    flagg2 | Spiller må kunne vinne spillet med å gå igjennom alle flaggene.
+    flagg3 | Spiller kan kun aktivere flagg i en spesiell rekkefølge.
+    flagg4 | Når spilleren dør vil spiller starte på det siste flagget den spilleren har aktivert.
 #### Arbeidsoppgaver:
-    c1 | Lage en grafisk representasjon av flagg.
-    c2 | Lage en funksjon som skjekker om spilleren har besøkt alle flagg i riktig rekkefølge, og at spiller vinner 
-         dersom dette er oppfylt.
-    c3 | Gjøre det slik at det er tydlig for spiller hvilke rekkefølge flaggene skal besøkes gjennom å inkludere et tall 
-         som en del av den grafiske representasjonen av flagget.
-    c4 | 
+    flagg1 | Lage en grafisk representasjon av flagg.
+    flagg2 | Lage en funksjon som skjekker om spilleren har besøkt alle flagg i riktig rekkefølge, og at spiller vinner 
+             dersom dette er oppfylt.
+    flagg3 | Gjøre det slik at det er tydlig for spiller hvilke rekkefølge flaggene skal besøkes gjennom å inkludere et tall 
+             som en del av den grafiske representasjonen av flagget.
+    flagg4 | 
 
 ## Kort:
 #### Brukerhistorier:
-    d1 | Som kort ønsker jeg at spiller kan velge ut fra kortene sine hvilke veg det ønskes å gå, 
-         slik at spiller ikke bestemmer med piltastene.
-    d2 | Som kort ønsker jeg at kortene kan variere mellom bevegelse (frem eller tilbake) og rotasjon, 
-         slik at spilleren kan snu.
-    d3 | Som kort ønsker jeg å eksistere i mange forskjellige varianter, slik at spilleren 
-         får velge hvilke veg han får gå.
+    kort1 | Som kort ønsker jeg at spiller kan velge ut fra kortene sine hvilke veg det ønskes å gå, 
+            slik at spiller ikke bestemmer med piltastene.
+    kort2 | Som kort ønsker jeg at kortene kan variere mellom bevegelse (frem eller tilbake) og rotasjon,
+            slik at spilleren kan snu.
+    kort3 | Som kort ønsker jeg å eksistere i mange forskjellige varianter, slik at spilleren 
+            får velge hvilke veg han får gå.
 #### Akseptansekriterier:
-    d1 | Spiller skal kunne velge hvilke veg å gå, og skal ikke kunne bestemme med piltastene.
-    d2 | Det skal finnes en tilstrekkelig mengde forskjellige kort som gjør det mulig at roboten kan bevege seg 
-         frem eller tilbake, eller rotere til høyre eller venstre. 
-    d3 | Spiller skal ha mulighet til å ha tilgang til flere forskjellige kort.
+    kort1 | Spiller skal kunne velge hvilke veg å gå, og skal ikke kunne bestemme med piltastene.
+    kort2 | Det skal finnes en tilstrekkelig mengde forskjellige kort som gjør det mulig at roboten kan bevege seg 
+            frem eller tilbake, eller rotere til høyre eller venstre. 
+    kort3 | Spiller skal ha mulighet til å ha tilgang til flere forskjellige kort.
 #### Arbeidsoppgaver:
-    d1 | 
-    d2 | 
-    d3 | 
+    kort1 | 
+    kort2 | 
+    kort3 | 
 
 ## Laser:
 #### Brukerhistorier:
-    e1 | Som laser ønsker jeg å kunne skade spilleren, slik at spilleren kan dø.
-    e2 | Som laser ønsker jeg at jeg kun kan skyte laser en retning, slik at spilleren kan unngå meg.
-    e3 | Som laser ønsker jeg at en laserstråle skal gjøre 1 skade, slik at spilleren ikke dør med en gang.
-    e4 | Som laser ønsker jeg at jeg kan skyte 1 eller 3 laserstråler, slik at spilleren kan ha variasjon.
+    laser1 | Som laser ønsker jeg å kunne skade spilleren, slik at spilleren kan dø.
+    laser2 | Som laser ønsker jeg at jeg kun kan skyte laser en retning, slik at spilleren kan unngå meg.
+    laser3 | Som laser ønsker jeg at en laserstråle skal gjøre 1 skade, slik at spilleren ikke dør med en gang.
+    laser4 | Som laser ønsker jeg at jeg kan skyte 1 eller 3 laserstråler, slik at spilleren kan ha variasjon.
 #### Akseptansekriterier:
-    e1 | Lasere kan drepe roboter ved å skyte laser på dem.
-    e2 | Lasere kan ikke skytes i flere en én retning.
-    e3 | Lasere som skyter én laserstråle kan ikke gjøre mer en 1 skade på en robot.
-    e4 | Lasere skal skyte enten 1 eller 3 laserstråler.
+    laser1 | Lasere kan drepe roboter ved å skyte laser på dem.
+    laser2 | Lasere kan ikke skytes i flere en én retning.
+    laser3 | Lasere som skyter én laserstråle kan ikke gjøre mer en 1 skade på en robot.
+    laser4 | Lasere skal skyte enten 1 eller 3 laserstråler.
 #### Arbeidsoppgaver:
-    e1 | 
-    e2 | 
-    e3 | 
-    e4 | 
+    laser1 | 
+    laser2 | 
+    laser3 | 
+    laser4 | 
 
 ## Hull:
 #### Brukerhistorier:
-    f1 | Som hull ønsker jeg å være synlig for spillere, slik at de kan unngå meg.
-    f2 | Som hull ønsker jeg at spillere som går oppå meg dør.
+    hull1 | Som hull ønsker jeg å være synlig for spillere, slik at de kan unngå meg.
+    hull2 | Som hull ønsker jeg at spillere som går oppå meg dør.
 #### Akseptansekriterier:
-    f1 | Hull skal være synlig på spillbrettet for alle spillere.
-    f2 | Spillere som går på tiles med hull skal dø.
+    hull1 | Hull skal være synlig på spillbrettet for alle spillere.
+    hull2 | Spillere som går på tiles med hull skal dø.
 #### Arbeidsoppgaver:
-    f1 | Passe på at alle hull på brettet er synlige for alle spillere.
-    f2 | Gjøre det slik at hull dreper roboter som går oppå dem.
+    hull1 | Passe på at alle hull på brettet er synlige for alle spillere.
+    hull2 | Gjøre det slik at hull dreper roboter som går oppå dem.
 
 ## Transportbånd:
 ####Brukerhistorier:
-    g1 | Som transportbånd ønsker jeg å bevege på spiller, slik at spiller mister kontroll.
-    g2 | Som transportbånd ønsker jeg å vite hvor mange piler jeg har, slik at jeg vet hvor mange ganger jeg skal flytte roboter.
+    transportbånd1 | Som transportbånd ønsker jeg å bevege på spiller, slik at spiller mister kontroll.
+    transportbånd2 | Som transportbånd ønsker jeg å vite hvor mange piler jeg har, slik at jeg vet hvor mange ganger jeg skal flytte roboter.
 #### Akseptansekriterier:
-    g1 | Når transportbåndet beveger på seg skal en eventuell spiller som står på båndet også flytte på seg.
-    g2 | Transportbåndet skal bevege på seg i henhold til hvor mange piler den har på seg (1 pil = 1 tile, 2 piler = 2 tiles).
+    transportbånd1 | Når transportbåndet beveger på seg skal en eventuell spiller som står på båndet også flytte på seg.
+    transportbånd2 | Transportbåndet skal bevege på seg i henhold til hvor mange piler den har på seg (1 pil = 1 tile, 2 piler = 2 tiles).
 #### Arbeidsoppgaver:
-    g1 |
-    g2 |
+    transportbånd1 |
+    transportbånd2 |
 
 ## Dytter:
 #### Brukerhistorier:
-    h1 | Som dytter ønsker jeg at roboten kan stoppe foran meg, slik at jeg kan dytte den vekk.
-    h2 | Som dytter ønsker jeg at dersom en robot står oppå meg på slutten av runden, vil roboten bli dyttet
-    h3 | Som dytter ønsker jeg at roboter som blir dyttet blir dyttet i den retningen dytteren ser mot.
+    dytter1 | Som dytter ønsker jeg at roboten kan stoppe foran meg, slik at jeg kan dytte den vekk.
+    dytter2 | Som dytter ønsker jeg at dersom en robot står oppå meg på slutten av runden, vil roboten bli dyttet
+    dytter3 | Som dytter ønsker jeg at roboter som blir dyttet blir dyttet i den retningen dytteren ser mot.
 #### Akseptansekriterier:
-    h1 | Roboter skal kunne gå på tiles med dyttere.
-    h2 | Roboter som står på tiles med dyttere skal dyttes.
-    h3 | Roboter som blir dyttet skal bli dyttet i den retningen dytteren ser mot.
+    dytter1 | Roboter skal kunne gå på tiles med dyttere.
+    dytter2 | Roboter som står på tiles med dyttere skal dyttes.
+    dytter3 | Roboter som blir dyttet skal bli dyttet i den retningen dytteren ser mot.
 #### Arbeidsoppgaver:
-    h1 | Passe på at tiles med dyttere er en del av det traverserbare brettet.
-    h2 | 
+    dytter1 | Passe på at tiles med dyttere er en del av det traverserbare brettet.
+    dytter2 | 
 
 ## Client/Sever:
 #### Brukerhistorier:
