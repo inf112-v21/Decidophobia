@@ -22,7 +22,6 @@ public class ScreenManager extends GameGUI implements ApplicationListener {
 
     public void create() {
 
-        //super.setScreen(new MainMenuScreen());
         super.getScreen().show();
     }
 
