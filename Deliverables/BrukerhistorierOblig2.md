@@ -120,7 +120,7 @@
     hull2 | Gjøre det slik at hull dreper roboter som går oppå dem.
 
 ## Transportbånd:
-####Brukerhistorier:
+#### Brukerhistorier:
     transportbånd1 | Som transportbånd ønsker jeg å bevege på spiller, slik at spiller mister kontroll.
     transportbånd2 | Som transportbånd ønsker jeg å vite hvor mange piler jeg har, slik at jeg vet hvor mange ganger jeg skal flytte roboter.
 #### Akseptansekriterier:
