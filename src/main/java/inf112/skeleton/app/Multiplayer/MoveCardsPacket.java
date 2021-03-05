@@ -6,6 +6,11 @@ public class MoveCardsPacket {
     public PlayerCards playerCards;
     public int playerNr;
 
+    public MoveCardsPacket(){
+        playerCards = null;
+        playerNr = -1;
+    }
+
     public MoveCardsPacket(int playerNr, PlayerCards playerCards){
         this.playerNr = playerNr;
         this.playerCards = playerCards;

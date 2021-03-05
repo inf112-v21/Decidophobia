@@ -7,6 +7,8 @@ import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.Action;
 import inf112.skeleton.app.Direction;
+import inf112.skeleton.app.cards.CardType;
+import inf112.skeleton.app.cards.Cards;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -67,6 +69,32 @@ public class LocalPlayer{
 
     public Direction getFacingDirection() {
         return facingDirection;
+    }
+
+    public void useCard(Cards card){
+        switch (card.getType()) {
+            case FORWARD_1 :
+                move(Action.FORWARD);
+                break;
+            case FORWARD_2:
+                move(Action.FORWARD);
+                break;
+            case FORWARD_3:
+                move(Action.FORWARD);
+                break;
+            case REVERSE:
+                move(Action.REVERSE);
+                break;
+            case ROTATE_RIGHT:
+                move(Action.ROTATE_RIGHT);
+                break;
+            case ROTATE_LEFT:
+                move(Action.ROTATE_LEFT);
+                break;
+            case U_TURN:
+                move(Action.U_TURN);
+                break;
+        }
     }
 
     public void move(Action move) {

@@ -7,8 +7,11 @@ public class Cards {
 
     private final CardType type;
     private final int priority;
-    private final TextureRegion texture;
-
+    private TextureRegion texture;
+    public Cards(){
+        type = null;
+        priority = -1;
+    }
     public Cards(CardType type, int priority) {
         TextureRegion[][] cardTextures = TextureRegion.split(new Texture("src/assets/cardTiles.png"), 380, 600);
         TextureRegion texture;
@@ -36,6 +39,8 @@ public class Cards {
                 break;
             default:
                 texture = cardTextures[0][7];
+
+
         }
 
         this.texture = texture;

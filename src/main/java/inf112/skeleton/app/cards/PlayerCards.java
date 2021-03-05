@@ -16,7 +16,7 @@ public class PlayerCards {
     }
 
     public Cards getCard(int index) {
-        return null;
+        return cards.get(index);
     }
 
     public LinkedList<Cards> getAllCards() {
@@ -24,6 +24,7 @@ public class PlayerCards {
     }
 
     public void insertCard(Cards card) {
+        cards.add(card);
     }
 
     public void switchCards(int card1, int card2) {
