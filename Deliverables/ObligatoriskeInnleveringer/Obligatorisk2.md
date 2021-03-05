@@ -43,8 +43,9 @@ Når det gjelder hver enkelts deltakelse i kodingen vil dette variere noe fra pe
 slik at alle får bidra, men lar hver enkelt få styre sin egen deltakelse etter ønske og evne. 
 
 ### Deloppgave 2: Krav
+Vi prioriterte å få til multiplayer som gjorde at vi ikke ikke klarte å få ferdig MVP. Vi hadde krav 1-5 klar i Oblig1. Vi fikk problemer med å forstå KryoNet som gjorde at vi ikke bli ferdig med de neste kravene. 
 
-
+Bugs ligger i README.md
 
 ### Deloppgave 3: 
 #### Spillet
