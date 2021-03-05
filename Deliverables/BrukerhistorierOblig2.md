@@ -1,4 +1,4 @@
-# Brukerhistorier (Oblig 1)
+# Brukerhistorier (Oblig 2)
 
 ## Spiller:
 #### Brukerhistorier:
