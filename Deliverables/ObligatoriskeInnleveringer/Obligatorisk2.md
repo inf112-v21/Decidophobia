@@ -43,7 +43,7 @@ Når det gjelder hver enkelts deltakelse i kodingen vil dette variere noe fra pe
 slik at alle får bidra, men lar hver enkelt få styre sin egen deltakelse etter ønske og evne. 
 
 ### Deloppgave 2: Krav
-Vi prioriterte å få til multiplayer som gjorde at vi ikke ikke klarte å få ferdig MVP. Vi hadde krav 1-5 klar i Oblig1. Vi fikk problemer med å forstå KryoNet som gjorde at vi ikke bli ferdig med de neste kravene. 
+Vi prioriterte å få til multiplayer som gjorde at vi ikke klarte å få ferdig MVP. Vi hadde krav 1-5 klar i Oblig1. Vi fikk problemer med å forstå KryoNet som gjorde at vi ikke bli ferdig med de neste kravene. 
 
 Bugs ligger i README.md
 
@@ -71,23 +71,6 @@ Bugs ligger i README.md
     man åpne porter for RoboServer (TCP:54555, UDP:54777).
     Når ServerTest kjøres kan man ikke kjøre andre klass, som
     spesielt RoboServer.
-
-#### Gang i spillet
-##### Nå
-    Gangen i spillet er slik:
-    Launcher setter i gang GUI som styrer spillet
-    GUI viser brett og tar input som piltaster og museklikk
-    Player beveger seg etter piltaster og GUI blir oppdatert av det
-    GUI tar seg av kollisjon med f.eks hull eller flagg.
-    Server og Client er enda ikke lagt inn
-
-##### Planen videre
-    Gangen i spillet blir slik:
-    Launcher setter i gang GUI som viser brettet
-    GUI viser brett og tar input som piltaster og museklikk
-    Player beveger seg etter piltaster og GUI blir oppdatert av det
-    GUI tar seg av kollisjon med f.eks hull eller flagg.
-    Server og Client er enda ikke lagt inn
 
 #### Gang i spillet
 ##### Nå
