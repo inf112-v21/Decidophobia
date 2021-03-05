@@ -1,5 +1,7 @@
 package inf112.skeleton.app;
 
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.Multiplayer.MoveCardsPacket;
 import inf112.skeleton.app.Multiplayer.RoboClient;
@@ -29,6 +31,12 @@ public class Game {
     PlayerCards yourCards;
 
     public Game(){
+        Lwjgl3ApplicationConfiguration cfg = new Lwjgl3ApplicationConfiguration();
+        cfg.setTitle("RoboRally");
+        cfg.setWindowedMode(Launcher.WIDTH, Launcher.HEIGHT);
+
+        new Lwjgl3Application(new GameGUI(), cfg);
+
         networkClient = new RoboClient(serverAddress);
         cardDeck = new Deck();
         cardDeck.add(new Cards(CardType.FORWARD_1,1000));
@@ -48,6 +56,10 @@ public class Game {
         System.out.println("DO move " + moveCardsPacket);
     }
 
+    public RoboClient getNetworkClient() {
+        return networkClient;
+    }
+
     public static void main(String[] args) {
         RoboServer server = new RoboServer();
         server.runServer();
@@ -56,7 +68,4 @@ public class Game {
         game.networkClient.join();
         game.dealCards();
     }
-
-
-
 }
