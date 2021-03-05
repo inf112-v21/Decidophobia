@@ -87,3 +87,26 @@ slik at alle får bidra, men lar hver enkelt få styre sin egen deltakelse etter
     Player beveger seg etter piltaster og GUI blir oppdatert av det
     GUI tar seg av kollisjon med f.eks hull eller flagg.
     Server og Client er enda ikke lagt inn
+
+#### Gang i spillet
+##### Nå
+    Gangen i spillet er slik:
+    Launcher setter i gang Game som styrer spillet
+    Game starter GUI som viser brett og tar input som piltaster og museklikk
+    Player beveger seg etter piltaster og GUI blir oppdatert av det
+    GUI tar seg av kollisjon med f.eks hull eller flagg.
+    Server blir kjørt paralelt hos hosten.
+    Hosten er også en client, slik at all informasjon som skal til alle blir 
+        sendt til alle og info som skal bare til den enkelte blir sendt til den enkelte.
+
+##### Planen videre for gang i spill
+    Gangen i spillet blir slik:
+    Launcher setter i gang Game som styrer spillet
+    Game starter GUI som viser brett og tar input som piltaster og museklikk
+    Bruker velger kort med piltaster (evt. museklikk senere) som GUI fanger 
+        opp, konverterer til kort og sender det til server via Game.
+    Game tar seg av kollisjon med f.eks hull eller flagg.
+    Game venter også på kort fra alle spillere fra server før den starter en runde.
+    Server blir kjørt paralelt hos hosten.
+    Hosten er også en client, slik at all informasjon som skal til alle blir 
+        sendt til alle og info som skal bare til den enkelte blir sendt til den enkelte.
