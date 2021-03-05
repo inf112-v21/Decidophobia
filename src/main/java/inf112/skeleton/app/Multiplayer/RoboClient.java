@@ -33,6 +33,7 @@ public class RoboClient {
         client.getKryo().register(CardType.class);
         client.getKryo().register(LinkedList.class);
         client.getKryo().register(MoveCardsPacket.class);
+        client.getKryo().register(Integer.class);
         client.start();
     }
     public void join(){
@@ -51,6 +52,9 @@ public class RoboClient {
 
         client.addListener(new Listener() {
             public void received (Connection connection, Object object) {
+                if (object instanceof Integer) {
+                    game.setLocalPlayerNumber((int) object);
+                }
                 if (object instanceof String) {
                     response = (String) object;
                 }

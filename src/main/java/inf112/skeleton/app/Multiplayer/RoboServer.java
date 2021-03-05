@@ -33,6 +33,7 @@ public class RoboServer {
         server.getKryo().register(CardType.class);
         server.getKryo().register(LinkedList.class);
         server.getKryo().register(MoveCardsPacket.class);
+        server.getKryo().register(Integer.class);
     }
 
     public void runServer() {
@@ -66,7 +67,12 @@ public class RoboServer {
         server.sendToAllTCP(new MoveCardsPacket(playerNrToIp.indexOf(connectionToIp(connection)),playerCards));
 
     }
-
+    public void sendPlayerNumber(){
+        for(String ips : playerIpToConnect.keySet()){
+            Connection con = playerIpToConnect.get(ips);
+            con.sendTCP(playerNrToIp.indexOf(ips));
+        }
+    }
     public void sendGameInstance(String game){
         gameStarted = true;
         server.sendToAllTCP(game);

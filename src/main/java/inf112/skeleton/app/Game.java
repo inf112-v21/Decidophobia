@@ -1,5 +1,6 @@
 package inf112.skeleton.app;
 
+import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.Multiplayer.MoveCardsPacket;
 import inf112.skeleton.app.Multiplayer.RoboClient;
 import inf112.skeleton.app.Multiplayer.RoboServer;
@@ -7,7 +8,9 @@ import inf112.skeleton.app.cards.CardType;
 import inf112.skeleton.app.cards.Cards;
 import inf112.skeleton.app.cards.Deck;
 import inf112.skeleton.app.cards.PlayerCards;
+import inf112.skeleton.app.player.LocalPlayer;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Game {
@@ -20,6 +23,7 @@ public class Game {
 
     boolean isHost;
 
+    private int localPlayerNumber;
     public static Map<Integer, PlayerCards> playerMoves;
 
     PlayerCards yourCards;
@@ -36,6 +40,9 @@ public class Game {
         networkClient.sendRequest(cards);
 
     }
+    public void setLocalPlayerNumber(int playerNr) {
+        localPlayerNumber = playerNr;
+    }
 
     public void setMove(MoveCardsPacket moveCardsPacket){
         System.out.println("DO move " + moveCardsPacket);
@@ -49,6 +56,7 @@ public class Game {
         game.networkClient.join();
         game.dealCards();
     }
+
 
 
 }
