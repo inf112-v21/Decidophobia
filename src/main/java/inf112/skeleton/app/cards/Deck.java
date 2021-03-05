@@ -1,7 +1,5 @@
 package inf112.skeleton.app.cards;
 
-import com.badlogic.gdx.utils.Array;
-
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Stack;

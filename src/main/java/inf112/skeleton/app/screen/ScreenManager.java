@@ -3,6 +3,7 @@ package inf112.skeleton.app.screen;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import inf112.skeleton.app.Game;
 import inf112.skeleton.app.GameGUI;
 
 public class ScreenManager extends GameGUI implements ApplicationListener {
@@ -21,7 +22,7 @@ public class ScreenManager extends GameGUI implements ApplicationListener {
 
     public void create() {
 
-        super.setScreen(new MainMenuScreen());
+        //super.setScreen(new MainMenuScreen());
         super.getScreen().show();
     }
 
@@ -43,5 +44,8 @@ public class ScreenManager extends GameGUI implements ApplicationListener {
 
     public void resume() {
 
+    }
+
+    public void setScreen() {
     }
 }

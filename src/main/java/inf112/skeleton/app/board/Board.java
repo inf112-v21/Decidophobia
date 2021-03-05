@@ -1,86 +1,54 @@
 package inf112.skeleton.app.board;
 
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
+import inf112.skeleton.app.screen.GameScreen;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Board {
 
-    private final TiledMap tiledMap;
+    private final TiledMap boardMap;
     private final int boardWidth;
     private final int boardHeight;
-    private int numberOfFlags;
-    private AssetManager assetManager;
+    private Map<String, TiledMapTileLayer> boardLayers;
 
     /*
         The idea is to load the map from a file
      */
-    public Board(String filename, int boardWidth, int boardHeight) {
+    public Board(GameScreen filename) {
 
-        tiledMap = new TmxMapLoader().load(filename);
-        this.boardWidth = boardWidth;
-        this.boardHeight = boardHeight;
-
-        for(int i = 0; i < this.boardWidth; i++) {
-            for(int j = 0; j < this.boardHeight; j++) {
-                if(getFlagLayer().getCell(i,j) != null) {
-                    numberOfFlags += 1;
-                }
-            }
+        boardMap = new TmxMapLoader().load(String.valueOf(this));
+        boardLayers = new HashMap<>();
+        for(int i = 0; i < boardMap.getLayers().size(); i++) {
+            boardLayers.put(boardMap.getLayers().get(i).getName(), (TiledMapTileLayer) boardMap.getLayers().get(i));
         }
+
+        boardHeight = boardMap.getProperties().get("Width", Integer.class);
+        boardWidth = boardMap.getProperties().get("Height", Integer.class);
     }
 
-    public Board(int boardHeight, int boardWidth, int boardWidth1, int boardHeight1) {
-        this.boardWidth = boardWidth1;
-        this.boardHeight = boardHeight1;
-
-        tiledMap = new TiledMap();
-        tiledMap.getProperties().put("Width", boardWidth);
-        tiledMap.getProperties().put("Height", boardHeight);
-        MapLayers layers = tiledMap.getLayers();
-
-        int tileSize = 100;
-        TiledMapTileLayer tileLayer = new TiledMapTileLayer(boardWidth, boardHeight,tileSize, tileSize);
-        tileLayer.setName(IBoard.TILE);
-        layers.add(tileLayer);
-
-        for(int i = 0; i < boardWidth; i++) {
-            for(int j = 0; j < boardHeight; j++) {
-                tileLayer.setCell(i, j, new TiledMapTileLayer.Cell());
-                TiledMapTile tile = new StaticTiledMapTile(new TextureRegion());
-                tile.getProperties().put("type", "tile");
-                getTileLayer().getCell(i ,j).setTile(tile);
-            }
-        }
+    public Board(TiledMap boardMap, int height, int width) {
+        this.boardMap = boardMap;
+        boardWidth = width;
+        boardHeight = height;
     }
 
-    private TiledMapTileLayer getTileLayer() {
-        return (TiledMapTileLayer) tiledMap.getLayers().get(IBoard.TILE);
-    }
-
-
-    private TiledMapTileLayer getFlagLayer() {
-        return (TiledMapTileLayer) tiledMap.getLayers().get(IBoard.FLAG);
-    }
-
-    public int getNumberOfFlags() {
-        return numberOfFlags;
+    public Map<String, TiledMapTileLayer> getBoardLayers() {
+        return boardLayers;
     }
 
     public int getBoardWidth() {
-        return boardWidth;
+        return this.boardWidth;
     }
 
     public int getBoardHeight() {
-        return boardHeight;
+        return this.boardHeight;
     }
 
     public TiledMap getBoard() {
-        return tiledMap;
+            return boardMap;
     }
 }

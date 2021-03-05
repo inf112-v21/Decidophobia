@@ -1,8 +1,17 @@
 package inf112.skeleton.app.board;
 
-public final class IBoard {
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
-    public static final String TILE = "Tile";
-    public static final String FLAG = "Flag";
+import java.util.Map;
 
+public class IBoard {
+
+    //tenkte vi kunne hente objektene inn hit seinare
+
+    private final Map<String, TiledMapTileLayer> boardMap;
+
+
+    public IBoard(Map<String, TiledMapTileLayer> boardMap) {
+        this.boardMap = boardMap;
+    }
 }
