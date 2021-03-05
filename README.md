@@ -2,7 +2,7 @@
 
 ## Team Members
 - Isak Hølleland (Tech-lead)
-- Aleksander Gullestad (Code tester)
+- Alexander Gullestad (Code tester)
 - Petter Paulsen (Secretary)
 - Oscar Strømsli (Customer service)
 - Lars Andre Sande (UI-Designer)
