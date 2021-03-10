@@ -31,12 +31,6 @@ public class Game {
     PlayerCards yourCards;
 
     public Game(){
-        Lwjgl3ApplicationConfiguration cfg = new Lwjgl3ApplicationConfiguration();
-        cfg.setTitle("RoboRally");
-        cfg.setWindowedMode(Launcher.WIDTH, Launcher.HEIGHT);
-
-        new Lwjgl3Application(new GameGUI(), cfg);
-
         networkClient = new RoboClient(serverAddress);
         cardDeck = new Deck();
         cardDeck.add(new Cards(CardType.FORWARD_1,1000));

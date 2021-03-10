@@ -15,11 +15,10 @@ public class Launcher {
     public static final int HEIGHT = 1080;
 
     public static void main(String[] args) {
-        RoboServer server = new RoboServer();
-        server.runServer();
-        Game game = new Game();
+        Lwjgl3ApplicationConfiguration cfg = new Lwjgl3ApplicationConfiguration();
+        cfg.setTitle("RoboRally");
+        cfg.setWindowedMode(Launcher.WIDTH, Launcher.HEIGHT);
 
-        game.getNetworkClient().setGameReference(game);
-        game.getNetworkClient().join();
+        new Lwjgl3Application(new GameGUI(), cfg);
     }
 }
