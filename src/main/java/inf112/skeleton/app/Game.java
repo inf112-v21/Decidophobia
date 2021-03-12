@@ -33,7 +33,6 @@ public class Game {
     public Game(){
         networkClient = new RoboClient(serverAddress);
         cardDeck = new Deck();
-        cardDeck.add(new Cards(CardType.FORWARD_1,1000));
     }
 
     private void dealCards(){
