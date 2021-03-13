@@ -2,11 +2,6 @@ package inf112.skeleton.app;
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import inf112.skeleton.app.Multiplayer.RoboServer;
-import inf112.skeleton.app.screen.GameScreen;
-import inf112.skeleton.app.screen.MainMenuScreen;
-import inf112.skeleton.app.screen.ScreenManager;
 
 public class Launcher {
 

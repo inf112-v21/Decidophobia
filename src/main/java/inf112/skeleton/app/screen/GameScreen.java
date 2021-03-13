@@ -41,7 +41,6 @@ public class GameScreen extends InputAdapter implements Screen {
 
     public void setUp() {
         stage = new Stage(new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
-        ScreenManager.getInstance().setScreen();
     }
     @Override
     public void show() {
