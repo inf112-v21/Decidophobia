@@ -24,4 +24,10 @@ public class GameRules {
     public void setLifeTokens(int lifeTokens) {
         this.lifeTokens = lifeTokens;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        GameRules newGame = (GameRules) obj;
+        return getDamageTokens() == newGame.getDamageTokens() && getLifeTokens() == newGame.getLifeTokens();
+    }
 }

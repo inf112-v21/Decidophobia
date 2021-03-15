@@ -30,8 +30,8 @@ public class ServerTest {
         myClient.join();
         while(myClient.response == null)
             sleep(1000); // Delay so host can respond
-        System.out.println(myClient.getResponse() + "  <-  Should be \"Joined\"");
-        assertEquals("Joined", myClient.getResponse());
+        System.out.println(myClient.getResponse() + "  <-  Should be \"0;joined\"");
+        assertEquals("0;joined", myClient.getResponse());
     }
 
     @Test
@@ -65,9 +65,9 @@ public class ServerTest {
         myClient.join();
         while(myClient.response == null)
             sleep(1000); // Delay so host can respond
-        assertEquals("Joined", myClient.getResponse());
+        assertEquals("0;joined", myClient.getResponse());
         myClient.join();
-        while(myClient.response.equals("Joined"))
+        while(myClient.response.equals("0;joined"))
             sleep(1000); // Delay so host can respond
         assertEquals(1,server.getPlayerIpToConnect().size());
         assertEquals("AlreadyJoined",myClient.getResponse());

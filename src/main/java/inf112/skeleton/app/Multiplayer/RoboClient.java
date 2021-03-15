@@ -72,7 +72,7 @@ public class RoboClient {
                 }
                 else if (object instanceof MoveCardsPacket) {
                     MoveCardsPacket moveCards = (MoveCardsPacket) object;
-                    System.out.println("Responded: " + moveCards.playerCards.getActiveCard(0));
+                    System.out.println("Responded: " + moveCards.playerCards.getCard(0));
                     if(!(game == null)){
                         game.setMove(moveCards);
                     }

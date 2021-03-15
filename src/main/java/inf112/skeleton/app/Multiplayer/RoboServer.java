@@ -3,6 +3,9 @@ package inf112.skeleton.app.Multiplayer;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
+import inf112.skeleton.app.Game;
+import inf112.skeleton.app.Multiplayer.packets.GameRules;
+import inf112.skeleton.app.Multiplayer.packets.LobbyInfo;
 import inf112.skeleton.app.cards.CardType;
 import inf112.skeleton.app.cards.Cards;
 import inf112.skeleton.app.cards.PlayerCards;
@@ -21,6 +24,7 @@ public class RoboServer {
     Map<String, Connection> playerIpToConnect;
     List<String> playerNrToIp;
     Server server;
+    private GameRules gameRules;
 
 
     public RoboServer(){
@@ -33,7 +37,11 @@ public class RoboServer {
         server.getKryo().register(CardType.class);
         server.getKryo().register(LinkedList.class);
         server.getKryo().register(MoveCardsPacket.class);
+        server.getKryo().register(GameRules.class);
+        server.getKryo().register(LobbyInfo.class);
         server.getKryo().register(Integer.class);
+        server.getKryo().register(Boolean.class);
+        gameRules = new GameRules();
     }
 
     public void runServer() {
@@ -47,53 +55,86 @@ public class RoboServer {
         server.addListener(new Listener() {
             public void received (Connection connection, Object object) {
                 if (object instanceof String) {
-                    handleStringRequest(connection,(String) object);
+                    String request = (String) object;
+                    handleStringRequest(connection,request);
                 }
                 else if (object instanceof PlayerCards) {
                     PlayerCards playerCards = (PlayerCards) object;
-                    System.out.println("Recieved: " + playerCards.getCard(0));
                     handlePlayerCardsRequest(connection, playerCards);
+                }
+                else if(object instanceof GameRules){
+                    GameRules newRules = (GameRules) object;
+                    if(connectionToIp(connection).equals(getLANIp()) && !gameRules.equals(newRules))
+                        server.sendToAllTCP(gameRules);
+
                 }
             }
         });
+    }
+    private void handleStringRequest(Connection connection, String request){
+        switch (request){
+            case "Join":
+                if(!gameStarted & !playerIpToConnect.containsKey(connectionToIp(connection))) {
+                    playerIpToConnect.put(connectionToIp(connection), connection);
+                    playerNrToIp.add(connectionToIp(connection));
+                    server.sendToAllTCP(getPlayerNumber(connection)+";joined");
+                }
+                else if(playerIpToConnect.containsKey(connectionToIp(connection))) {
+                    connection.sendTCP("AlreadyJoined");
+                }
+                else {
+                    connection.sendTCP("Rejected");
+                }
+                break;
+
+            case "Ready":
+                server.sendToAllTCP(getPlayerNumber(connection) + ";ready");
+                break;
+
+            case "Unready":
+                server.sendToAllTCP(getPlayerNumber(connection) + ";unready");
+                break;
+
+            case "Quit":
+                server.sendToAllTCP(getPlayerNumber(connection) + ";left");
+                break;
+
+            case "Start":
+                if(connectionToIp(connection).equals(getLANIp()))
+                    server.sendToAllTCP("start");
+                break;
+        }
+        String[] req = request.split(";");
+        switch (req[0]){
+            case "ChangeNick":
+                server.sendToAllTCP(getPlayerNumber(connection) + ";changedNick;" + req[1]);
+                break;
+            case "ChangeRobot":
+                server.sendToAllTCP(getPlayerNumber(connection) + ";changedRobot;" + req[1] + ";" + req[2]);
+        }
+    }
+
+    private void handlePlayerCardsRequest(Connection connection, PlayerCards playerCards) {
+        System.out.println("Sending: " + playerCards);
+        server.sendToAllTCP(new MoveCardsPacket(getPlayerNumber(connection),playerCards));
+
+    }
+    private int getPlayerNumber(Connection connection){
+        return playerNrToIp.indexOf(connectionToIp(connection));
     }
     private String connectionToIp(Connection con){
         String tcpAddress = con.getRemoteAddressTCP().toString();
         return tcpAddress.substring(1,tcpAddress.length()-6);
     }
 
-    private void handlePlayerCardsRequest(Connection connection, PlayerCards playerCards) {
-        System.out.println("Sending: " + playerCards);
-        server.sendToAllTCP(new MoveCardsPacket(playerNrToIp.indexOf(connectionToIp(connection)),playerCards));
 
-    }
-    public void sendPlayerNumber(){
-        for(String ips : playerIpToConnect.keySet()){
-            Connection con = playerIpToConnect.get(ips);
-            con.sendTCP(playerNrToIp.indexOf(ips));
-        }
-    }
     public void sendGameInstance(String game){
         gameStarted = true;
         server.sendToAllTCP(game);
 
     }
 
-    private void handleStringRequest(Connection connection, String request){
-        if(request.equals("Join")){
-            if(!gameStarted & !playerIpToConnect.containsKey(connectionToIp(connection))) {
-                playerIpToConnect.put(connectionToIp(connection), connection);
-                playerNrToIp.add(connectionToIp(connection));
-                connection.sendTCP("Joined");
-            }
-            else if(playerIpToConnect.containsKey(connectionToIp(connection))) {
-                connection.sendTCP("AlreadyJoined");
-            }
-            else {
-                connection.sendTCP("Rejected");
-            }
-        }
-    }
+
     public void stopServer(){
         server.stop();
     }
