@@ -62,6 +62,7 @@ public class RoboServer {
                 }
                 else if (object instanceof PlayerCards) {
                     PlayerCards playerCards = (PlayerCards) object;
+                    System.out.println("Recieved: " + playerCards.getActiveCard(0));
                     handlePlayerCardsRequest(connection, playerCards);
                 }
                 else if(object instanceof GameRules){
