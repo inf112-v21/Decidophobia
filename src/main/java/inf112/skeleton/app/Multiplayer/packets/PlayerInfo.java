@@ -4,13 +4,15 @@ public class PlayerInfo {
     private int playerNr;
     private String nickname;
     private int robotReferenceNr;
-    private Boolean isHost;
+    private boolean isHost;
+    private boolean ready;
 
-    public PlayerInfo(int playerNr, Boolean isHost) {
+    public PlayerInfo(int playerNr, boolean isHost) {
         this.playerNr = playerNr;
         nickname = "P"+playerNr+1;
         robotReferenceNr = playerNr;
         this.isHost = isHost;
+        this.ready = false;
     }
 
     public int getPlayerNr() {

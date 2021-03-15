@@ -25,6 +25,7 @@ public class RoboServer {
     List<String> playerNrToIp;
     Server server;
     private GameRules gameRules;
+    private LobbyInfo lobby;
 
 
     public RoboServer(){
@@ -41,7 +42,9 @@ public class RoboServer {
         server.getKryo().register(LobbyInfo.class);
         server.getKryo().register(Integer.class);
         server.getKryo().register(Boolean.class);
+        server.getKryo().register(HashMap.class);
         gameRules = new GameRules();
+        lobby = new LobbyInfo();
     }
 
     public void runServer() {
@@ -77,7 +80,8 @@ public class RoboServer {
                 if(!gameStarted & !playerIpToConnect.containsKey(connectionToIp(connection))) {
                     playerIpToConnect.put(connectionToIp(connection), connection);
                     playerNrToIp.add(connectionToIp(connection));
-                    server.sendToAllTCP(getPlayerNumber(connection)+";joined");
+                    lobby.addPlayer(getPlayerNumber(connection));
+                    server.sendToAllTCP("joined;"+getPlayerNumber(connection));
                 }
                 else if(playerIpToConnect.containsKey(connectionToIp(connection))) {
                     connection.sendTCP("AlreadyJoined");
@@ -88,15 +92,20 @@ public class RoboServer {
                 break;
 
             case "Ready":
-                server.sendToAllTCP(getPlayerNumber(connection) + ";ready");
+                lobby.playerReady(getPlayerNumber(connection));
+                server.sendToAllTCP(lobby);
                 break;
 
             case "Unready":
-                server.sendToAllTCP(getPlayerNumber(connection) + ";unready");
+                lobby.playerUnready(getPlayerNumber(connection));
+                server.sendToAllTCP(lobby);
                 break;
 
             case "Quit":
-                server.sendToAllTCP(getPlayerNumber(connection) + ";left");
+                lobby.playerQuit(getPlayerNumber(connection));
+                this.playerIpToConnect.remove(connectionToIp(connection));
+                this.playerNrToIp.remove(connectionToIp(connection));
+                server.sendToAllTCP("quit;"+playerNrToIp.indexOf(connection));
                 break;
 
             case "Start":
@@ -107,10 +116,13 @@ public class RoboServer {
         String[] req = request.split(";");
         switch (req[0]){
             case "ChangeNick":
-                server.sendToAllTCP(getPlayerNumber(connection) + ";changedNick;" + req[1]);
+                lobby.changeNick(getPlayerNumber(connection),req[1]);
+                server.sendToAllTCP(lobby);
                 break;
             case "ChangeRobot":
-                server.sendToAllTCP(getPlayerNumber(connection) + ";changedRobot;" + req[1] + ";" + req[2]);
+                lobby.changeRobot(getPlayerNumber(connection),req[1],req[2]);
+                server.sendToAllTCP(lobby);
+                break;
         }
     }
 

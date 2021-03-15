@@ -1,15 +1,15 @@
 package inf112.skeleton.app.Multiplayer.packets;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class LobbyInfo {
     private List<PlayerInfo> players;
-    private Map<Integer, Boolean> playersReady;
 
-    public LobbyInfo(List<PlayerInfo> players, Map<Integer, Boolean> playersReady) {
-        this.players = players;
-        this.playersReady = playersReady;
+    public LobbyInfo() {
+        this.players = new ArrayList<>();
     }
 
     public List<PlayerInfo> getPlayers() {
@@ -20,12 +20,21 @@ public class LobbyInfo {
         this.players = players;
     }
 
-    public Map<Integer, Boolean> getPlayersReady() {
-        return playersReady;
+    public void addPlayer(int playerNumber) {
     }
 
-    public void setPlayersReady(Map<Integer, Boolean> playersReady) {
-        this.playersReady = playersReady;
+    public void playerReady(int playerNumber) {
     }
 
+    public void playerUnready(int playerNumber) {
+    }
+
+    public void playerQuit(int playerNumber) {
+    }
+
+    public void changeNick(int playerNumber, String s) {
+    }
+
+    public void changeRobot(int playerNumber, String s, String s1) {
+    }
 }
