@@ -3,7 +3,6 @@ package inf112.skeleton.app.Multiplayer;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
-import inf112.skeleton.app.Game;
 import inf112.skeleton.app.Multiplayer.packets.GameRules;
 import inf112.skeleton.app.Multiplayer.packets.LobbyInfo;
 import inf112.skeleton.app.cards.CardType;
@@ -112,13 +111,20 @@ public class RoboServer {
                 if(connectionToIp(connection).equals(getLANIp()))
                     server.sendToAllTCP("start");
                 break;
+            case "End":
+                if(connectionToIp(connection).equals(getLANIp()))
+                    server.sendToAllTCP("end");
+                break;
         }
+
         String[] req = request.split(";");
+
         switch (req[0]){
             case "ChangeNick":
                 lobby.changeNick(getPlayerNumber(connection),req[1]);
                 server.sendToAllTCP(lobby);
                 break;
+
             case "ChangeRobot":
                 lobby.changeRobot(getPlayerNumber(connection),req[1],req[2]);
                 server.sendToAllTCP(lobby);
