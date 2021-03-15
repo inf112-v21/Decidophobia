@@ -4,6 +4,9 @@ import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import inf112.skeleton.app.Game;
+import inf112.skeleton.app.Multiplayer.packets.GameCards;
+import inf112.skeleton.app.Multiplayer.packets.GameRules;
+import inf112.skeleton.app.Multiplayer.packets.LobbyInfo;
 import inf112.skeleton.app.cards.CardType;
 import inf112.skeleton.app.cards.Cards;
 import inf112.skeleton.app.cards.PlayerCards;
@@ -21,9 +24,7 @@ public class RoboClient {
 
     private Game game;
 
-    public String getResponse() {
-        return response;
-    }
+    private LobbyInfo lobbyInfo;
 
     public RoboClient(String serverAddress){
         this.serverAddress = serverAddress;
@@ -34,10 +35,19 @@ public class RoboClient {
         client.getKryo().register(LinkedList.class);
         client.getKryo().register(MoveCardsPacket.class);
         client.getKryo().register(Integer.class);
+        client.getKryo().register(Boolean.class);
+        client.getKryo().register(GameRules.class);
+        client.getKryo().register(LobbyInfo.class);
+        client.getKryo().register(GameCards.class);
         client.start();
     }
+
     public void join(){
         sendRequest("Join");
+    }
+
+    public String getResponse() {
+        return response;
     }
 
     public void sendRequest(Object request) {
@@ -60,18 +70,33 @@ public class RoboClient {
                 }
                 else if (object instanceof MoveCardsPacket) {
                     MoveCardsPacket moveCards = (MoveCardsPacket) object;
-                    System.out.println("Responded: " + moveCards.playerCards.getCard(0));
+                    System.out.println("Responded: " + moveCards.playerCards.getActiveCard(0));
                     if(!(game == null)){
                         game.setMove(moveCards);
                     }
+                }
+                else if (object instanceof LobbyInfo) {
+                    LobbyInfo lobbyInfo = (LobbyInfo) object;
+                    setLobbyInfo(lobbyInfo);
+                    System.out.println("Responded: LobbyInfo acquired");
                 }
             }
         });
 
     }
+
+    private void setLobbyInfo(LobbyInfo lobbyInfo) {
+        this.lobbyInfo = lobbyInfo;
+    }
+
+    public LobbyInfo getLobbyInfo() {
+        return lobbyInfo;
+    }
+
     public void setGameReference(Game game){
         this.game = game;
     }
+
     /**
      * Made for running Clientrequest in main-thread, for testing Host-Client-relation over the internet
      * @param args
