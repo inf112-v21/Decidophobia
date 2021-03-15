@@ -26,6 +26,8 @@ public class RoboClient {
 
     private LobbyInfo lobbyInfo;
 
+    private GameRules gameRules;
+
     public RoboClient(String serverAddress){
         this.serverAddress = serverAddress;
         client = new Client();
@@ -80,17 +82,29 @@ public class RoboClient {
                     setLobbyInfo(lobbyInfo);
                     System.out.println("Responded: LobbyInfo acquired");
                 }
+                else if (object instanceof GameRules) {
+                    GameRules gameRules = (GameRules) object;
+                    setGameRules(gameRules);
+                    System.out.println("Responded: GameRules acquired");
+                }
             }
         });
 
+    }
+    public LobbyInfo getLobbyInfo() {
+        return lobbyInfo;
     }
 
     private void setLobbyInfo(LobbyInfo lobbyInfo) {
         this.lobbyInfo = lobbyInfo;
     }
 
-    public LobbyInfo getLobbyInfo() {
-        return lobbyInfo;
+    public GameRules getGameRules() {
+        return gameRules;
+    }
+
+    private void setGameRules(GameRules gameRules) {
+        this.gameRules = gameRules;
     }
 
     public void setGameReference(Game game){
