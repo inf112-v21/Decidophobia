@@ -34,19 +34,19 @@ public class PlayerCardsTest {
         for (Cards card : cards) {
             playerCards.insertCard(card);
             if (i < 5)
-                playerCards.setActiveCard(i, i);
+                playerCards.setActiveCard(0, i);
             i++;
         }
     }
 
     @Test
-    public void getFirstAndFourthCard() {
-        Cards card1 = cards.get(0);
-        Cards card4 = cards.get(3);
+    public void getFirstAndThirdCard() {
+        Cards card1 = cards.get(5);
+        Cards card3 = cards.get(7);
         Cards firstCard = playerCards.getCard(0);
-        Cards fourthCard = playerCards.getCard(3);
+        Cards thirdCard = playerCards.getCard(2);
         assertEquals(firstCard, card1);
-        assertEquals(fourthCard, card4);
+        assertEquals(thirdCard, card3);
     }
 
     @Test
@@ -60,18 +60,21 @@ public class PlayerCardsTest {
     }
 
     @Test
-    public void getIndexOfSecondAndSixthCard() {
-        Cards card2 = cards.get(1);
-        Cards card6 = cards.get(5);
+    public void getIndexOfSecondAndFourthCard() {
+        Cards card2 = cards.get(6);
+        Cards card4 = cards.get(8);
         int card2Index = playerCards.getIndexOfCard(card2);
-        int card6Index = playerCards.getIndexOfCard(card6);
-        assertEquals(card2Index, 1);
-        assertEquals(card6Index, 5);
+        int card4Index = playerCards.getIndexOfCard(card4);
+        assertEquals(1, card2Index);
+        assertEquals(3, card4Index);
     }
 
     @Test
-    public void getAllCards() {
-        assertEquals(playerCards.getAllCards(), cards);
+    public void getAllCardsInHand() {
+        LinkedList<Cards> cardsInHand = new LinkedList<>();
+        for (int i = 5; i < 9; i++)
+            cardsInHand.add(cards.get(i));
+        assertEquals(playerCards.getCardsInHand(), cardsInHand);
     }
 
     @Test
@@ -84,30 +87,22 @@ public class PlayerCardsTest {
     }
 
     @Test
-    public void setNewFirstAndSecondActiveCards() {
-        Cards card1 = cards.get(6);
-        Cards card2 = cards.get(7);
-        playerCards.setActiveCard(6, 0);
-        playerCards.setActiveCard(7, 1);
+    public void setNewFirstAndSecondActiveCardsAndCardsAreRemovedFromHand() {
+        Cards card1 = cards.get(5);
+        Cards card2 = cards.get(6);
+        playerCards.setActiveCard(0, 0);
+        playerCards.setActiveCard(0, 1);
         assertEquals(card1, playerCards.getActiveCard(0));
         assertEquals(card2, playerCards.getActiveCard(1));
+        assertTrue(!playerCards.getCardsInHand().contains(card1));
+        assertTrue(!playerCards.getCardsInHand().contains(card2));
     }
 
     @Test
     public void notPossibleToSetDuplicateActiveCards() {
-        playerCards.setActiveCard(8, 0);
-        playerCards.setActiveCard(8,1);
+        playerCards.setActiveCard(2, 0);
+        playerCards.setActiveCard(2,1);
         assertNotEquals(playerCards.getActiveCard(0), playerCards.getActiveCard(1));
-    }
-
-    @Test
-    public void checkIfActiveCardsAreAlwaysSize5() {
-        PlayerCards playerCards2 = new PlayerCards();
-        assertEquals(5, playerCards2.getActiveCards().size());
-
-        playerCards.removeActiveCard(0);
-        playerCards.removeActiveCard(1);
-        assertEquals(5, playerCards.getActiveCards().size());
     }
 
     @Test
@@ -147,50 +142,52 @@ public class PlayerCardsTest {
     }
 
     @Test
-    public void cantLockCardsThatAreNotActiveCards() {
-        Cards lockedCard = cards.get(8);
-        playerCards.lockCard(8);
-        Stack<Cards> lockedCards = playerCards.getLockedCards();
-        for (Cards card : lockedCards)
-            assertNotEquals(lockedCard, card);
-    }
-
-    @Test
-    public void removeFirstAndMiddleActiveCards() {
-        playerCards.removeActiveCard(0);
-        playerCards.removeActiveCard(2);
-
+    public void removeFirstAndMiddleActiveCardsAndFindThemInHand() {
+        //First card
+        Cards card1 = playerCards.getActiveCard(0);
+        Cards removed1 = playerCards.removeActiveCard(0);
+        assertEquals(card1, removed1);
         assertNull(playerCards.getActiveCard(0));
+        assertTrue(playerCards.getCardsInHand().contains(removed1));
+
+        //Middle card
+        Cards card3 = playerCards.getActiveCard(2);
+        Cards removed3 = playerCards.removeActiveCard(2);
+        assertEquals(card3, removed3);
         assertNull(playerCards.getActiveCard(2));
+        assertTrue(playerCards.getCardsInHand().contains(removed3));
     }
 
     @Test
     public void checkIfCardIsRemovedCorrectly() {
+        //Active Card
         Cards card1 = cards.get(0);
-        Cards removedCard = playerCards.removeCard(0);
-        assertEquals(card1, removedCard);
+        Cards removedCardActive = playerCards.removeCard(card1);
+        assertEquals(card1, removedCardActive);
         assertNull(playerCards.getActiveCard(0));
+
+        //Card in hand
+        Cards card6 = cards.get(5);
+        Cards removedCardHand = playerCards.removeCard(card6);
+        assertEquals(card6, removedCardHand);
+        assertTrue(!playerCards.getCardsInHand().contains(card6));
+
+        //Locked card
+        Cards card2 = cards.get(1);
         playerCards.lockCard(1);
-        playerCards.removeCard(1);
+        Cards removedCardLocked = playerCards.removeCard(card2);
+        assertEquals(card2, removedCardLocked);
         assertNull(playerCards.getActiveCard(1));
         assertTrue(playerCards.getLockedCards().isEmpty());
     }
 
     @Test
-    public void checkIfActiveCardsIsRemovedCorrectly() {
-        Cards card = playerCards.getActiveCard(0);
-        Cards removedCard = playerCards.removeActiveCard(0);
-        assertEquals(card, removedCard);
-        assertNull(playerCards.getActiveCard(0));
-    }
-
-    @Test
-    public void checkIfLockedCardIsRemovedWithActiveCard() {
+    public void canNotRemoveLockedActiveCards() {
         Cards card = playerCards.getActiveCard(0);
         playerCards.lockCard(0);
-        assertEquals(card, playerCards.getLockedCards().get(0));
+        assertEquals(card, playerCards.getLockedCards().peek());
         playerCards.removeActiveCard(0);
-        assertTrue(playerCards.getLockedCards().isEmpty());
+        assertEquals(card, playerCards.getLockedCards().peek());
     }
 
     @Test
@@ -204,7 +201,7 @@ public class PlayerCardsTest {
             nullList.add(null);
 
         assertEquals(nullList, cardsList);
-        assertTrue(playerCards.getAllCards().isEmpty());
+        assertTrue(playerCards.getCardsInHand().isEmpty());
         assertTrue(playerCards.getLockedCards().isEmpty());
     }
 }
