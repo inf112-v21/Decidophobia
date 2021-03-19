@@ -12,13 +12,14 @@ import inf112.skeleton.app.cards.Cards;
 import inf112.skeleton.app.cards.PlayerCards;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class RoboClient {
 
     private String serverAddress;
 
-    public String response;
+    public Object response;
 
     private Client client;
 
@@ -31,39 +32,41 @@ public class RoboClient {
     public RoboClient(String serverAddress){
         this.serverAddress = serverAddress;
         client = new Client();
+        client.getKryo().register(int.class);
+        client.getKryo().register(Integer.class);
         client.getKryo().register(PlayerCards.class);
         client.getKryo().register(Cards.class);
         client.getKryo().register(CardType.class);
         client.getKryo().register(LinkedList.class);
         client.getKryo().register(MoveCardsPacket.class);
-        client.getKryo().register(Integer.class);
-        client.getKryo().register(Boolean.class);
         client.getKryo().register(GameRules.class);
         client.getKryo().register(LobbyInfo.class);
-        client.getKryo().register(GameCards.class);
+
+        client.getKryo().register(Boolean.class);
+        client.getKryo().register(HashMap.class);
         client.start();
     }
 
-    public void join(){
-        sendRequest("Join");
+    public void sendRequest(Object request){
+        client.sendTCP(request);
     }
 
-    public String getResponse() {
+    public Object getResponse() {
         return response;
     }
 
-    public void sendRequest(Object request) {
+    public void join() {
         try {
             System.out.println(serverAddress);
-            client.connect(5000, serverAddress, 54555, 54777); //ip-addresse til server
+            client.connect(5000, serverAddress, 9000, 54777); //ip-addresse til server
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        client.sendTCP(request);
+        client.sendTCP("Join");
 
         client.addListener(new Listener() {
             public void received (Connection connection, Object object) {
+                response = object; //<- for debugging and tests
                 if (object instanceof Integer) {
                     game.setLocalPlayerNumber((int) object);
                 }
@@ -90,6 +93,13 @@ public class RoboClient {
             }
         });
 
+    }
+    public void parser(String str){
+        String[] arguments = str.split(",");
+        switch (arguments[0]){
+            case "gameRules":
+               gameRules = new GameRules(arguments[1]);
+        }
     }
     public LobbyInfo getLobbyInfo() {
         return lobbyInfo;

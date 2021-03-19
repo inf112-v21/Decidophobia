@@ -8,8 +8,28 @@ import java.util.Map;
 public class LobbyInfo {
     private List<PlayerInfo> players;
 
+
+
     public LobbyInfo() {
         this.players = new ArrayList<>();
+    }
+    //"lobby,{1;Truls;1;T;T;2;Truls;2;F;F},gameRules,{4;10},"
+    //"lobby","{1;Truls;1;T;T;2;Truls;2;F;F}","gameRules","{4;10}" {} er ikke faktisk med...
+    //"2;1:Truls:1:T:T;2:Truls:2:F:F"                  "4;10"
+    public LobbyInfo(String lobbyinfo) {
+        this.players = new ArrayList<>();
+        String[] arguments = lobbyinfo.split(";");
+
+    }
+
+    @Override
+    public String toString() {
+        String lobbyInf = "lobby,";
+        for(PlayerInfo pX : players){
+            lobbyInf += pX+":";
+        }
+        lobbyInf += ",";
+        return lobbyInf;
     }
 
     public List<PlayerInfo> getPlayers() {

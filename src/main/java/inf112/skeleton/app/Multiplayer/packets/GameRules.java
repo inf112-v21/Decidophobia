@@ -1,12 +1,25 @@
 package inf112.skeleton.app.Multiplayer.packets;
 
-public class GameRules {
+import java.io.Serializable;
+
+public class GameRules implements Serializable {
     private int damageTokens;
     private int lifeTokens;
 
     public GameRules(){
-        damageTokens = 9;
-        lifeTokens = 3;
+        this.damageTokens = 9;
+        this.lifeTokens = 3;
+    }
+
+    public GameRules( int lifeTokens, int damageTokens){
+        this.damageTokens = damageTokens;
+        this.lifeTokens = lifeTokens;
+    }
+
+    public GameRules(String str) {
+        String[] rules = str.split(";");
+        this.lifeTokens = Integer.valueOf(rules[0]);
+        this.damageTokens = Integer.valueOf(rules[1]);
     }
 
     public int getDamageTokens() {
@@ -29,5 +42,10 @@ public class GameRules {
     public boolean equals(Object obj) {
         GameRules newGame = (GameRules) obj;
         return getDamageTokens() == newGame.getDamageTokens() && getLifeTokens() == newGame.getLifeTokens();
+    }
+
+    @Override
+    public String toString() {
+        return "gameRules,"+lifeTokens+";"+damageTokens+",";
     }
 }

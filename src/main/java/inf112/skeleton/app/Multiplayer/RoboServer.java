@@ -20,6 +20,7 @@ import java.util.*;
 
 public class RoboServer {
     private boolean gameStarted;
+    //server.getConnections();
     Map<String, Connection> playerIpToConnect;
     List<String> playerNrToIp;
     Server server;
@@ -32,6 +33,8 @@ public class RoboServer {
         playerIpToConnect = new HashMap<>();
         playerNrToIp = new ArrayList<>();
         server = new Server();
+        server.getKryo().register(int.class);
+        server.getKryo().register(Integer.class);
         server.getKryo().register(PlayerCards.class);
         server.getKryo().register(Cards.class);
         server.getKryo().register(CardType.class);
@@ -39,17 +42,17 @@ public class RoboServer {
         server.getKryo().register(MoveCardsPacket.class);
         server.getKryo().register(GameRules.class);
         server.getKryo().register(LobbyInfo.class);
-        server.getKryo().register(Integer.class);
+
         server.getKryo().register(Boolean.class);
         server.getKryo().register(HashMap.class);
-        gameRules = new GameRules();
+        gameRules = new GameRules(9,3);
         lobby = new LobbyInfo();
     }
 
     public void runServer() {
         server.start();
         try {
-            server.bind(54555, 54777);
+            server.bind(9000, 54777);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -69,7 +72,6 @@ public class RoboServer {
                     GameRules newRules = (GameRules) object;
                     if(connectionToIp(connection).equals(getLANIp()) && !gameRules.equals(newRules))
                         server.sendToAllTCP(gameRules);
-
                 }
             }
         });

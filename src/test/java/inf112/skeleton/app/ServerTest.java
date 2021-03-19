@@ -2,10 +2,10 @@ package inf112.skeleton.app;
 
 import inf112.skeleton.app.Multiplayer.RoboServer;
 import inf112.skeleton.app.Multiplayer.RoboClient;
+import inf112.skeleton.app.Multiplayer.packets.GameRules;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.Before;
-import org.junit.jupiter.api.AfterEach;
 
 import static java.lang.Thread.sleep;
 import static org.junit.Assert.*;

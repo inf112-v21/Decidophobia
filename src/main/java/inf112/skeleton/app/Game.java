@@ -1,18 +1,11 @@
 package inf112.skeleton.app;
 
-import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
-import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.Multiplayer.MoveCardsPacket;
 import inf112.skeleton.app.Multiplayer.RoboClient;
 import inf112.skeleton.app.Multiplayer.RoboServer;
-import inf112.skeleton.app.cards.CardType;
-import inf112.skeleton.app.cards.Cards;
 import inf112.skeleton.app.cards.Deck;
 import inf112.skeleton.app.cards.PlayerCards;
-import inf112.skeleton.app.player.LocalPlayer;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class Game {
