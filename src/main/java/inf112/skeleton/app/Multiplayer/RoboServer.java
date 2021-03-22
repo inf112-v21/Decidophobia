@@ -94,12 +94,12 @@ public class RoboServer {
                 break;
 
             case "Ready":
-                lobby.playerReady(getPlayerNumber(connection));
+                lobby.playerSetReady(getPlayerNumber(connection), true);
                 server.sendToAllTCP(lobby);
                 break;
 
             case "Unready":
-                lobby.playerUnready(getPlayerNumber(connection));
+                lobby.playerSetReady(getPlayerNumber(connection), false);
                 server.sendToAllTCP(lobby);
                 break;
 

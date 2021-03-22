@@ -99,8 +99,10 @@ public class RoboClient {
         switch (arguments[0]){
             case "gameRules":
                gameRules = new GameRules(arguments[1]);
+               break;
             case "lobby":
                 lobbyInfo = new LobbyInfo(arguments[1]);
+                break;
         }
         if(arguments.length >= 4){
             String newString = "";

@@ -18,7 +18,10 @@ public class LobbyInfo {
     //"2;1:Truls:1:T:T;2:Truls:2:F:F"                  "4;10"
     public LobbyInfo(String lobbyinfo) {
         this.players = new ArrayList<>();
-        String[] arguments = lobbyinfo.split(";");
+        String[] arguments = lobbyinfo.split(":");
+        for(String player : arguments){
+            players.add(new PlayerInfo(player));
+        }
 
     }
 
@@ -41,12 +44,14 @@ public class LobbyInfo {
     }
 
     public void addPlayer(int playerNumber) {
+        players.add(new PlayerInfo(playerNumber,(playerNumber==0 ? true : false)));
     }
 
-    public void playerReady(int playerNumber) {
+    public void playerSetReady(int playerNumber, boolean isReady) {
     }
 
-    public void playerUnready(int playerNumber) {
+    public boolean playerIsReady(int playerNumber){
+        return players.get(playerNumber).getReady();
     }
 
     public void playerQuit(int playerNumber) {
