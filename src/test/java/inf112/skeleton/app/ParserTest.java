@@ -31,13 +31,7 @@ public class ParserTest {
     @Test
     public void lobbyInfoIsCorrectlyConstructed(){
         robo.parser("lobby,1;Isak;1;true;true:2;Alex;2;false;false:,");
-        assertEquals(2,robo.getLobbyInfo().getPlayers().size());
-        assertEquals("Isak",robo.getLobbyInfo().getPlayers().get(0).getNickname());
-        assertEquals("Alex",robo.getLobbyInfo().getPlayers().get(1).getNickname());
-        assertTrue(robo.getLobbyInfo().playerIsReady(0));
-        assertFalse(robo.getLobbyInfo().playerIsReady(1));
-        assertTrue(robo.getLobbyInfo().getPlayers().get(0).getHost());
-        assertFalse(robo.getLobbyInfo().getPlayers().get(1).getHost());
+        lobbyInfoEvaluation();
     }
     @Test
     public void lobbyObjectIsCorrectlyConstructedAndParsed(){
@@ -48,6 +42,11 @@ public class ParserTest {
         lobby.getPlayers().get(1).setNickname("Alex");
         lobby.getPlayers().get(0).setReady(true);
         robo.parser(lobby.toString());
+        lobbyInfoEvaluation();
+
+    }
+
+    public void lobbyInfoEvaluation(){
         assertEquals(2,robo.getLobbyInfo().getPlayers().size());
         assertEquals("Isak",robo.getLobbyInfo().getPlayers().get(0).getNickname());
         assertEquals("Alex",robo.getLobbyInfo().getPlayers().get(1).getNickname());
