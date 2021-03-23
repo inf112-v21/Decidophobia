@@ -4,22 +4,18 @@ import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import inf112.skeleton.app.Game;
-import inf112.skeleton.app.Multiplayer.packets.GameCards;
 import inf112.skeleton.app.Multiplayer.packets.GameRules;
 import inf112.skeleton.app.Multiplayer.packets.LobbyInfo;
-import inf112.skeleton.app.cards.CardType;
-import inf112.skeleton.app.cards.Cards;
+
 import inf112.skeleton.app.cards.PlayerCards;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.LinkedList;
 
 public class RoboClient {
 
     private String serverAddress;
 
-    public Object response;
+    public String response;
 
     private Client client;
 
@@ -29,21 +25,20 @@ public class RoboClient {
 
     private GameRules gameRules;
 
+    public int getClientPlayerNr() {
+        return clientPlayerNr;
+    }
+
+    public void setClientPlayerNr(int clientPlayerNr) {
+        this.clientPlayerNr = clientPlayerNr;
+    }
+
+    private int clientPlayerNr;
+
     public RoboClient(String serverAddress){
         this.serverAddress = serverAddress;
         client = new Client();
-        client.getKryo().register(int.class);
-        client.getKryo().register(Integer.class);
-        client.getKryo().register(PlayerCards.class);
-        client.getKryo().register(Cards.class);
-        client.getKryo().register(CardType.class);
-        client.getKryo().register(LinkedList.class);
-        client.getKryo().register(MoveCardsPacket.class);
-        client.getKryo().register(GameRules.class);
-        client.getKryo().register(LobbyInfo.class);
 
-        client.getKryo().register(Boolean.class);
-        client.getKryo().register(HashMap.class);
         client.start();
     }
 
@@ -51,8 +46,8 @@ public class RoboClient {
         client.sendTCP(request);
     }
 
-    public Object getResponse() {
-        return response;
+    public void changeDamageTokens(int i) {
+
     }
 
     public void join() {
@@ -66,50 +61,49 @@ public class RoboClient {
 
         client.addListener(new Listener() {
             public void received (Connection connection, Object object) {
-                response = object; //<- for debugging and tests
-                if (object instanceof Integer) {
-                    game.setLocalPlayerNumber((int) object);
-                }
                 if (object instanceof String) {
                     response = (String) object;
+                    parser((String) object);
                 }
-                else if (object instanceof MoveCardsPacket) {
-                    MoveCardsPacket moveCards = (MoveCardsPacket) object;
-                    System.out.println("Responded: " + moveCards.playerCards.getActiveCard(0));
-                    if(!(game == null)){
-                        game.setMove(moveCards);
-                    }
-                }
-                else if (object instanceof LobbyInfo) {
-                    LobbyInfo lobbyInfo = (LobbyInfo) object;
-                    setLobbyInfo(lobbyInfo);
-                    System.out.println("Responded: LobbyInfo acquired");
-                }
-                else if (object instanceof GameRules) {
-                    GameRules gameRules = (GameRules) object;
-                    setGameRules(gameRules);
-                    System.out.println("Responded: GameRules acquired");
-                }
+
             }
         });
 
     }
     public void parser(String str){
+        System.out.println(str);
+        if(str.equals("")){
+            return;
+        }
         String[] arguments = str.split(",");
         switch (arguments[0]){
+            case "joined":
+                clientPlayerNr = Integer.parseInt(arguments[1]);
+                parser(str.substring(2+6+arguments[1].length()));
+                break;
             case "gameRules":
                gameRules = new GameRules(arguments[1]);
+                parser(str.substring(2+9+arguments[1].length()));
                break;
             case "lobby":
                 lobbyInfo = new LobbyInfo(arguments[1]);
+                parser(str.substring(2+5+arguments[1].length()));
                 break;
-        }
-        if(arguments.length >= 4){
-            String newString = "";
-            for(int i = 3; i<arguments.length; i++){
-                newString += arguments[i]+",";
-            }
-            parser(newString);
+            case "changeNick":
+                lobbyInfo.changeNick(Integer.parseInt(arguments[1]),arguments[2]);
+                break;
+            case "changeRobot":
+                lobbyInfo.changeRobot(Integer.parseInt(arguments[1]),arguments[2],arguments[3]);
+                break;
+            case "ready":
+                lobbyInfo.playerSetReady(Integer.parseInt(arguments[1]),true);
+                break;
+            case "unReady":
+                lobbyInfo.playerSetReady(Integer.parseInt(arguments[1]),false);
+                break;
+            case "quit":
+                lobbyInfo.playerQuit(Integer.parseInt(arguments[1]));
+                break;
         }
     }
     public LobbyInfo getLobbyInfo() {

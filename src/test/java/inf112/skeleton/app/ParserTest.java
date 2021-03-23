@@ -45,6 +45,14 @@ public class ParserTest {
         lobbyInfoEvaluation();
 
     }
+    @Test
+    public void joinRequestParsesLobbyAndGameRules(){
+        robo.parser("joined,1,gameRules,4;10,lobby,0;Isak;0;true;true:0;Alex;0;false;false:,");
+        lobbyInfoEvaluation();
+        assertEquals(4,robo.getGameRules().getLifeTokens());
+        assertEquals(10,robo.getGameRules().getDamageTokens());
+        assertEquals(1,robo.getClientPlayerNr());
+    }
 
     public void lobbyInfoEvaluation(){
         assertEquals(2,robo.getLobbyInfo().getPlayers().size());
@@ -55,4 +63,5 @@ public class ParserTest {
         assertTrue(robo.getLobbyInfo().getPlayers().get(0).getHost());
         assertFalse(robo.getLobbyInfo().getPlayers().get(1).getHost());
     }
+
 }

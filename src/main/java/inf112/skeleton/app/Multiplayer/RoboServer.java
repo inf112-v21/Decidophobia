@@ -33,19 +33,8 @@ public class RoboServer {
         playerIpToConnect = new HashMap<>();
         playerNrToIp = new ArrayList<>();
         server = new Server();
-        server.getKryo().register(int.class);
-        server.getKryo().register(Integer.class);
-        server.getKryo().register(PlayerCards.class);
-        server.getKryo().register(Cards.class);
-        server.getKryo().register(CardType.class);
-        server.getKryo().register(LinkedList.class);
-        server.getKryo().register(MoveCardsPacket.class);
-        server.getKryo().register(GameRules.class);
-        server.getKryo().register(LobbyInfo.class);
 
-        server.getKryo().register(Boolean.class);
-        server.getKryo().register(HashMap.class);
-        gameRules = new GameRules(9,3);
+        gameRules = new GameRules(3,9);
         lobby = new LobbyInfo();
     }
 
@@ -63,16 +52,6 @@ public class RoboServer {
                     String request = (String) object;
                     handleStringRequest(connection,request);
                 }
-                else if (object instanceof PlayerCards) {
-                    PlayerCards playerCards = (PlayerCards) object;
-                    System.out.println("Recieved: " + playerCards.getActiveCard(0));
-                    handlePlayerCardsRequest(connection, playerCards);
-                }
-                else if(object instanceof GameRules){
-                    GameRules newRules = (GameRules) object;
-                    if(connectionToIp(connection).equals(getLANIp()) && !gameRules.equals(newRules))
-                        server.sendToAllTCP(gameRules);
-                }
             }
         });
     }
@@ -83,7 +62,9 @@ public class RoboServer {
                     playerIpToConnect.put(connectionToIp(connection), connection);
                     playerNrToIp.add(connectionToIp(connection));
                     lobby.addPlayer(getPlayerNumber(connection));
-                    server.sendToAllTCP("joined;"+getPlayerNumber(connection));
+                    for(Connection cons : playerIpToConnect.values()){
+                        cons.sendTCP("joined,"+getPlayerNumber(connection)+","+gameRules+lobby);
+                    }
                 }
                 else if(playerIpToConnect.containsKey(connectionToIp(connection))) {
                     connection.sendTCP("AlreadyJoined");
@@ -95,19 +76,19 @@ public class RoboServer {
 
             case "Ready":
                 lobby.playerSetReady(getPlayerNumber(connection), true);
-                server.sendToAllTCP(lobby);
+                server.sendToAllTCP("ready,"+getPlayerNumber(connection)+",");
                 break;
 
             case "Unready":
                 lobby.playerSetReady(getPlayerNumber(connection), false);
-                server.sendToAllTCP(lobby);
+                server.sendToAllTCP("unReady,"+getPlayerNumber(connection)+",");
                 break;
 
             case "Quit":
                 lobby.playerQuit(getPlayerNumber(connection));
                 this.playerIpToConnect.remove(connectionToIp(connection));
                 this.playerNrToIp.remove(connectionToIp(connection));
-                server.sendToAllTCP("quit;"+playerNrToIp.indexOf(connection));
+                server.sendToAllTCP("quit;"+getPlayerNumber(connection)+",");
                 break;
 
             case "Start":
@@ -120,18 +101,19 @@ public class RoboServer {
                 break;
         }
 
-        String[] req = request.split(";");
+        String[] req = request.split(",");
 
         switch (req[0]){
             case "ChangeNick":
                 lobby.changeNick(getPlayerNumber(connection),req[1]);
-                server.sendToAllTCP(lobby);
+                server.sendToAllTCP("changeNick,"+req[1]+","+req[2]);
                 break;
 
             case "ChangeRobot":
                 lobby.changeRobot(getPlayerNumber(connection),req[1],req[2]);
-                server.sendToAllTCP(lobby);
+                server.sendToAllTCP("changeRobot,"+req[1]+","+req[2]+","+req[3]);
                 break;
+
         }
     }
 

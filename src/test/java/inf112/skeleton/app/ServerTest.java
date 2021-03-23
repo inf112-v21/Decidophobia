@@ -30,8 +30,9 @@ public class ServerTest {
         myClient.join();
         while(myClient.response == null)
             sleep(1000); // Delay so host can respond
-        System.out.println(myClient.getResponse() + "  <-  Should be \"joined;0\"");
-        assertEquals("joined;0", myClient.getResponse());
+        System.out.println(myClient.response + "  <-  Should be \"joined,0\"");
+        String[] strResponse = myClient.response.split(",");
+        assertEquals("joined,0", strResponse[0]+","+strResponse[1]);
     }
 
     @Test
@@ -39,7 +40,7 @@ public class ServerTest {
         RoboClient myClient = new RoboClient("000.000.00.0");
         myClient.join();
         sleep(1000); // Delay so host can respond
-        assertEquals(null, myClient.getResponse());
+        assertEquals(null, myClient.response);
     }
     @Test
     public void serverHasPlayerConnection() throws Exception {
@@ -57,7 +58,7 @@ public class ServerTest {
         myClient.join();
         while(myClient.response == null)
             sleep(1000); // Delay so host can respond
-        assertEquals("Rejected",myClient.getResponse());
+        assertEquals("Rejected",myClient.response);
     }
     @Test
     public void serverNotAddsTwoEqualConnections() throws Exception {
@@ -65,12 +66,21 @@ public class ServerTest {
         myClient.join();
         while(myClient.response == null)
             sleep(1000); // Delay so host can respond
-        assertEquals("joined;0", myClient.getResponse());
+        String[] strResponse = myClient.response.split(",");
+        assertEquals("joined,0", strResponse[0]+","+strResponse[1]);
         myClient.join();
-        while(myClient.response.equals("joined;0"))
+        while(myClient.response.substring(0,2+6+1).equals("joined,0,"))
             sleep(1000); // Delay so host can respond
         assertEquals(1,server.getPlayerIpToConnect().size());
-        assertEquals("AlreadyJoined",myClient.getResponse());
-
+        assertEquals("AlreadyJoined",myClient.response);
+    }
+    @Test
+    public void hostSendsRules() throws InterruptedException {
+        RoboClient myClient = new RoboClient(RoboServer.getLANIp());
+        myClient.join();
+        while(myClient.getGameRules() == null)
+            sleep(1000); // Delay so host can respond
+        assertEquals("gameRules,3;9,", myClient.getGameRules().toString());
+        assertEquals("lobby,0;P1;0;true;false:,", myClient.getLobbyInfo().toString());
     }
 }
