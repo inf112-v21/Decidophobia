@@ -114,11 +114,18 @@ public class RoboServer {
                 sendToAll("move,"+getPlayerNumber(connection)+","+req[1]+",");
                 break;
 
+            case "DealCards":
+                System.out.println(req[1]+","+req[2] + "  <--   SE HER");
+                for(int i = 1; i < req.length; i+=2){
+                    int pNr = Integer.parseInt(req[i]);
+                    playerIpToConnect.get(playerNrToIp.get(pNr)).sendTCP("dealCards,"+req[i+1]+",");
+                }
+                break;
         }
     }
     private void sendToAll(String str){
         for(Connection cons : playerIpToConnect.values()){
-            cons.sendTCP("joined,"+str);
+            cons.sendTCP(str);
         }
     }
 

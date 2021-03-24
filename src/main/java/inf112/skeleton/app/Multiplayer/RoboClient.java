@@ -27,14 +27,16 @@ public class RoboClient {
 
     private GameRules gameRules;
 
+    public GameCards getRoundCards() {
+        return roundCards;
+    }
+
     private GameCards roundCards;
+
+    private PlayerCards clientsCards;
 
     public int getClientPlayerNr() {
         return clientPlayerNr;
-    }
-
-    public void setClientPlayerNr(int clientPlayerNr) {
-        this.clientPlayerNr = clientPlayerNr;
     }
 
     private int clientPlayerNr;
@@ -47,12 +49,20 @@ public class RoboClient {
         client.start();
     }
 
-    public void sendRequest(Object request){
+    public void sendRequest(String request){
         client.sendTCP(request);
     }
 
-    public void changeDamageTokens(int i) {
+    public void sendMoves(PlayerCards cards){
+        sendRequest("Move,"+cards+",");
+    }
 
+    public void dealCards(GameCards gameCards){
+        String request = "DealCards,";
+        for(Integer pNr : gameCards.getAllPlayerHands().keySet()){
+            request += pNr+","+ gameCards.getAllPlayerHands().get(pNr) + ",";
+        }
+        sendRequest(request);
     }
 
     public void join() {
@@ -76,41 +86,53 @@ public class RoboClient {
 
     }
     public void parser(String str){
-        System.out.println(str);
         String[] arguments = str.split(",");
         switch (arguments[0]){
             case "joined":
                 clientPlayerNr = Integer.parseInt(arguments[1]);
                 parser(str.substring("joined,,".length() + arguments[1].length()));
                 break;
+
             case "gameRules":
                 gameRules = new GameRules(arguments[1]);
                 parser(str.substring("gameRules,,".length() + arguments[1].length()));
                 break;
+
             case "lobby":
                 lobbyInfo = new LobbyInfo(arguments[1]);
                 parser(str.substring("lobby,,".length() + arguments[1].length()));
                 break;
+
             case "move":
-                if(roundCards==null)
-                    roundCards = new GameCards(new Deck());
                 roundCards.addPlayerCards(Integer.parseInt(arguments[1]),arguments[2]);
                 break;
+
+            case "dealCards":
+                System.out.println(arguments[1]);
+                roundCards = new GameCards(new Deck());
+                clientsCards = new PlayerCards(arguments[1]);
+                break;
+
             case "changeNick":
                 lobbyInfo.changeNick(Integer.parseInt(arguments[1]),arguments[2]);
                 break;
+
             case "changeRobot":
                 lobbyInfo.changeRobot(Integer.parseInt(arguments[1]),arguments[2],arguments[3]);
                 break;
+
             case "ready":
                 lobbyInfo.playerSetReady(Integer.parseInt(arguments[1]),true);
                 break;
+
             case "unReady":
                 lobbyInfo.playerSetReady(Integer.parseInt(arguments[1]),false);
                 break;
+
             case "quit":
                 lobbyInfo.playerQuit(Integer.parseInt(arguments[1]));
                 break;
+
             default:
                 return;
         }
@@ -141,10 +163,13 @@ public class RoboClient {
      */
     public static void main(String[] args){
         RoboClient client = new RoboClient("localhost");
-        client.sendRequest(new MoveCardsPacket(1,new PlayerCards()));
     }
 
     public GameCards getGameCards() {
         return roundCards;
+    }
+
+    public PlayerCards getClientCards() {
+        return clientsCards;
     }
 }

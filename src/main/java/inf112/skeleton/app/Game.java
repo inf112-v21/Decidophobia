@@ -29,9 +29,7 @@ public class Game {
     }
 
     private void dealCards(){
-        PlayerCards cards = new PlayerCards();
-        cards.insertCard(cardDeck.pop());
-        networkClient.sendRequest(cards);
+
 
     }
     public void setLocalPlayerNumber(int playerNr) {

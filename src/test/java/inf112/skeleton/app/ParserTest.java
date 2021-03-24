@@ -4,9 +4,11 @@ import inf112.skeleton.app.Multiplayer.RoboClient;
 import inf112.skeleton.app.Multiplayer.packets.GameRules;
 import inf112.skeleton.app.Multiplayer.packets.LobbyInfo;
 import inf112.skeleton.app.cards.CardType;
+import inf112.skeleton.app.cards.Cards;
 import inf112.skeleton.app.cards.PlayerCards;
 import org.junit.Before;
 import org.junit.Test;
+import org.lwjgl.system.CallbackI;
 
 import static inf112.skeleton.app.cards.CardType.*;
 import static org.junit.Assert.*;
@@ -65,20 +67,47 @@ public class ParserTest {
         robo.parser(parseText);
         PlayerCards nrOnesCards = robo.getGameCards().getAllPlayerHands().get(1);
 
-        // card from player hand
-        assertEquals(888,nrOnesCards.getCardsInHand().get(1).getPriority());
-        assertEquals(FORWARD_2,nrOnesCards.getCardsInHand().get(1).getType());
-        // card from active cards that is locked
-        assertEquals(333,nrOnesCards.getActiveCards().get(0).getPriority());
-        assertEquals(FORWARD_2,nrOnesCards.getActiveCards().get(0).getType());
-        // card from active cards that is no locked
-        assertEquals(555,nrOnesCards.getActiveCards().get(3).getPriority());
-        assertEquals(ROTATE_LEFT,nrOnesCards.getActiveCards().get(3).getType());
-        // card from locked cards
-        assertEquals(222,nrOnesCards.getLockedCards().get(1).getPriority());
-        assertEquals(FORWARD_3,nrOnesCards.getLockedCards().get(1).getType());
+        playerCardEvaluation(robo.getGameCards().getAllPlayerHands().get(1));
+    }
+    @Test
+    public void playerCardsObjectIsWrittenAndParsedCorrectly(){
+        PlayerCards cards = new PlayerCards();
+        cards.insertCard(new Cards(FORWARD_1,999));
+        cards.insertCard(new Cards(FORWARD_2,888));
+        cards.insertCard(new Cards(FORWARD_3,777));
+        cards.insertCard(new Cards(ROTATE_RIGHT,666));
+        cards.insertCard(new Cards(ROTATE_LEFT,555));
+        cards.insertCard(new Cards(U_TURN,444));
+        cards.insertCard(new Cards(FORWARD_2,333));
+        cards.insertCard(new Cards(FORWARD_3,222));
+        cards.insertCard(new Cards(ROTATE_RIGHT,111));
+        cards.setActiveCard(6,0);
+        cards.setActiveCard(6,1);
+        cards.setActiveCard(6,2);
+        cards.setActiveCard(4,3);
+        cards.setActiveCard(4,4);
+        cards.lockCard(0);
+        cards.lockCard(1);
+        cards.lockCard(2);
+
+        robo.parser("move,1,"+cards+",");
+        playerCardEvaluation(robo.getGameCards().getAllPlayerHands().get(1));
     }
 
+    public static void playerCardEvaluation(PlayerCards cards){
+        // card from player hand
+        assertEquals(888,cards.getCardsInHand().get(1).getPriority());
+        assertEquals(FORWARD_2,cards.getCardsInHand().get(1).getType());
+        // card from active cards that is locked
+        assertEquals(333,cards.getActiveCards().get(0).getPriority());
+        assertEquals(FORWARD_2,cards.getActiveCards().get(0).getType());
+        // card from active cards that is no locked
+        assertEquals(555,cards.getActiveCards().get(3).getPriority());
+        assertEquals(ROTATE_LEFT,cards.getActiveCards().get(3).getType());
+        // card from locked cards
+        assertEquals(222,cards.getLockedCards().get(1).getPriority());
+        assertEquals(FORWARD_3,cards.getLockedCards().get(1).getType());
+    }
     public void lobbyInfoEvaluation(){
         assertEquals(2,robo.getLobbyInfo().getPlayers().size());
         assertEquals("Isak",robo.getLobbyInfo().getPlayers().get(0).getNickname());
