@@ -4,9 +4,11 @@ import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import inf112.skeleton.app.Game;
+import inf112.skeleton.app.Multiplayer.packets.GameCards;
 import inf112.skeleton.app.Multiplayer.packets.GameRules;
 import inf112.skeleton.app.Multiplayer.packets.LobbyInfo;
 
+import inf112.skeleton.app.cards.Deck;
 import inf112.skeleton.app.cards.PlayerCards;
 
 import java.io.IOException;
@@ -25,6 +27,8 @@ public class RoboClient {
 
     private GameRules gameRules;
 
+    private GameCards roundCards;
+
     public int getClientPlayerNr() {
         return clientPlayerNr;
     }
@@ -36,6 +40,7 @@ public class RoboClient {
     private int clientPlayerNr;
 
     public RoboClient(String serverAddress){
+        roundCards = new GameCards(new Deck());
         this.serverAddress = serverAddress;
         client = new Client();
 
@@ -72,22 +77,24 @@ public class RoboClient {
     }
     public void parser(String str){
         System.out.println(str);
-        if(str.equals("")){
-            return;
-        }
         String[] arguments = str.split(",");
         switch (arguments[0]){
             case "joined":
                 clientPlayerNr = Integer.parseInt(arguments[1]);
-                parser(str.substring(2+6+arguments[1].length()));
+                parser(str.substring("joined,,".length() + arguments[1].length()));
                 break;
             case "gameRules":
-               gameRules = new GameRules(arguments[1]);
-                parser(str.substring(2+9+arguments[1].length()));
-               break;
+                gameRules = new GameRules(arguments[1]);
+                parser(str.substring("gameRules,,".length() + arguments[1].length()));
+                break;
             case "lobby":
                 lobbyInfo = new LobbyInfo(arguments[1]);
-                parser(str.substring(2+5+arguments[1].length()));
+                parser(str.substring("lobby,,".length() + arguments[1].length()));
+                break;
+            case "move":
+                if(roundCards==null)
+                    roundCards = new GameCards(new Deck());
+                roundCards.addPlayerCards(Integer.parseInt(arguments[1]),arguments[2]);
                 break;
             case "changeNick":
                 lobbyInfo.changeNick(Integer.parseInt(arguments[1]),arguments[2]);
@@ -104,6 +111,8 @@ public class RoboClient {
             case "quit":
                 lobbyInfo.playerQuit(Integer.parseInt(arguments[1]));
                 break;
+            default:
+                return;
         }
     }
     public LobbyInfo getLobbyInfo() {
@@ -133,5 +142,9 @@ public class RoboClient {
     public static void main(String[] args){
         RoboClient client = new RoboClient("localhost");
         client.sendRequest(new MoveCardsPacket(1,new PlayerCards()));
+    }
+
+    public GameCards getGameCards() {
+        return roundCards;
     }
 }

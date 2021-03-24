@@ -5,8 +5,6 @@ import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import inf112.skeleton.app.Multiplayer.packets.GameRules;
 import inf112.skeleton.app.Multiplayer.packets.LobbyInfo;
-import inf112.skeleton.app.cards.CardType;
-import inf112.skeleton.app.cards.Cards;
 import inf112.skeleton.app.cards.PlayerCards;
 
 import java.io.BufferedReader;
@@ -62,9 +60,7 @@ public class RoboServer {
                     playerIpToConnect.put(connectionToIp(connection), connection);
                     playerNrToIp.add(connectionToIp(connection));
                     lobby.addPlayer(getPlayerNumber(connection));
-                    for(Connection cons : playerIpToConnect.values()){
-                        cons.sendTCP("joined,"+getPlayerNumber(connection)+","+gameRules+lobby);
-                    }
+                    sendToAll("joined,"+getPlayerNumber(connection)+","+gameRules+lobby);
                 }
                 else if(playerIpToConnect.containsKey(connectionToIp(connection))) {
                     connection.sendTCP("AlreadyJoined");
@@ -76,28 +72,28 @@ public class RoboServer {
 
             case "Ready":
                 lobby.playerSetReady(getPlayerNumber(connection), true);
-                server.sendToAllTCP("ready,"+getPlayerNumber(connection)+",");
+                sendToAll("ready,"+getPlayerNumber(connection)+",");
                 break;
 
             case "Unready":
                 lobby.playerSetReady(getPlayerNumber(connection), false);
-                server.sendToAllTCP("unReady,"+getPlayerNumber(connection)+",");
+                sendToAll("unReady,"+getPlayerNumber(connection)+",");
                 break;
 
             case "Quit":
                 lobby.playerQuit(getPlayerNumber(connection));
                 this.playerIpToConnect.remove(connectionToIp(connection));
                 this.playerNrToIp.remove(connectionToIp(connection));
-                server.sendToAllTCP("quit;"+getPlayerNumber(connection)+",");
+                sendToAll("quit;"+getPlayerNumber(connection)+",");
                 break;
 
             case "Start":
                 if(connectionToIp(connection).equals(getLANIp()))
-                    server.sendToAllTCP("start");
+                    sendToAll("start");
                 break;
             case "End":
                 if(connectionToIp(connection).equals(getLANIp()))
-                    server.sendToAllTCP("end");
+                    sendToAll("end");
                 break;
         }
 
@@ -106,22 +102,26 @@ public class RoboServer {
         switch (req[0]){
             case "ChangeNick":
                 lobby.changeNick(getPlayerNumber(connection),req[1]);
-                server.sendToAllTCP("changeNick,"+req[1]+","+req[2]);
+                sendToAll("changeNick,"+getPlayerNumber(connection)+","+req[1]+",");
                 break;
 
             case "ChangeRobot":
                 lobby.changeRobot(getPlayerNumber(connection),req[1],req[2]);
-                server.sendToAllTCP("changeRobot,"+req[1]+","+req[2]+","+req[3]);
+                sendToAll("changeRobot,"+getPlayerNumber(connection)+","+req[1]+","+req[2]+",");
+                break;
+
+            case "Move":
+                sendToAll("move,"+getPlayerNumber(connection)+","+req[1]+",");
                 break;
 
         }
     }
-
-    private void handlePlayerCardsRequest(Connection connection, PlayerCards playerCards) {
-        System.out.println("Sending: " + playerCards);
-        server.sendToAllTCP(new MoveCardsPacket(getPlayerNumber(connection),playerCards));
-
+    private void sendToAll(String str){
+        for(Connection cons : playerIpToConnect.values()){
+            cons.sendTCP("joined,"+str);
+        }
     }
+
     private int getPlayerNumber(Connection connection){
         return playerNrToIp.indexOf(connectionToIp(connection));
     }

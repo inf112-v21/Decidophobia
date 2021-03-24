@@ -3,9 +3,12 @@ package inf112.skeleton.app;
 import inf112.skeleton.app.Multiplayer.RoboClient;
 import inf112.skeleton.app.Multiplayer.packets.GameRules;
 import inf112.skeleton.app.Multiplayer.packets.LobbyInfo;
+import inf112.skeleton.app.cards.CardType;
+import inf112.skeleton.app.cards.PlayerCards;
 import org.junit.Before;
 import org.junit.Test;
 
+import static inf112.skeleton.app.cards.CardType.*;
 import static org.junit.Assert.*;
 
 public class ParserTest {
@@ -52,6 +55,22 @@ public class ParserTest {
         assertEquals(4,robo.getGameRules().getLifeTokens());
         assertEquals(10,robo.getGameRules().getDamageTokens());
         assertEquals(1,robo.getClientPlayerNr());
+    }
+    @Test
+    public void playerCardsIsParsedCorrectly(){
+        String parseText = "move,1,h;FORWARD_1:999;FORWARD_2:888;FORWARD_3:777;ROTATE_RIGHT:666;a;ROTATE_LEFT:555;U_TURN:444;" +
+                "l;FORWARD_2:333;FORWARD_3:222;ROTATE_RIGHT:111;,";
+        robo.parser(parseText);
+        PlayerCards nrOnesCards = robo.getGameCards().getAllPlayerHands().get(1);
+
+        assertEquals(888,nrOnesCards.getCardsInHand().get(1).getPriority());
+        assertEquals(FORWARD_2,nrOnesCards.getCardsInHand().get(1).getType());
+
+        assertEquals(555,nrOnesCards.getActiveCards().get(0).getPriority());
+        assertEquals(ROTATE_LEFT,nrOnesCards.getActiveCards().get(0).getType());
+
+        assertEquals(111,nrOnesCards.getLockedCards().get(0).getPriority());
+        assertEquals(ROTATE_RIGHT,nrOnesCards.getLockedCards().get(0).getType());
     }
 
     public void lobbyInfoEvaluation(){

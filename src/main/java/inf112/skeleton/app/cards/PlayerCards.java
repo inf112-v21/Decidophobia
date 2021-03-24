@@ -12,6 +12,58 @@ public class PlayerCards {
     private Cards[] activeCards;
     private Stack<Cards> lockedCards;
 
+    public PlayerCards(String str) {
+        cardsInHand = new LinkedList<>();
+        activeCards = new Cards[5];
+        lockedCards = new Stack<>();
+        String[] cards = str.split(";");
+        int startNextIndex = 0;
+        for(int i = 1; i < cards.length; i++){
+            if(cards[i].equals("a")) {
+                startNextIndex = i;
+                i = cards.length;
+            }
+            else{
+                cardsInHand.add(new Cards(cards[i]));
+            }
+        }
+        int activeCardsIndexer = 0;
+        for(int i = startNextIndex+1; i < cards.length; i++){
+            if(cards[i].equals("l")) {
+                startNextIndex = i;
+                i = cards.length;
+            }
+            else if(activeCardsIndexer<5){
+                activeCards[activeCardsIndexer] = new Cards(cards[i]);
+                activeCardsIndexer++;
+            }
+        }
+        for(int i = startNextIndex+1; i < cards.length; i++){
+            Cards newCard = new Cards(cards[i]);
+            activeCards[activeCardsIndexer] = newCard;
+            activeCardsIndexer++;
+            lockedCards.add(newCard);
+        }
+    }
+
+    @Override
+    public String toString() {
+        String cardsString = "h;";
+        for(Cards card : cardsInHand){
+            cardsString += card.toString() +";";
+        }
+        cardsString += "a;";
+        for(Cards card : activeCards) {
+            if(!lockedCards.contains(card))
+                cardsString += card.toString() + ";";
+        }
+        cardsString += "l;";
+        for(Cards card : lockedCards) {
+            cardsString += card.toString() + ";";
+        }
+        return cardsString;
+    }
+
     public PlayerCards() {
         cardsInHand = new LinkedList<>();
         activeCards = new Cards[5];

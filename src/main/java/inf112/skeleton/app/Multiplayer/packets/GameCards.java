@@ -30,4 +30,17 @@ public class GameCards {
     public void setDeck(Deck deck) {
         this.deck = deck;
     }
+
+    @Override
+    public String toString() {
+        String cardLib = "";
+        for(Integer pNr : allPlayerHands.keySet()){
+            cardLib += pNr +":" + allPlayerHands.get(pNr)+":";
+        }
+        return cardLib;
+    }
+
+    public void addPlayerCards(int pNr, String unparsedCards) {
+        allPlayerHands.put(pNr, new PlayerCards(unparsedCards));
+    }
 }
