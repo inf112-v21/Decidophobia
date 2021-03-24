@@ -58,19 +58,25 @@ public class ParserTest {
     }
     @Test
     public void playerCardsIsParsedCorrectly(){
-        String parseText = "move,1,h;FORWARD_1:999;FORWARD_2:888;FORWARD_3:777;ROTATE_RIGHT:666;a;ROTATE_LEFT:555;U_TURN:444;" +
-                "l;FORWARD_2:333;FORWARD_3:222;ROTATE_RIGHT:111;,";
+        String parseText = "move,1," +
+                "h;FORWARD_1:999;FORWARD_2:888;FORWARD_3:777;ROTATE_RIGHT:666;" +
+                "l;FORWARD_2:333;FORWARD_3:222;ROTATE_RIGHT:111;" +
+                "a;ROTATE_LEFT:555;U_TURN:444;,";
         robo.parser(parseText);
         PlayerCards nrOnesCards = robo.getGameCards().getAllPlayerHands().get(1);
 
+        // card from player hand
         assertEquals(888,nrOnesCards.getCardsInHand().get(1).getPriority());
         assertEquals(FORWARD_2,nrOnesCards.getCardsInHand().get(1).getType());
-
-        assertEquals(555,nrOnesCards.getActiveCards().get(0).getPriority());
-        assertEquals(ROTATE_LEFT,nrOnesCards.getActiveCards().get(0).getType());
-
-        assertEquals(111,nrOnesCards.getLockedCards().get(0).getPriority());
-        assertEquals(ROTATE_RIGHT,nrOnesCards.getLockedCards().get(0).getType());
+        // card from active cards that is locked
+        assertEquals(333,nrOnesCards.getActiveCards().get(0).getPriority());
+        assertEquals(FORWARD_2,nrOnesCards.getActiveCards().get(0).getType());
+        // card from active cards that is no locked
+        assertEquals(333,nrOnesCards.getActiveCards().get(0).getPriority());
+        assertEquals(FORWARD_2,nrOnesCards.getActiveCards().get(0).getType());
+        // card from locked cards
+        assertEquals(222,nrOnesCards.getLockedCards().get(1).getPriority());
+        assertEquals(FORWARD_3,nrOnesCards.getLockedCards().get(1).getType());
     }
 
     public void lobbyInfoEvaluation(){

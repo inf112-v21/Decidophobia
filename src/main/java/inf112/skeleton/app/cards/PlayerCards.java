@@ -17,32 +17,35 @@ public class PlayerCards {
         activeCards = new Cards[5];
         lockedCards = new Stack<>();
         String[] cards = str.split(";");
-        int startNextIndex = 0;
+        // Adding cards to hand
+        int cardTypeStartIndex = 0;
         for(int i = 1; i < cards.length; i++){
-            if(cards[i].equals("a")) {
-                startNextIndex = i;
+            if(cards[i].equals("l")) {
+                cardTypeStartIndex = i;
                 i = cards.length;
             }
             else{
                 cardsInHand.add(new Cards(cards[i]));
             }
         }
+        // Adding cards to locked cards and active cards
         int activeCardsIndexer = 0;
-        for(int i = startNextIndex+1; i < cards.length; i++){
-            if(cards[i].equals("l")) {
-                startNextIndex = i;
+        for(int i = cardTypeStartIndex+1; i < cards.length; i++){
+            if(cards[i].equals("a")) {
+                cardTypeStartIndex = i;
                 i = cards.length;
             }
             else if(activeCardsIndexer<5){
-                activeCards[activeCardsIndexer] = new Cards(cards[i]);
+                Cards newCard = new Cards(cards[i]);
+                activeCards[activeCardsIndexer] = newCard;
+                lockedCards.push(newCard);
                 activeCardsIndexer++;
             }
         }
-        for(int i = startNextIndex+1; i < cards.length; i++){
-            Cards newCard = new Cards(cards[i]);
-            activeCards[activeCardsIndexer] = newCard;
+        // Adding non locked cards to active cards
+        for(int i = cardTypeStartIndex+1; i < cards.length; i++){
+            activeCards[activeCardsIndexer] = new Cards(cards[i]);
             activeCardsIndexer++;
-            lockedCards.add(newCard);
         }
     }
 
@@ -52,14 +55,15 @@ public class PlayerCards {
         for(Cards card : cardsInHand){
             cardsString += card.toString() +";";
         }
-        cardsString += "a;";
-        for(Cards card : activeCards) {
-            if(!lockedCards.contains(card))
-                cardsString += card.toString() + ";";
-        }
         cardsString += "l;";
+        int indexOfActiveCards = 0;
         for(Cards card : lockedCards) {
             cardsString += card.toString() + ";";
+            indexOfActiveCards++;
+        }
+        cardsString += "a;";
+        for(int i = indexOfActiveCards; i < 5; i++) {
+            cardsString += activeCards[i].toString() + ";";
         }
         return cardsString;
     }
