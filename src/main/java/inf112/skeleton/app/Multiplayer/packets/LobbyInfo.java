@@ -44,7 +44,7 @@ public class LobbyInfo {
     }
 
     public void addPlayer(int playerNumber) {
-        players.add(new PlayerInfo(playerNumber,(playerNumber==0 ? true : false)));
+        players.add(new PlayerInfo(playerNumber, playerNumber == 0));
     }
 
     public void playerSetReady(int playerNumber, boolean isReady) {

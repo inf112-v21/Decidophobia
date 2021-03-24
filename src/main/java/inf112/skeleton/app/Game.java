@@ -19,6 +19,7 @@ public class Game {
     boolean isHost;
 
     private int localPlayerNumber;
+
     public static Map<Integer, PlayerCards> playerMoves;
 
     PlayerCards yourCards;
@@ -36,20 +37,7 @@ public class Game {
         localPlayerNumber = playerNr;
     }
 
-    public void setMove(MoveCardsPacket moveCardsPacket){
-        System.out.println("DO move " + moveCardsPacket);
-    }
-
-    public RoboClient getNetworkClient() {
-        return networkClient;
-    }
-
-    public static void main(String[] args) {
-        RoboServer server = new RoboServer();
-        server.runServer();
-        Game game = new Game();
-        game.networkClient.setGameReference(game);
-        game.networkClient.join();
-        game.dealCards();
+    public void setMove(GameCards roundMoves){
+        System.out.println("Do move " + roundMoves);
     }
 }

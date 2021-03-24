@@ -5,7 +5,6 @@ import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import inf112.skeleton.app.Multiplayer.packets.GameRules;
 import inf112.skeleton.app.Multiplayer.packets.LobbyInfo;
-import inf112.skeleton.app.cards.PlayerCards;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -18,18 +17,24 @@ import java.util.*;
 
 public class RoboServer {
     private boolean gameStarted;
+
     //server.getConnections();
     Map<String, Connection> playerIpToConnect;
-    List<String> playerNrToIp;
-    Server server;
-    private GameRules gameRules;
-    private LobbyInfo lobby;
 
+    Map<Integer,String> playerNrToIp;
+
+    int highestPlayerNumb = 0;
+
+    Server server;
+
+    private GameRules gameRules;
+
+    private LobbyInfo lobby;
 
     public RoboServer(){
         gameStarted = false;
         playerIpToConnect = new HashMap<>();
-        playerNrToIp = new ArrayList<>();
+        playerNrToIp = new HashMap<>();
         server = new Server();
 
         gameRules = new GameRules(3,9);
@@ -58,9 +63,14 @@ public class RoboServer {
             case "Join":
                 if(!gameStarted & !playerIpToConnect.containsKey(connectionToIp(connection))) {
                     playerIpToConnect.put(connectionToIp(connection), connection);
-                    playerNrToIp.add(connectionToIp(connection));
+                    playerNrToIp.put(highestPlayerNumb,connectionToIp(connection));
+                    highestPlayerNumb++;
                     lobby.addPlayer(getPlayerNumber(connection));
-                    sendToAll("joined,"+getPlayerNumber(connection)+","+gameRules+lobby);
+                    send(connection,"joined,"+getPlayerNumber(connection)+","+gameRules+lobby);
+                    for(String ips : playerIpToConnect.keySet()) {
+                        if(!ips.equals(connectionToIp(connection)))
+                            playerIpToConnect.get(ips).sendTCP("playerJoined,"+getPlayerNumber(connection)+","+gameRules+lobby);
+                    }
                 }
                 else if(playerIpToConnect.containsKey(connectionToIp(connection))) {
                     connection.sendTCP("AlreadyJoined");
@@ -83,7 +93,7 @@ public class RoboServer {
             case "Quit":
                 lobby.playerQuit(getPlayerNumber(connection));
                 this.playerIpToConnect.remove(connectionToIp(connection));
-                this.playerNrToIp.remove(connectionToIp(connection));
+                playerNrToIp.remove(getPlayerNumber(connection));
                 sendToAll("quit;"+getPlayerNumber(connection)+",");
                 break;
 
@@ -115,14 +125,21 @@ public class RoboServer {
                 break;
 
             case "DealCards":
-                System.out.println(req[1]+","+req[2] + "  <--   SE HER");
-                for(int i = 1; i < req.length; i+=2){
-                    int pNr = Integer.parseInt(req[i]);
-                    playerIpToConnect.get(playerNrToIp.get(pNr)).sendTCP("dealCards,"+req[i+1]+",");
+                if(connectionToIp(connection).equals(getLANIp())) {
+                    System.out.println(req[1] + "," + req[2] + "  <--   SE HER");
+                    for (int i = 1; i < req.length; i += 2) {
+                        int pNr = Integer.parseInt(req[i]);
+                        playerIpToConnect.get(playerNrToIp.get(pNr)).sendTCP("dealCards," + req[i + 1] + ",");
+                    }
                 }
                 break;
         }
     }
+
+    private void send(Connection connection, String str){
+        connection.sendTCP(str);
+    }
+
     private void sendToAll(String str){
         for(Connection cons : playerIpToConnect.values()){
             cons.sendTCP(str);
@@ -130,7 +147,11 @@ public class RoboServer {
     }
 
     private int getPlayerNumber(Connection connection){
-        return playerNrToIp.indexOf(connectionToIp(connection));
+        for(Integer pNr : playerNrToIp.keySet()){
+            if(playerNrToIp.get(pNr).equals(connectionToIp(connection)));
+                return pNr;
+        }
+        return -1;
     }
     private String connectionToIp(Connection con){
         String tcpAddress = con.getRemoteAddressTCP().toString();

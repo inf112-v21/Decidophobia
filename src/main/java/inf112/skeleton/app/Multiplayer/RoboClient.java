@@ -53,6 +53,34 @@ public class RoboClient {
         client.sendTCP(request);
     }
 
+    public void ready(){
+        sendRequest("Ready");
+    }
+
+    public void unReady(){
+        sendRequest("Unready");
+    }
+
+    public void quit(){
+        sendRequest("Quit");
+    }
+
+    public void startGame(){
+        sendRequest("Start");
+    }
+
+    public void endGame(){
+        sendRequest("End");
+    }
+
+    public void sendNick(String nickname) {
+        sendRequest("ChangeNick," + nickname + ",");
+    }
+
+    public void sendRobot(int robTexture, int color) {
+        sendRequest("ChangeRobot," + robTexture + "," + color + ",");
+    }
+
     public void sendMoves(PlayerCards cards){
         sendRequest("Move,"+cards+",");
     }
@@ -72,7 +100,7 @@ public class RoboClient {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        client.sendTCP("Join");
+        sendRequest("Join");
 
         client.addListener(new Listener() {
             public void received (Connection connection, Object object) {
@@ -90,6 +118,11 @@ public class RoboClient {
         switch (arguments[0]){
             case "joined":
                 clientPlayerNr = Integer.parseInt(arguments[1]);
+                if(game != null) game.setLocalPlayerNumber(clientPlayerNr);
+                parser(str.substring("joined,,".length() + arguments[1].length()));
+                break;
+
+            case "playerJoined":
                 parser(str.substring("joined,,".length() + arguments[1].length()));
                 break;
 
