@@ -72,8 +72,8 @@ public class ParserTest {
         assertEquals(333,nrOnesCards.getActiveCards().get(0).getPriority());
         assertEquals(FORWARD_2,nrOnesCards.getActiveCards().get(0).getType());
         // card from active cards that is no locked
-        assertEquals(333,nrOnesCards.getActiveCards().get(0).getPriority());
-        assertEquals(FORWARD_2,nrOnesCards.getActiveCards().get(0).getType());
+        assertEquals(555,nrOnesCards.getActiveCards().get(3).getPriority());
+        assertEquals(ROTATE_LEFT,nrOnesCards.getActiveCards().get(3).getType());
         // card from locked cards
         assertEquals(222,nrOnesCards.getLockedCards().get(1).getPriority());
         assertEquals(FORWARD_3,nrOnesCards.getLockedCards().get(1).getType());
