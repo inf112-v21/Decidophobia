@@ -3,6 +3,9 @@ package inf112.skeleton.app;
 import inf112.skeleton.app.Multiplayer.MoveCardsPacket;
 import inf112.skeleton.app.Multiplayer.RoboClient;
 import inf112.skeleton.app.Multiplayer.RoboServer;
+import inf112.skeleton.app.Multiplayer.packets.GameCards;
+import inf112.skeleton.app.Multiplayer.packets.GameRules;
+import inf112.skeleton.app.board.IBoard;
 import inf112.skeleton.app.cards.Deck;
 import inf112.skeleton.app.cards.PlayerCards;
 
@@ -13,10 +16,9 @@ public class Game {
     private static String serverAddress = RoboServer.getLANIp();
 
     private Deck cardDeck;
+    private GameRules gameRules;
 
     private RoboClient networkClient;
-
-    boolean isHost;
 
     private int localPlayerNumber;
 
@@ -24,15 +26,17 @@ public class Game {
 
     PlayerCards yourCards;
 
-    public Game(){
-        networkClient = new RoboClient(serverAddress);
+    public Game(RoboClient networkClient) {
+        this.networkClient = networkClient;
+        gameRules = networkClient.getGameRules();
         cardDeck = new Deck();
     }
 
-    private void dealCards(){
+    private void dealCards() {
 
 
     }
+
     public void setLocalPlayerNumber(int playerNr) {
         localPlayerNumber = playerNr;
     }

@@ -58,6 +58,7 @@ public class RoboServer {
             }
         });
     }
+
     private void handleStringRequest(Connection connection, String request){
         switch (request){
             case "Join":
@@ -153,18 +154,17 @@ public class RoboServer {
         }
         return -1;
     }
+
     private String connectionToIp(Connection con){
         String tcpAddress = con.getRemoteAddressTCP().toString();
         return tcpAddress.substring(1,tcpAddress.length()-6);
     }
-
 
     public void sendGameInstance(String game){
         gameStarted = true;
         server.sendToAllTCP(game);
 
     }
-
 
     public void stopServer(){
         server.stop();
@@ -177,6 +177,7 @@ public class RoboServer {
             return "";
         }
     }
+
     public static String getPublicIp(){
         ///// https://www.geeksforgeeks.org/java-program-find-ip-address-computer/
         // Find public IP address
