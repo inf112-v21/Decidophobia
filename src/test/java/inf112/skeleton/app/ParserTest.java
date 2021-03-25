@@ -60,14 +60,13 @@ public class ParserTest {
     }
     @Test
     public void playerCardsIsParsedCorrectly(){
-        String parseText = "move,1," +
-                "h;FORWARD_1:999;FORWARD_2:888;FORWARD_3:777;ROTATE_RIGHT:666;" +
+        String parseText = "h;FORWARD_1:999;FORWARD_2:888;FORWARD_3:777;ROTATE_RIGHT:666;" +
                 "l;FORWARD_2:333;FORWARD_3:222;ROTATE_RIGHT:111;" +
-                "a;ROTATE_LEFT:555;U_TURN:444;,";
-        robo.parser(parseText);
-        PlayerCards nrOnesCards = robo.getGameCards().getAllPlayerHands().get(1);
+                "a;ROTATE_LEFT:555;U_TURN:444;";
 
-        playerCardEvaluation(robo.getGameCards().getAllPlayerHands().get(1));
+        PlayerCards nrOnesCards = new PlayerCards(parseText);
+
+        playerCardEvaluation(nrOnesCards);
     }
     @Test
     public void playerCardsObjectIsWrittenAndParsedCorrectly(){
@@ -90,8 +89,8 @@ public class ParserTest {
         cards.lockCard(1);
         cards.lockCard(2);
 
-        robo.parser("move,1,"+cards+",");
-        playerCardEvaluation(robo.getGameCards().getAllPlayerHands().get(1));
+        PlayerCards sameCards = new PlayerCards(cards.toString());
+        playerCardEvaluation(sameCards);
     }
 
     public static void playerCardEvaluation(PlayerCards cards){

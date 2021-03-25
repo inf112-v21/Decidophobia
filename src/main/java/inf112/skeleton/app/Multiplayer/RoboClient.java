@@ -114,6 +114,12 @@ public class RoboClient {
 
     }
     public void parser(String str){
+        switch (str){
+            case "start":
+                break;
+            case "end":
+                break;
+        }
         String[] arguments = str.split(",");
         switch (arguments[0]){
             case "joined":
@@ -138,12 +144,16 @@ public class RoboClient {
 
             case "move":
                 roundCards.addPlayerCards(Integer.parseInt(arguments[1]),arguments[2]);
+                if(roundCards.getAllPlayerHands().keySet().size()==lobbyInfo.getPlayers().size()){
+                    if(game!=null) game.doRound(roundCards);
+                }
                 break;
 
             case "dealCards":
                 System.out.println(arguments[1]);
                 roundCards = new GameCards(new Deck());
                 clientsCards = new PlayerCards(arguments[1]);
+                roundCards.addPlayerCards(clientPlayerNr, clientsCards);
                 break;
 
             case "changeNick":

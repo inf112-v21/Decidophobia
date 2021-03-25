@@ -5,10 +5,13 @@ import inf112.skeleton.app.Multiplayer.RoboClient;
 import inf112.skeleton.app.Multiplayer.RoboServer;
 import inf112.skeleton.app.Multiplayer.packets.GameCards;
 import inf112.skeleton.app.Multiplayer.packets.GameRules;
+import inf112.skeleton.app.Multiplayer.packets.PlayerInfo;
 import inf112.skeleton.app.board.IBoard;
+import inf112.skeleton.app.cards.Cards;
 import inf112.skeleton.app.cards.Deck;
 import inf112.skeleton.app.cards.PlayerCards;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Game {
@@ -16,6 +19,7 @@ public class Game {
     private static String serverAddress = RoboServer.getLANIp();
 
     private Deck cardDeck;
+
     private GameRules gameRules;
 
     private RoboClient networkClient;
@@ -26,22 +30,39 @@ public class Game {
 
     PlayerCards yourCards;
 
+    private GameCards lastRound;
+
     public Game(RoboClient networkClient) {
         this.networkClient = networkClient;
         gameRules = networkClient.getGameRules();
         cardDeck = new Deck();
     }
 
-    private void dealCards() {
-
-
+    public void dealCards() {
+        if(networkClient.getLobbyInfo().getPlayers().get(localPlayerNumber).getHost()){
+            GameCards thisRound = new GameCards(cardDeck);
+            HashMap<Integer, PlayerCards> newHands = new HashMap<>();
+            for(PlayerInfo pInfo : networkClient.getLobbyInfo().getPlayers()){
+                int pNr = pInfo.getPlayerNr();
+                PlayerCards pCards = new PlayerCards();
+                for(int i = 0; i<9;i++){
+                    pCards.dealToHand(cardDeck.pop());
+                }
+                newHands.put(pNr,pCards);
+            }
+            thisRound.setAllPlayerHands(newHands);
+            networkClient.dealCards(thisRound);
+        }
+    }
+    public void doRound(GameCards playerMoves){
+        lastRound = playerMoves;
     }
 
     public void setLocalPlayerNumber(int playerNr) {
         localPlayerNumber = playerNr;
     }
 
-    public void setMove(GameCards roundMoves){
-        System.out.println("Do move " + roundMoves);
+    public GameCards getLastRound() {
+        return lastRound;
     }
 }

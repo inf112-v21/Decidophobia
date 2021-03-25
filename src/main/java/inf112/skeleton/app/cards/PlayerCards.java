@@ -62,8 +62,10 @@ public class PlayerCards {
             indexOfActiveCards++;
         }
         cardsString += "a;";
-        for(int i = indexOfActiveCards; i < 5; i++) {
-            cardsString += activeCards[i].toString() + ";";
+        for(int i = indexOfActiveCards; i < activeCards.length; i++) {
+            if(activeCards[i] != null) {
+                cardsString += activeCards[i].toString() + ";";
+            }
         }
         return cardsString;
     }
@@ -213,5 +215,9 @@ public class PlayerCards {
         lockedCards = new Stack<>();
         for (int i = 0; i < 5; i++)
             activeCards[i] = null;
+    }
+
+    public void dealToHand(Cards card) {
+        cardsInHand.add(card);
     }
 }

@@ -43,4 +43,7 @@ public class GameCards {
     public void addPlayerCards(int pNr, String unparsedCards) {
         allPlayerHands.put(pNr, new PlayerCards(unparsedCards));
     }
+    public void addPlayerCards(int pNr, PlayerCards cards) {
+        allPlayerHands.put(pNr, cards);
+    }
 }

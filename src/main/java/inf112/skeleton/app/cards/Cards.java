@@ -10,10 +10,8 @@ public class Cards {
     private int priority;
 
     public Cards(String card) {
-        System.out.println(card);
         String[] typeAndPrioriy = card.split(":");
         List<String> strLs = Arrays.asList(typeAndPrioriy);
-        System.out.println(strLs);
         type = stringToCardType(typeAndPrioriy[0]);
         priority = Integer.parseInt(typeAndPrioriy[1]);
     }
