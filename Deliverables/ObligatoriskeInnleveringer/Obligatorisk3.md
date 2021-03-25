@@ -76,41 +76,14 @@ Bugs ligger i README.md
 
 #### Online - RoboServer & RoboClient
     RoboServer/RoboClient klassene kan kjøres individuelt,
-    Man kan da kjøre først RoboServer for at server skal gå.
-    Helt nederst i RoboClient klassen kan man skrive inn input
-    som:
-        "Join" -> For å bli med i spill
-            Man får tilbake "Joined", "AlreadyJoined" eller 
-            "Rejected" ettersom om man er med i spillet fra før
-            eller om spillet allerede er startet.
-        Kan også sende et MoveCardPacket-objekt som er et objekt 
-        som sier hvilke kort som er lagt og hvilken spiller som
-        har lagt det.
-
-    Man kan teste LAN uten problem, men for å spille online må
-    man åpne porter for RoboServer (TCP:54555, UDP:54777).
-    Når ServerTest kjøres kan man ikke kjøre andre klass, som
-    spesielt RoboServer.
-
-#### Gang i spillet
-##### Nå
-    Gangen i spillet er slik:
-    Launcher setter i gang Game som styrer spillet
-    Game starter GUI som viser brett og tar input som piltaster og museklikk
-    Player beveger seg etter piltaster og GUI blir oppdatert av det
-    GUI tar seg av kollisjon med f.eks hull eller flagg.
-    Server blir kjørt paralelt hos hosten.
-    Hosten er også en client, slik at all informasjon som skal til alle blir 
-        sendt til alle og info som skal bare til den enkelte blir sendt til den enkelte.
-
-##### Planen videre for gang i spill
-    Gangen i spillet blir slik:
-    Launcher setter i gang Game som styrer spillet
-    Game starter GUI som viser brett og tar input som piltaster og museklikk
-    Bruker velger kort med piltaster (evt. museklikk senere) som GUI fanger 
-        opp, konverterer til kort og sender det til server via Game.
-    Game tar seg av kollisjon med f.eks hull eller flagg.
-    Game venter også på kort fra alle spillere fra server før den starter en runde.
-    Server blir kjørt paralelt hos hosten.
-    Hosten er også en client, slik at all informasjon som skal til alle blir 
-        sendt til alle og info som skal bare til den enkelte blir sendt til den enkelte.
+    Roboclient har en sentral rolle i spillet med å utveksle infomasjon med Game-objektet som kommer
+    fra server.
+    Server utveksler informasjonen som clients sender til server.
+    Vi tapte mye tid med å prøve å sende Serialized objekter og hadde mange problemer med at bare standardverdier for objekter ble sendt
+    gjennom serveren og konkluderte med at vi kunne endten;
+        bruke masse tid på å lære oss om serialization eller 
+        utvikle et String-basert språk som skriver objektene til strenger, sender og konstruerer like objekter basert på Strings.
+    Vi valgte den siste og derfor har nå alle objekter som skal sendes en konstrukter som tar String som argument og en toString
+    metode som Skriver objektet til String.
+    Vi valgte også denne vinklingen på problemet siden det er lett å legge til ny infomrasjon til språket og at koden for å parse
+    språket kan skrives ganske eneklt med switch-case-r.
