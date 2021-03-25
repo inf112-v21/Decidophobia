@@ -26,15 +26,20 @@ distribuere arbeidsoppgaver jevnt i teamet, og er best egnet til å kunne fordel
 Ansvaret for UI-design har vært hos Lars Andre. UI-designer skal være den som er ansvarlig for utformingen av interfacet som kunden etter leveransen skal benytte seg av. Ettersom
 det er først og fremst UI-designeren sitt arbeid kunden først og fremst skal benytte seg av, så er det viktig at dette gjøres på en intuitiv og brukervennlig måte. <br>
 Som sekretær har Petter hatt ansvar for deliverables. Denne rollen har vært viktig for å være sikre på at en person alltid tar gode notater som er lettlesbare og tilgjengelige for gruppen. Disse må også ha en god formulering ettersom de skal leveres og leses av TA.
-<br>
-<br>
+
 #### Gruppedynamikk og kommunikasjon
 
 __(gammel)__ Generelt synes teamet det er synd å ikke kunne jobbe fysisk i felleskap til samme grad som ellers. Vi føler likevel vi har løst dette på en god måte ved at alle i teamet har kontinuerlig
 vært tilgjengelige på discord. Vi har også ført alle møter på discord, og har gjennomført disse raskt og effektivt. Teamet har en god tone sammen og samtlige føler vi faktisk er ett godt samarbeidende team hvor ingen har blitt utelatt
 i hverken samtaler eller avgjørelser. Dette har vært viktig for oss fra starten av.
-<br>
-<br>
+
+Det som har vært nytt for oss i Gruppedynamikken er at vi har prøvd å bruke mer parprogrammering og føler det har fungert svært godt hos Server/Client-paret.
+Det ble lettere å oppdage feil når vi kodet ilag, i tillegg "tvang" det oss til å forklare koden mer. Vi brukte også mye tid på å diskutere hva som var beste
+løsning og implementerte letter ting som passet ilag (når vi programmerte forskjellige ting).
+
+Vi har også hatt et projectBoard i Git der vi publiserte oppgaver, men dette har vært lite brukt og vi har i stede blitt enige om oppgavene vi skal gjøre muntlig på
+gruppetimer.
+
 #### Retroperspektiv
 - Er det noen erfaringer enten team-messig eller mtp prosjektmetodikk som er verdt å nevne? Synes
 teamet at de valgene dere har tatt er gode? Hvis ikke, hva kan dere gjøre annerledes for å forbedre
@@ -55,19 +60,21 @@ slik at alle får bidra, men lar hver enkelt få styre sin egen deltakelse etter
 
 __(gammel)__ Vi prioriterte å få til multiplayer som gjorde at vi ikke klarte å få ferdig MVP. Vi hadde krav 1-5 klar i Oblig1. Vi fikk problemer med å forstå KryoNet som gjorde at vi ikke bli ferdig med de neste kravene. 
 
+Vårt mål for Oblig3 var å få til mv og levere et spill som kan spilles over nettet. Vi prioriterte multiplayer og GUI fordi vi er usikre på hvordan det virker og hvordan vi kan implementere de for prosjektet. Vi har klart å få   
+server og client oppe å gå sånn at det er mulig å sende informasjon over nettet. Forklaring av multiplayer finnes under Online - RoboServer & RoboClient. __Trenger informasjon om fremgang med GUI her__ 
+
+Brukerhistorier finner du i BrukerHistorierOblig3.md
+
 Bugs ligger i README.md
 
 ### Deloppgave 3: Produktleveranse og kodekvalitet
 - Dere må dokumentere hvordan prosjektet bygger, testes og kjøres, slik at det er lett for gruppelderne å bygge, teste og kjøre koden deres. Under vurdering kommer koden også til å brukertestes.
-- Prosjektet skal kunne bygge, testes og kjøres på Linux, Windows og OSX.
-- Lever klassediagram. (Hvis det er veldig mange klasser, lager dere for de viktigste.)
 - Kodekvalitet og testdekning vektlegges. Merk at testene dere skriver skal brukes i produktet. Det kan være smart å skrive manuelle tester for å teste det som er grafisk.
 - Utførte oppgaver skal være ferdige. __Kjønner ikke helt hvilke oppgaver det er snakk om__
 - Hvis dere tester manuelt: lever beskrivelser av hvordan testen foregår, slik at gruppeleder kan utføre testen selv.
 - Under vurdering vil det vektlegges at alle bidrar til kodebasen. Hvis det er stor forskjell i hvem som committer, må dere legge ved en kort forklaring for hvorfor det er sånn. Husk å committe alt. (Også designfiler)
-- Prosjektpresentasjonen teller ved denne leveransen. Dere blir vurdert på demo av spillet, en beskrivelse av det viktigste dere har lært, hvilke overraskelser dere har hatt og presentasjon av prosjektmetodikk.
 
-
+Manuelle tester ligger i ManuelTests.md
 #### Spillet
     Spillet startes ved å kjøre launcher.class,
     Denne delen av spillet er foreløpig bare for
