@@ -54,7 +54,6 @@ lettlesbare og tilgjengelige for gruppen. Disse må også ha en god formulering
 ettersom de skal leveres og leses av TA.
 
 #### Gruppedynamikk og kommunikasjon
-
 Generelt synes teamet det er synd å ikke kunne jobbe fysisk i felleskap til samme grad som ellers. Vi føler likevel vi har løst dette på en god måte ved at alle i teamet har kontinuerlig
 vært tilgjengelige på discord. Vi har også ført alle møter på discord, og har gjennomført disse raskt og effektivt. Teamet har en god tone sammen og samtlige føler vi faktisk er ett godt samarbeidende team hvor ingen har blitt utelatt
 i hverken samtaler eller avgjørelser. Dette har vært viktig for oss fra starten av.
@@ -72,7 +71,22 @@ men i vår tilfelle har vi ikke hatt særlig nytte av det siden en oppgave tar k
 tendens til å lage veldig åpne oppgaver med få detaljer, sånn at den som tar oppgaven kan "spesialisere" seg innenfor det feltet oppgaven krever.
 
 #### Retroperspektiv
-Vi synes at vi har fått gjort mye, men 
+Det som er gjort er:  
+Server/Client:  
+    utviklet Server/Client objekter som kommuniserer ilag og client kommuniserer med Game.  
+    Her har vi også laget mange verktøy til Server/Client-forholdet som kan bli svært nyttig til neste sprint.  
+    Vi synes at utviklingen av Server/Client har vært god, vi har truffet noen hinder som object-serializing der vi veide  
+    våre muligheter i forhold til tid og videre utvikling og valgte da en annen metode å utvikle et request/response-språk  
+    på. Vi synes at det valget vi tok var lurt siden det er enkelt å legge til mere i språket, det som kan være litt prolematisk  
+    er derimot at for nye personer som ser koden kan det ta litt tid å bli kjent med Requestene og debugge om testene ikke  
+    skulle passere senere.  
+Vi har også gjort en del utvikling med GUI:  
+    Utviklingen for GUI-en har vist seg å være svært vanskelig, under første sprint utviklet vi et rotete  
+    GUI-objekt som skulle kun gjøre jobben for den sprinten og for at vi skulle bli kjent med hvordan LibGDX  
+    fungerte, i denne sprinten har jobben fortsatt med å dele opp oppgavene som denne gamle GUI-en gjorde og  
+    i tillegg, legge til rette for at applikasjonen kan ha andre scenes/screens som "main-menu", "settings" og 
+    "lobby". Derfor har mye av tiden til GUI-gruppen gått til å utvikle en screenManager som bytter mellom screens
+    og som "manager" objketene for hver screen.
 - Er det noen erfaringer enten team-messig eller mtp prosjektmetodikk som er verdt å nevne? Synes
 teamet at de valgene dere har tatt er gode? Hvis ikke, hva kan dere gjøre annerledes for å forbedre
 måten teamet fungerer på?
