@@ -79,8 +79,8 @@ Client gir dette til Game, som da prossesserer runden etter å fått kortene til
 Av dette så er Server/Client og game sin kommunikasjon fungerende, mens GUI er enda ikke knytta til Game-objektet i spillets prosess.  
 Veien videre er å få med GUI-en i spill-prosessen og å få til at man kan navigere en meny for å sette opp spill.
 
-Det som er gjort er:  
-Server/Client:  
+#### Det som er gjort er:  
+__Server/Client:__    
     utviklet Server/Client objekter som kommuniserer ilag og client kommuniserer med Game.  
     Her har vi også laget mange verktøy til Server/Client-forholdet som kan bli svært nyttig til neste sprint.  
     Vi synes at utviklingen av Server/Client har vært god, vi har truffet noen hinder som object-serializing der vi veide  
@@ -89,7 +89,7 @@ Server/Client:
     er derimot at for nye personer som ser koden kan det ta litt tid å bli kjent med Requestene og debugge om testene ikke  
     skulle passere senere.  
   
-Vi har også gjort en del utvikling med GUI:  
+__Vi har også gjort en del utvikling med GUI:__  
     Utviklingen for GUI-en har vist seg å være svært vanskelig, under første sprint utviklet vi et rotete  
     GUI-objekt som skulle kun gjøre jobben for den sprinten og for at vi skulle bli kjent med hvordan LibGDX  
     fungerte, i denne sprinten har jobben fortsatt med å dele opp oppgavene som denne gamle GUI-en gjorde og  
@@ -129,13 +129,9 @@ Brukerhistorier finner du i BrukerHistorierOblig3.md
 Bugs ligger i README.md
 
 ### Deloppgave 3: Produktleveranse og kodekvalitet
-- Dere må dokumentere hvordan prosjektet bygger, testes og kjøres, slik at det er lett for gruppelderne å bygge, teste og kjøre koden deres. Under vurdering kommer koden også til å brukertestes.
-- Kodekvalitet og testdekning vektlegges. Merk at testene dere skriver skal brukes i produktet. Det kan være smart å skrive manuelle tester for å teste det som er grafisk.
-- Utførte oppgaver skal være ferdige. __Kjønner ikke helt hvilke oppgaver det er snakk om__
-- Hvis dere tester manuelt: lever beskrivelser av hvordan testen foregår, slik at gruppeleder kan utføre testen selv.
-- Under vurdering vil det vektlegges at alle bidrar til kodebasen. Hvis det er stor forskjell i hvem som committer, må dere legge ved en kort forklaring for hvorfor det er sånn. Husk å committe alt. (Også designfiler)
 
 Manuelle tester ligger i ManuelTests.md
+
 #### Spillet
     Spillet startes ved å kjøre launcher.class,
     Denne delen av spillet er foreløpig bare for
