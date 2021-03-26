@@ -97,16 +97,12 @@ Vi har også gjort en del utvikling med GUI:
     "lobby". Derfor har mye av tiden til GUI-gruppen gått til å utvikle en screenManager som bytter mellom screens  
     og som "manager" objketene for hver screen.  
   
-  
 
-- Er det noen erfaringer enten team-messig eller mtp prosjektmetodikk som er verdt å nevne? Synes
-teamet at de valgene dere har tatt er gode? Hvis ikke, hva kan dere gjøre annerledes for å forbedre
-måten teamet fungerer på?
 - Bli enige om maks tre forbedringspunkter fra retrospektivet, som skal følges opp under neste sprint
 - Forklar kort hvordan dere har prioritert oppgavene fremover. Legg ved skjermdump av project board
 ved innlevering
 
-__(gammel)__ Når det gjelder hver enkelts deltakelse i kodingen vil dette variere noe fra person til person. Det er naturlig at tech-lead vil bidra med mer kode enn UI-designer eller sekretær. Vi forsøker likevel ha en jevn fordeling av koding i teamet
+Når det gjelder hver enkelts deltakelse i kodingen vil dette variere noe fra person til person. Det er naturlig at tech-lead vil bidra med mer kode enn UI-designer eller sekretær. Vi forsøker likevel ha en jevn fordeling av koding i teamet
 slik at alle får bidra, men lar hver enkelt få styre sin egen deltakelse etter ønske og evne. 
 
 ### Deloppgave 2: Krav
@@ -122,7 +118,10 @@ slik at alle får bidra, men lar hver enkelt få styre sin egen deltakelse etter
 3. GUI for å starte opp spillet, skal inneholde startside, settings og lobby for multiplayer
 4. GUI for spillet som viser brett og lar bruker velge kort som kan bli spilt med
 
-Vårt mål for Oblig3 var å få til mv og levere et spill som kan spilles over nettet. Vi prioriterte multiplayer og GUI fordi vi er usikre på hvordan det virker og hvordan vi kan implementere de for prosjektet. Vi har klart å få server og client oppe å gå sånn at det er mulig å sende informasjon over nettet. Forklaring av multiplayer finnes under Online - RoboServer & RoboClient. Vi har også fått sammenkoblet RoboClient sammen med Game der game logikken skal ligge. __Trenger informasjon om fremgang med GUI her__ 
+Vårt mål for Oblig3 var å få til mv og levere et spill som kan spilles over nettet. Vi prioriterte multiplayer og GUI fordi  
+vi er usikre på hvordan det virker og hvordan vi kan implementere de for prosjektet. Vi har klart å få server og client oppe  
+å gå sånn at det er mulig å sende informasjon over nettet. Forklaring av multiplayer finnes under Online - RoboServer & RoboClient.  
+Vi har også fått sammenkoblet RoboClient sammen med Game der game logikken skal ligge. __Trenger informasjon om fremgang med GUI her__  
 
 Brukerhistorier finner du i BrukerHistorierOblig3.md
 
