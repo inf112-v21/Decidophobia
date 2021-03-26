@@ -201,14 +201,6 @@ public class RoboClient {
         this.game = game;
     }
 
-    /**
-     * Made for running Clientrequest in main-thread, for testing Host-Client-relation over the internet
-     * @param args
-     */
-    public static void main(String[] args){
-        RoboClient client = new RoboClient("localhost");
-    }
-
     public GameCards getGameCards() {
         return roundCards;
     }

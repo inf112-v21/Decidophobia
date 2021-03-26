@@ -201,18 +201,8 @@ public class RoboServer {
         return systemipaddress;
     }
 
-
     public Map<String, Connection> getPlayerIpToConnect() {
         return playerIpToConnect;
-    }
-
-    /**
-     * Made for running server in main-thread, for testing Host-Client-relation over the internet
-     * @param args
-     */
-    public static void main(String[] args){
-        RoboServer host = new RoboServer();
-        host.runServer();
     }
 
 }
