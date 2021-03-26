@@ -106,11 +106,6 @@ Når det gjelder hver enkelts deltakelse i kodingen vil dette variere noe fra pe
 slik at alle får bidra, men lar hver enkelt få styre sin egen deltakelse etter ønske og evne. 
 
 ### Deloppgave 2: Krav
-- Oppdater hvilke krav dere har prioritert, hvor langt dere har kommet og hva dere har gjort siden forrige gang. Er dere kommet forbi MVP? Forklar hvordan dere prioriterer ny funksjonalitet.
-- For hvert krav dere jobber med, må dere lage 1) ordentlige brukerhistorier, 2) akseptansekriterier og 3) arbeidsoppgaver. Husk at akseptansekriterier ofte skrives mer eller mindre som tester
-- Dersom dere har oppgaver som dere skal til å starte med, hvor dere har oversikt over både brukerhistorie, akseptansekriterier og arbeidsoppgaver, kan dere ta med disse i innleveringen også.
-- Husk å skrive hvilke bugs som finnes i de kravene dere har utført (dersom det finnes bugs).
-- Kravlista er lang, men det er ikke nødvendig å levere på alle kravene hvis det ikke er realistisk. Det er viktigere at de oppgavene som er utført holder høy kvalitet. Utførte oppgaver skal være ferdige.
 
 #### Krav
 1. Klare å kunne spille over nett med multiplayer
@@ -121,7 +116,7 @@ slik at alle får bidra, men lar hver enkelt få styre sin egen deltakelse etter
 Vårt mål for Oblig3 var å få til mv og levere et spill som kan spilles over nettet. Vi prioriterte multiplayer og GUI fordi  
 vi er usikre på hvordan det virker og hvordan vi kan implementere de for prosjektet. Vi har klart å få server og client oppe  
 å gå sånn at det er mulig å sende informasjon over nettet. Forklaring av multiplayer finnes under Online - RoboServer & RoboClient.  
-Vi har også fått sammenkoblet RoboClient sammen med Game der game logikken skal ligge. __Trenger informasjon om fremgang med GUI her__  
+Vi har også fått sammenkoblet RoboClient sammen med Game der game logikken skal ligge. GUI for spill, lobby og start meny har ikke vært så stor framgang pågrunn av vanskeligheter med skin til kanpper og andre funksjoner som er nødvendig. Vi har fått begynt på et setup med screens for alle kravene men pågrunn av vanskeligheter med skins har ikke det kommet særlig lengre. 
 
 Brukerhistorier finner du i BrukerHistorierOblig3.md
 
