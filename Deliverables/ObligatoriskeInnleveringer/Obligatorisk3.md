@@ -11,21 +11,46 @@ Petter Paulsen: Sekretær
 <br>
 <br>
 #### Roller i teamet
+Rollene i teamet har fungert godt. Samtlige deltakere har tatt sine ansvarsområder  
+på alvor og viser en god forståelse for sine oppgaver.  
+Kodetester har ansvar for å lage gode tester til koden som blir skrevet.
 
-__Trenger å oppdatere hvordan roller har fungert__  
-Rollene i teamet har fungert godt. Samtlige deltakere har tatt sine ansvarsområder
-på alvor og viser en god forståelse for sine oppgaver. <br> Kodetester har ansvar for å lage gode tester til koden som blir skrevet. Denne rollen har blitt besatt av Alexander som har løst den på en god måte. 
-Vi ser på kodetesting som en viktig del av 
-prosjektet, for å kunne verifisere at ting fungerer som det skal. <br> Rollen som kundekontakt ble gitt til Oscar. Han har altså
-hatt ansvaret for å kontakte kunden med ulike problemer eller spørsmål vi har hatt til utviklingen av prosjektet. Rollen i seg selv
-er en spesielt viktig rolle for å kunne sikre at prosjektet står i tråd til kundens forventninger, men vi har så langt i prosjektet følt at vi har hatt
-en god fremgang og enda ikke hatt store behov for å konsultere med kunde. <br> 
-Isak har som Tech-lead hatt ansvar for selve kodingen i prosjektet, og for å ha et overordnet ansvar over fremgangen. Denne oppgaven er også spesielt viktig, ettersom
-det er kritisk at minst én person har en gjennomgående forståelse for de ulike oppgavene som til enhvertid arbeides med. Tech-lead kan også med et godt overordnet ansvar
-distribuere arbeidsoppgaver jevnt i teamet, og er best egnet til å kunne fordele disse på en god måte. <br>
-Ansvaret for UI-design har vært hos Lars Andre. UI-designer skal være den som er ansvarlig for utformingen av interfacet som kunden etter leveransen skal benytte seg av. Ettersom
-det er først og fremst UI-designeren sitt arbeid kunden først og fremst skal benytte seg av, så er det viktig at dette gjøres på en intuitiv og brukervennlig måte. <br>
-Som sekretær har Petter hatt ansvar for deliverables. Denne rollen har vært viktig for å være sikre på at en person alltid tar gode notater som er lettlesbare og tilgjengelige for gruppen. Disse må også ha en god formulering ettersom de skal leveres og leses av TA.
+Alexander har fått denne rollen og har løst den på en god måte.  
+Vi ser på kodetesting som en viktig del av  
+prosjektet, for å kunne verifisere at ting fungerer som det skal.
+
+Rollen som kundekontakt ble gitt til Oscar. Han har altså hatt ansvaret  
+for å kontakte kunden med ulike   problemer eller spørsmål vi har hatt til  
+utviklingen av prosjektet. Rollen i seg selv er en spesielt viktig rolle  
+for å kunne sikre at prosjektet står i tråd til kundens   forventninger,  
+men vi har så langt i prosjektet følt at vi har hatt  
+en god fremgang og enda ikke hatt store behov for å konsultere med kunde.  
+Kundekontakt har også hatt rollen om å presentere prosjektet for kunden (Siv)  
+og dette gikk veldig bra synes vi.
+
+Isak har som Tech-lead hatt ansvar for selve kodingen i prosjektet,  
+og for å ha et overordnet ansvar over fremgangen. Denne oppgaven er  
+også spesielt viktig, ettersom det er kritisk at minst én person har  
+en gjennomgående forståelse for de ulike oppgavene som til enhvertid  
+arbeides med. Tech-lead kan også med et godt overordnet ansvar  
+distribuere arbeidsoppgaver jevnt i teamet, og er best egnet til å  
+kunne fordele disse på en god måte. Tech-lead-rollen har fungert godt  
+og har vært en viktig rolle gjennom hele prosjektet for at gruppemedlemmer  
+skal til enhver tid vite hva de skal jobbe med og hva de andre jobber med.  
+Vi ser også at det er svært viktig at Tech-lead har god forståelse  
+av hver del av prosjektet for at han skal kunne finne ut hva det neste  
+vi skal ta for oss er.
+
+Ansvaret for UI-design har vært hos Lars Andre. UI-designer skal være den  
+som er ansvarlig for utformingen av GUI som kunden etter leveransen skal  
+benytte seg av. Ettersom det er først og fremst UI-designeren sitt arbeid  
+kunden først og fremst skal benytte seg av, så er det viktig at dette gjøres  
+på en intuitiv og brukervennlig måte.
+
+Som sekretær har Petter hatt ansvar for deliverables. Denne rollen har vært  
+viktig for å være sikre på at en person alltid tar gode notater som er  
+lettlesbare og tilgjengelige for gruppen. Disse må også ha en god formulering  
+ettersom de skal leveres og leses av TA.
 
 #### Gruppedynamikk og kommunikasjon
 
