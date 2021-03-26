@@ -142,6 +142,16 @@ Manuelle tester ligger i ManuelTests.md
     bevege seg, hvordan UI ser ut.
 
 #### Online - RoboServer & RoboClient
+    Testene til denne delen av prosjektet er parserTest og serverTest.
+    serverTest tester at man kan bare joine et spill 1 gang, man kan ikke joine flere ganger.
+    I tillegg tester den at det er den forventede informasjonen som blir sendt fra server etter
+    at en client har sendt en request. Slik som at når man sender et move, så blir move-t tolket
+    riktig.
+     
+    ParserTest-en ligner litt på deler av ServerTest, men tester bare om parseren til client tolker 
+    objekter definert med en String i constructeren riktig og at toString-metoden konstruerer denne
+    Stringen på riktig måte slik at en både kan sende og motta et objekt definert av en String.
+     
     RoboServer/RoboClient klassene kan kjøres individuelt,
     Roboclient har en sentral rolle i spillet med å utveksle infomasjon med Game-objektet som kommer
     fra server.
