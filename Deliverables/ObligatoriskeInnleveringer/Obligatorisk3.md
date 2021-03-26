@@ -102,10 +102,10 @@ __Vi har også gjort en del utvikling med GUI:__
 - Forklar kort hvordan dere har prioritert oppgavene fremover. Legg ved skjermdump av project board
 ved innlevering
 
-__Tre ting vi skal forbedre i løp av neste sprint:__
+__Tre ting vi skal forbedre i løp av neste sprint:__  
     1. ScreenManager, lage et system som gjør det mulig å "bevege" seg mellom forskjellige screens.
-    2. At en GameGUI er definert til å vise informasjon av et Game-Objekt.
-    3. Implementere spill-logikk i Game-objektet.
+    1. At en GameGUI er definert til å vise informasjon av et Game-Objekt.
+    1. Implementere spill-logikk i Game-objektet.
 
 
 Når det gjelder hver enkelts deltakelse i kodingen vil dette variere noe fra person til person. Det er naturlig at tech-lead vil bidra med mer kode enn UI-designer eller sekretær. Vi forsøker likevel ha en jevn fordeling av koding i teamet
