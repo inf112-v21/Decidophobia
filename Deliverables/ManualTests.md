@@ -1,6 +1,12 @@
 # Manual Tests
 ### ServerTests
 #### 1:
+    Remark:
+    This test still works, but the code isn't set up for this test at the moment,
+    but it will still work since it passed before and was just to safely state that
+    we have set up kryonet correctly and that we can exchange data globally and locally.
+    
+    The test:
     Tested online and LAN internet communication.
     Special requiermeants for online is having open a UDP-TCP port (host)
     and having the hosts public ip (online) or local ip (LAN).
