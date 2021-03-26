@@ -71,6 +71,14 @@ men i vår tilfelle har vi ikke hatt særlig nytte av det siden en oppgave tar k
 tendens til å lage veldig åpne oppgaver med få detaljer, sånn at den som tar oppgaven kan "spesialisere" seg innenfor det feltet oppgaven krever.
 
 #### Retroperspektiv
+Slik koden er i dag er det særlig 3 store deler av prosjektet, det er Server/Client (multiplayer), Game (spill-logikk) og GUI.  
+Planen er at GUI-en kjører kontinuerlig og fanger opp endringer i Game. GUI tar også input fra bruker og "sender" dette til Game.  
+Game tar så å gir inputet i form av hvilke kort som brukeren har valgt til sin Client som sender dette til server.
+Server sender til alle spillernes client hvilke kort som er valgt og alle bruker disse kortene til å oppdatere sin versjon av spillet.  
+Client gir dette til Game, som da prossesserer runden etter å fått kortene til alle.  
+Av dette så er Server/Client og game sin kommunikasjon fungerende, mens GUI er enda ikke knytta til Game-objektet i spillets prosess.  
+Veien videre er å få med GUI-en i spill-prosessen og å få til at man kan navigere en meny for å sette opp spill.
+
 Det som er gjort er:  
 Server/Client:  
     utviklet Server/Client objekter som kommuniserer ilag og client kommuniserer med Game.  
@@ -80,13 +88,17 @@ Server/Client:
     på. Vi synes at det valget vi tok var lurt siden det er enkelt å legge til mere i språket, det som kan være litt prolematisk  
     er derimot at for nye personer som ser koden kan det ta litt tid å bli kjent med Requestene og debugge om testene ikke  
     skulle passere senere.  
+  
 Vi har også gjort en del utvikling med GUI:  
     Utviklingen for GUI-en har vist seg å være svært vanskelig, under første sprint utviklet vi et rotete  
     GUI-objekt som skulle kun gjøre jobben for den sprinten og for at vi skulle bli kjent med hvordan LibGDX  
     fungerte, i denne sprinten har jobben fortsatt med å dele opp oppgavene som denne gamle GUI-en gjorde og  
-    i tillegg, legge til rette for at applikasjonen kan ha andre scenes/screens som "main-menu", "settings" og 
-    "lobby". Derfor har mye av tiden til GUI-gruppen gått til å utvikle en screenManager som bytter mellom screens
-    og som "manager" objketene for hver screen.
+    i tillegg, legge til rette for at applikasjonen kan ha andre scenes/screens som "main-menu", "settings" og  
+    "lobby". Derfor har mye av tiden til GUI-gruppen gått til å utvikle en screenManager som bytter mellom screens  
+    og som "manager" objketene for hver screen.  
+  
+  
+
 - Er det noen erfaringer enten team-messig eller mtp prosjektmetodikk som er verdt å nevne? Synes
 teamet at de valgene dere har tatt er gode? Hvis ikke, hva kan dere gjøre annerledes for å forbedre
 måten teamet fungerer på?
