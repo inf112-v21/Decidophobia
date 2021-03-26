@@ -97,16 +97,10 @@ __Vi har også gjort en del utvikling med GUI:__
     "lobby". Derfor har mye av tiden til GUI-gruppen gått til å utvikle en screenManager som bytter mellom screens  
     og som "manager" objketene for hver screen.  
   
-
-- Bli enige om maks tre forbedringspunkter fra retrospektivet, som skal følges opp under neste sprint
-- Forklar kort hvordan dere har prioritert oppgavene fremover. Legg ved skjermdump av project board
-ved innlevering
-
 __Tre ting vi skal forbedre i løp av neste sprint:__  
 1. ScreenManager, lage et system som gjør det mulig å "bevege" seg mellom forskjellige screens.
 2. At en GameGUI er definert til å vise informasjon av et Game-Objekt.
 3. Implementere spill-logikk i Game-objektet.
-
 
 Når det gjelder hver enkelts deltakelse i kodingen vil dette variere noe fra person til person. Det er naturlig at tech-lead vil bidra med mer kode enn UI-designer eller sekretær. Vi forsøker likevel ha en jevn fordeling av koding i teamet
 slik at alle får bidra, men lar hver enkelt få styre sin egen deltakelse etter ønske og evne. 
