@@ -90,7 +90,13 @@ slik at alle får bidra, men lar hver enkelt få styre sin egen deltakelse etter
 - Husk å skrive hvilke bugs som finnes i de kravene dere har utført (dersom det finnes bugs).
 - Kravlista er lang, men det er ikke nødvendig å levere på alle kravene hvis det ikke er realistisk. Det er viktigere at de oppgavene som er utført holder høy kvalitet. Utførte oppgaver skal være ferdige.
 
-__(gammel)__ Vi prioriterte å få til multiplayer som gjorde at vi ikke klarte å få ferdig MVP. Vi hadde krav 1-5 klar i Oblig1. Vi fikk problemer med å forstå KryoNet som gjorde at vi ikke bli ferdig med de neste kravene. 
+__(gammel)__ Vi prioriterte å få til multiplayer som gjorde at vi ikke klarte å få ferdig MVP. Vi hadde krav 1-5 klar i Oblig1. Vi fikk problemer med å forstå KryoNet som gjorde at vi ikke bli ferdig med de neste kravene.
+
+#### Krav
+1. Klare å kunne spille over nett med multiplayer
+2. Spill logikk som omhandler spillets gang
+3. GUI for å starte opp spillet, skal inneholde startside, settings og lobby for multiplayer
+4. GUI for spillet som viser brett og lar bruker velge kort som kan bli spilt med
 
 Vårt mål for Oblig3 var å få til mv og levere et spill som kan spilles over nettet. Vi prioriterte multiplayer og GUI fordi vi er usikre på hvordan det virker og hvordan vi kan implementere de for prosjektet. Vi har klart å få   
 server og client oppe å gå sånn at det er mulig å sende informasjon over nettet. Forklaring av multiplayer finnes under Online - RoboServer & RoboClient. __Trenger informasjon om fremgang med GUI her__ 
