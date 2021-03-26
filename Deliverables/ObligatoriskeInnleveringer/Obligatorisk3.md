@@ -33,12 +33,17 @@ __(gammel)__ Generelt synes teamet det er synd å ikke kunne jobbe fysisk i fell
 vært tilgjengelige på discord. Vi har også ført alle møter på discord, og har gjennomført disse raskt og effektivt. Teamet har en god tone sammen og samtlige føler vi faktisk er ett godt samarbeidende team hvor ingen har blitt utelatt
 i hverken samtaler eller avgjørelser. Dette har vært viktig for oss fra starten av.
 
-Det som har vært nytt for oss i Gruppedynamikken er at vi har prøvd å bruke mer parprogrammering og føler det har fungert svært godt hos Server/Client-paret.
+Vi har delt gruppen i to, siden det var spesielt to ting ingen av oss hadde noe særlig erfaring med og det var Server/Client der vi satte 2 i arbeid og GUI der resten gikk. 
+Det nye vi har prøvd av arbeidsmetodikk er at vi har prøvd å bruke mer parprogrammering og føler det har fungert svært godt hos Server/Client-paret.
 Det ble lettere å oppdage feil når vi kodet ilag, i tillegg "tvang" det oss til å forklare koden mer. Vi brukte også mye tid på å diskutere hva som var beste
 løsning og implementerte letter ting som passet ilag (når vi programmerte forskjellige ting).
+Samtidig ble det vanskelig hos GUI-gruppen å få tid samtidig og individuelt arbeid ble brukt mer i praksis.
+
 
 Vi har også hatt et projectBoard i Git der vi publiserte oppgaver, men dette har vært lite brukt og vi har i stede blitt enige om oppgavene vi skal gjøre muntlig på
-gruppetimer.
+gruppetimer. Vi ser at et projectboard kan være svært nyttig i arbeidslivet, at man kommer på jobb og kan "plukke" en oppgave å jobbe med i noen timer eller lignende,
+men i vår tilfelle har vi ikke hatt særlig nytte av det siden en oppgave tar kanskje en uke og i og med at vi ikke er så erfarne med systemutvikling har vi også hatt en
+tendens til å lage veldig åpne oppgaver med få detaljer, sånn at den som tar oppgaven kan "spesialisere" seg innenfor det feltet oppgaven krever.
 
 #### Retroperspektiv
 - Er det noen erfaringer enten team-messig eller mtp prosjektmetodikk som er verdt å nevne? Synes
