@@ -55,6 +55,19 @@ public class Game {
         }
     }
     public void doRound(GameCards playerMoves){
+        for(int r = 0; r < 5; r++){
+            //move for all players
+            //Robots shoot lasers
+            //colision hole, wall and flag
+            //conveyor belts move blue double and yellow ones
+            //colision hole, wall and flag
+            //pushers push
+            //colision hole, wall and flag
+            //Gears rotate 90*
+
+            //deal cards
+
+        }
         lastRound = playerMoves;
     }
 
