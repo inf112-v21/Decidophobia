@@ -11,8 +11,7 @@ import inf112.skeleton.app.cards.Cards;
 import inf112.skeleton.app.cards.Deck;
 import inf112.skeleton.app.cards.PlayerCards;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Game {
 
@@ -56,19 +55,45 @@ public class Game {
     }
     public void doRound(GameCards playerMoves){
         for(int r = 0; r < 5; r++){
+            //colission with wall needs to happen in every move
+
             //move for all players
+            List<Integer> playerPriority = getHighestPriorityOfNewCard(r,playerMoves);
+            
+            for(Integer pNr : playerPriority){
+                doMove(pNr, playerMoves.getAllPlayerHands().get(pNr).getActiveCard(r));
+            }
+
             //Robots shoot lasers
-            //colision hole, wall and flag
+            //colision hole and flag
             //conveyor belts move blue double and yellow ones
-            //colision hole, wall and flag
+            //colision hole and flag
             //pushers push
-            //colision hole, wall and flag
+            //colision hole and flag
             //Gears rotate 90*
 
-            //deal cards
+
 
         }
         lastRound = playerMoves;
+        dealCards();
+    }
+    private List<Integer> getHighestPriorityOfNewCard(int turn, GameCards playerMoves){
+        Map<Integer,PlayerCards> playerHands = playerMoves.getAllPlayerHands();
+        List<Integer> playerPriority = new ArrayList<>();
+
+        for(int p = 0; p < playerHands.keySet().size(); p++){
+            int highestPriory = 0;
+            int highestPNr = -1;
+            for(Integer pNr : playerHands.keySet()){
+                if(!playerPriority.contains(pNr) && playerHands.get(pNr).getActiveCard(turn).getPriority()>highestPriory)
+                    highestPNr = pNr;
+            }
+            playerPriority.add(highestPNr);
+        }
+        return playerPriority;
+    }
+    private void doMove(Integer pNr, Cards activeCard) {
     }
 
     public void setLocalPlayerNumber(int playerNr) {
