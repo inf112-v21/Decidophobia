@@ -26,5 +26,5 @@ Petter Paulsen
 ## Hva skal gjøres til neste gang:
 - Få lagd en screen manager og gjøre ferdig GameScreen
 - Få ferdig parseren for alle informasjons klassene
-- Lage DealCards og få cards sendt til game
+- Lage DealCards og få cards sendt til gameLogic
 

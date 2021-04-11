@@ -78,7 +78,7 @@ Planen er at GUI-en kjører kontinuerlig og fanger opp endringer i Game. GUI tar
 Game tar så å gir inputet i form av hvilke kort som brukeren har valgt til sin Client som sender dette til server.  
 Server sender til alle spillernes client hvilke kort som er valgt og alle bruker disse kortene til å oppdatere sin versjon av spillet.  
 Client gir dette til Game, som da prossesserer runden etter å fått kortene til alle.  
-Av dette så er Server/Client og game sin kommunikasjon fungerende, mens GUI er enda ikke knytta til Game-objektet i spillets prosess.  
+Av dette så er Server/Client og gameLogic sin kommunikasjon fungerende, mens GUI er enda ikke knytta til Game-objektet i spillets prosess.  
 Veien videre er å få med GUI-en i spill-prosessen og å få til at man kan navigere en meny for å sette opp spill.  
   
 #### Det som er gjort er:  
@@ -119,7 +119,7 @@ slik at alle får bidra, men lar hver enkelt få styre sin egen deltakelse etter
 Vårt mål for Oblig3 var å få til mv og levere et spill som kan spilles over nettet. Vi prioriterte multiplayer og GUI fordi  
 vi er usikre på hvordan det virker og hvordan vi kan implementere de for prosjektet. Vi har klart å få server og client oppe  
 å gå sånn at det er mulig å sende informasjon over nettet. Forklaring av multiplayer finnes under Online - RoboServer & RoboClient.  
-Vi har også fått sammenkoblet RoboClient sammen med Game der game logikken skal ligge. GUI for spill, lobby og start meny  
+Vi har også fått sammenkoblet RoboClient sammen med Game der gameLogic logikken skal ligge. GUI for spill, lobby og start meny  
 har ikke vært så stor framgang pågrunn av vanskeligheter med skin til kanpper og andre funksjoner som er nødvendig. Vi har  
 fått begynt på et setup med screens for alle kravene men pågrunn av vanskeligheter med skins har ikke det kommet særlig lengre. 
   

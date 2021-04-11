@@ -13,7 +13,7 @@ import inf112.skeleton.app.cards.PlayerCards;
 
 import java.util.*;
 
-public class Game {
+public class GameLogic {
 
     private static String serverAddress = RoboServer.getLANIp();
 
@@ -31,7 +31,7 @@ public class Game {
 
     private GameCards lastRound;
 
-    public Game(RoboClient networkClient) {
+    public GameLogic(RoboClient networkClient) {
         this.networkClient = networkClient;
         gameRules = networkClient.getGameRules();
         cardDeck = new Deck();

@@ -3,7 +3,7 @@ package inf112.skeleton.app.Multiplayer;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import inf112.skeleton.app.Game;
+import inf112.skeleton.app.GameLogic;
 import inf112.skeleton.app.Multiplayer.packets.GameCards;
 import inf112.skeleton.app.Multiplayer.packets.GameRules;
 import inf112.skeleton.app.Multiplayer.packets.LobbyInfo;
@@ -21,7 +21,7 @@ public class RoboClient {
 
     private Client client;
 
-    private Game game;
+    private GameLogic gameLogic;
 
     private LobbyInfo lobbyInfo;
 
@@ -125,7 +125,7 @@ public class RoboClient {
         switch (arguments[0]){
             case "joined":
                 clientPlayerNr = Integer.parseInt(arguments[1]);
-                if(game != null) game.setLocalPlayerNumber(clientPlayerNr);
+                if(gameLogic != null) gameLogic.setLocalPlayerNumber(clientPlayerNr);
                 parser(str.substring("joined,,".length() + arguments[1].length()));
                 break;
 
@@ -146,7 +146,7 @@ public class RoboClient {
             case "move":
                 roundCards.addPlayerCards(Integer.parseInt(arguments[1]),arguments[2]);
                 if(roundCards.getAllPlayerHands().keySet().size()==lobbyInfo.getPlayers().size()){
-                    if(game!=null) game.doRound(roundCards);
+                    if(gameLogic !=null) gameLogic.doRound(roundCards);
                 }
                 break;
 
@@ -197,8 +197,8 @@ public class RoboClient {
         this.gameRules = gameRules;
     }
 
-    public void setGameReference(Game game){
-        this.game = game;
+    public void setGameReference(GameLogic gameLogic){
+        this.gameLogic = gameLogic;
     }
 
     public GameCards getGameCards() {

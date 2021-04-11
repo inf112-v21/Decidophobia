@@ -2,6 +2,7 @@ package inf112.skeleton.app;
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import inf112.skeleton.app.screen.ScreenManager;
 
 public class Launcher {
 
@@ -14,6 +15,6 @@ public class Launcher {
         cfg.setTitle("RoboRally");
         cfg.setWindowedMode(Launcher.WIDTH, Launcher.HEIGHT);
 
-        new Lwjgl3Application(new GameGUI(), cfg);
+        new Lwjgl3Application(new ScreenManager(), cfg);
     }
 }

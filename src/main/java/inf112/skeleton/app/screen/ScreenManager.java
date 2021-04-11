@@ -1,15 +1,14 @@
 package inf112.skeleton.app.screen;
 
-import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import inf112.skeleton.app.GameGUI;
 
-public class ScreenManager extends GameGUI implements ApplicationListener {
+public class ScreenManager extends Game {
 
     private static ScreenManager screenManagerInstance = null;
 
-    private ScreenManager() {
+    public ScreenManager() {
         super();
     }
 

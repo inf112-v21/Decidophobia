@@ -20,11 +20,11 @@
     
 #### 2:
     Tested if the flag makes the player dissapear.
-    The game is made so by visting all the flags in order grants the player victory, 
+    The gameLogic is made so by visting all the flags in order grants the player victory, 
     hence the player wants to move towards the flag.
     
     The test was preformed like this:
-        1. The game starts.
+        1. The gameLogic starts.
         2. The Player Moves the ingame player.
         3. PLayer moves towards the flag.
         4. The player dissapears.
@@ -32,10 +32,10 @@
 
 #### 3:
     Tested if the Pit kills the player.
-    In the game the  pit is made as a hindarance for the player.
+    In the gameLogic the  pit is made as a hindarance for the player.
     
     The test was preformed like this:
-        1. The game starts.
+        1. The gameLogic starts.
         2. The player moves the ingame player.
         3. The player moves toward the pit.
         4. The player  dissapear, hence the player is dead.

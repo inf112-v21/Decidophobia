@@ -4,18 +4,17 @@ import inf112.skeleton.app.Multiplayer.RoboClient;
 import inf112.skeleton.app.Multiplayer.RoboServer;
 import inf112.skeleton.app.cards.PlayerCards;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
 
-public class GameTest {
+public class GameLogicTest {
     RoboServer server;
 
     RoboClient client;
 
-    Game roboRally;
+    GameLogic roboRally;
 
     @Before
     public void setup() throws InterruptedException {
@@ -23,7 +22,7 @@ public class GameTest {
         server.runServer();
         Thread.sleep(1000);
         client = new RoboClient(RoboServer.getLANIp());
-        roboRally = new Game(client);
+        roboRally = new GameLogic(client);
         client.setGameReference(roboRally);
         client.join();
         while(client.getGameRules()==null && client.getLobbyInfo()==null){
