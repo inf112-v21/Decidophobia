@@ -3,7 +3,7 @@ package inf112.skeleton.app.board;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import inf112.skeleton.app.screen.GameScreen;
+import inf112.skeleton.app.GUI.screen.GameScreen;
 
 import java.util.HashMap;
 import java.util.Map;

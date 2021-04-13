@@ -1,4 +1,4 @@
-package inf112.skeleton.app.screen;
+package inf112.skeleton.app.GUI.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;

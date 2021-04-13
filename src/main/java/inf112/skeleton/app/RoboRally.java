@@ -1,6 +1,6 @@
 package inf112.skeleton.app;
 
-import inf112.skeleton.app.screen.MainMenuScreen;
+import inf112.skeleton.app.GUI.screen.MainMenuScreen;
 
 public class RoboRally  extends GameGUI {
 
@@ -9,8 +9,7 @@ public class RoboRally  extends GameGUI {
     @Override
     public void create() {
 
-        MainMenuScreen mainMenuScreen = new MainMenuScreen();
-        setScreen(MainMenuScreen);
+
     }
 
     public void render() {

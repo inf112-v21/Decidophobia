@@ -1,4 +1,4 @@
-package inf112.skeleton.app.screen;
+package inf112.skeleton.app.GUI.screen;
 
 
 import com.badlogic.gdx.Gdx;
@@ -17,7 +17,6 @@ import inf112.skeleton.app.Launcher;
 
 import javax.sound.sampled.FloatControl;
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 public class SettingScreen implements Screen {

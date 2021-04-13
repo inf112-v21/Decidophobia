@@ -53,6 +53,7 @@ public class RoboServer {
             public void received (Connection connection, Object object) {
                 if (object instanceof String) {
                     String request = (String) object;
+                    System.out.println(request);
                     handleStringRequest(connection,request);
                 }
             }
@@ -203,6 +204,11 @@ public class RoboServer {
 
     public Map<String, Connection> getPlayerIpToConnect() {
         return playerIpToConnect;
+    }
+
+    public static void main(String[] args){
+        RoboServer server = new RoboServer();
+        server.runServer();
     }
 
 }

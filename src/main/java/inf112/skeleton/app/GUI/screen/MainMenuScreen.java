@@ -1,4 +1,4 @@
-package inf112.skeleton.app.screen;
+package inf112.skeleton.app.GUI.screen;
 
 
 import com.badlogic.gdx.Gdx;
@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.skeleton.app.Launcher;
 
 public class MainMenuScreen implements Screen {
+    private ScreenManager screenManager;
 
     private SpriteBatch batch;
     private TextureAtlas atlas;
@@ -26,7 +27,9 @@ public class MainMenuScreen implements Screen {
     private OrthographicCamera camera;
     private Skin skin;
 
-    public MainMenuScreen() {
+    public MainMenuScreen(ScreenManager screenManager) {
+        this.screenManager = screenManager;
+
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
         viewport = new FitViewport(Launcher.WIDTH, Launcher.HEIGHT, camera);

@@ -36,7 +36,7 @@ public class ParserTest {
     @Test
     public void lobbyInfoIsCorrectlyConstructed(){
         robo.parser("lobby,1;Isak;1;true;true:2;Alex;2;false;false:,");
-        lobbyInfoEvaluation();
+        lobbyInfoEvaluation(1,2);
     }
     @Test
     public void lobbyObjectIsCorrectlyConstructedAndParsed(){
@@ -47,13 +47,13 @@ public class ParserTest {
         lobby.getPlayers().get(1).setNickname("Alex");
         lobby.getPlayers().get(0).setReady(true);
         robo.parser(lobby.toString());
-        lobbyInfoEvaluation();
+        lobbyInfoEvaluation(0,1);
 
     }
     @Test
     public void joinRequestParsesLobbyAndGameRules(){
-        robo.parser("joined,1,gameRules,4;10,lobby,0;Isak;0;true;true:0;Alex;0;false;false:,");
-        lobbyInfoEvaluation();
+        robo.parser("joined,1,gameRules,4;10,lobby,0;Isak;0;true;true:1;Alex;1;false;false:,");
+        lobbyInfoEvaluation(0,1);
         assertEquals(4,robo.getGameRules().getLifeTokens());
         assertEquals(10,robo.getGameRules().getDamageTokens());
         assertEquals(1,robo.getClientPlayerNr());
@@ -107,14 +107,14 @@ public class ParserTest {
         assertEquals(222,cards.getLockedCards().get(1).getPriority());
         assertEquals(FORWARD_3,cards.getLockedCards().get(1).getType());
     }
-    public void lobbyInfoEvaluation(){
+    public void lobbyInfoEvaluation(int p1, int p2){
         assertEquals(2,robo.getLobbyInfo().getPlayers().size());
-        assertEquals("Isak",robo.getLobbyInfo().getPlayers().get(0).getNickname());
-        assertEquals("Alex",robo.getLobbyInfo().getPlayers().get(1).getNickname());
-        assertTrue(robo.getLobbyInfo().playerIsReady(0));
-        assertFalse(robo.getLobbyInfo().playerIsReady(1));
-        assertTrue(robo.getLobbyInfo().getPlayers().get(0).getHost());
-        assertFalse(robo.getLobbyInfo().getPlayers().get(1).getHost());
+        assertEquals("Isak",robo.getLobbyInfo().getPlayers().get(p1).getNickname());
+        assertEquals("Alex",robo.getLobbyInfo().getPlayers().get(p2).getNickname());
+        assertTrue(robo.getLobbyInfo().playerIsReady(p1));
+        assertFalse(robo.getLobbyInfo().playerIsReady(p2));
+        assertTrue(robo.getLobbyInfo().getPlayers().get(p1).getHost());
+        assertFalse(robo.getLobbyInfo().getPlayers().get(p2).getHost());
     }
 
 }

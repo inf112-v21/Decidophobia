@@ -170,6 +170,7 @@ public class RoboClient {
                 break;
 
             case "unReady":
+                System.out.println("here it happens");
                 lobbyInfo.playerSetReady(Integer.parseInt(arguments[1]),false);
                 break;
 

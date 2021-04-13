@@ -25,7 +25,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import inf112.skeleton.app.board.Board;
 import inf112.skeleton.app.player.LocalPlayer;
-import inf112.skeleton.app.screen.MainMenuScreen;
+import inf112.skeleton.app.GUI.screen.MainMenuScreen;
 
 import java.util.Map;
 

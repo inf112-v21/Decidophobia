@@ -41,7 +41,7 @@ public class GameLogic {
         if(networkClient.getLobbyInfo().getPlayers().get(localPlayerNumber).getHost()){
             GameCards thisRound = new GameCards(cardDeck);
             HashMap<Integer, PlayerCards> newHands = new HashMap<>();
-            for(PlayerInfo pInfo : networkClient.getLobbyInfo().getPlayers()){
+            for(PlayerInfo pInfo : networkClient.getLobbyInfo().getPlayers().values()){
                 int pNr = pInfo.getPlayerNr();
                 PlayerCards pCards = new PlayerCards();
                 for(int i = 0; i<9;i++){
