@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.skeleton.app.GUI.screen.LobbyScreen;
+import inf112.skeleton.app.GUI.screen.MenuScreen;
 import inf112.skeleton.app.GUI.screen.ScreenManager;
 import inf112.skeleton.app.Multiplayer.RoboClient;
 
@@ -32,8 +33,8 @@ public class LobbyStage {
         style.downFontColor = Color.GRAY;
 
         TextButton ready = new TextButton("|_|",style);
+        TextButton quit = new TextButton("quit",style);
         ready.addListener(new ClickListener(){
-
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if(client.getLobbyInfo().playerIsReady(client.getClientPlayerNr())){
@@ -45,10 +46,20 @@ public class LobbyStage {
                 }
             }
         });
+        quit.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                client.quit();
+                lobbyScreen.dispose();
+                lobbyScreen.screenManager.setScreen(new MenuScreen(lobbyScreen.screenManager));
+            }
+        });
 
         Table renderTable = new Table();
         renderTable.setFillParent(true);
         renderTable.add(ready);
+        renderTable.row();
+        renderTable.add(quit);
 
         stage.addActor(renderTable);
     }

@@ -29,13 +29,12 @@ public class JoinScreen implements Screen {
         this.screenManager = screenManager;
         joinCam = new OrthographicCamera();
         joinPort = new StretchViewport(ScreenManager.V_WIDTH,ScreenManager.V_HEIGHT,joinCam);
-
-        joinStage = new Stage();
     }
 
 
     @Override
     public void show() {
+        joinStage = new Stage();
         BitmapFont font = new BitmapFont();
         font.getData().setScale(5);
 
@@ -69,11 +68,13 @@ public class JoinScreen implements Screen {
         join.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                dispose();
                 String ip = ipInput.getText();
                 LobbyScreen lobbyScreen = new LobbyScreen(screenManager, ip);
                 if(lobbyScreen.client.getClientPlayerNr()!=0){
-                    dispose();
                     screenManager.setScreen(lobbyScreen);
+                }else{
+                    show();
                 }
             }
         });
@@ -96,7 +97,6 @@ public class JoinScreen implements Screen {
         Pixmap tableColor = new Pixmap(1910, 1070, Pixmap.Format.RGB888);
         tableColor.setColor(Color.CYAN);
         tableColor.fill();
-        Drawable tableDraw = new Image(new Texture(tableColor)).getDrawable();
 
         Table joinTable = new Table();
         joinTable.setFillParent(true);

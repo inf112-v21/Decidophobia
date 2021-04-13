@@ -20,13 +20,14 @@ public class LobbyScreen implements Screen {
         this.screenManager = screenManager;
         server = new RoboServer();
         server.runServer();
-        clientJoin();
+        clientJoin("localhost");
 
     }
     //Constructor for clients
     public LobbyScreen(ScreenManager screenManager, String ip){
         this.screenManager = screenManager;
-        clientJoin();
+        this.server = null;
+        clientJoin(ip);
     }
 
 
@@ -67,11 +68,13 @@ public class LobbyScreen implements Screen {
 
     @Override
     public void dispose() {
+        if(server != null)
+            server.stopServer();
         lobbyStage.stage.dispose();
     }
 
-    public void clientJoin(){
-        client = new RoboClient("localhost");
+    public void clientJoin(String ip){
+        client = new RoboClient(ip);
         client.join();
         try {
             for(int i = 0; i<5;i++){
