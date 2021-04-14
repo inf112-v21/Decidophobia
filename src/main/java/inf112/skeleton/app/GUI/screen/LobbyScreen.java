@@ -78,7 +78,7 @@ public class LobbyScreen implements Screen {
         client.join();
         try {
             for(int i = 0; i<5;i++){
-                i = client.getClientPlayerNr() != 0 ? 6 : i;
+                i = (client.getLobbyInfo() != null) ? 6 : i;
                 Thread.sleep(1000);
             }
         } catch (Exception e) {}

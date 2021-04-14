@@ -68,13 +68,11 @@ public class JoinScreen implements Screen {
         join.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                dispose();
                 String ip = ipInput.getText();
                 LobbyScreen lobbyScreen = new LobbyScreen(screenManager, ip);
-                if(lobbyScreen.client.getClientPlayerNr()!=0){
+                if(lobbyScreen.client.getLobbyInfo()!=null){
+                    dispose();
                     screenManager.setScreen(lobbyScreen);
-                }else{
-                    show();
                 }
             }
         });
