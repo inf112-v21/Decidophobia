@@ -3,6 +3,7 @@ package inf112.skeleton.app.Multiplayer;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import inf112.skeleton.app.GUI.stages.LobbyStage;
 import inf112.skeleton.app.GameLogic;
 import inf112.skeleton.app.Multiplayer.packets.GameCards;
 import inf112.skeleton.app.Multiplayer.packets.GameRules;
@@ -25,6 +26,10 @@ public class RoboClient {
 
     private LobbyInfo lobbyInfo;
 
+
+
+    private LobbyStage lobbyStage;
+
     private GameRules gameRules;
 
     public GameCards getRoundCards() {
@@ -34,10 +39,6 @@ public class RoboClient {
     private GameCards roundCards;
 
     private PlayerCards clientsCards;
-
-    public int getClientPlayerNr() {
-        return clientPlayerNr;
-    }
 
     private int clientPlayerNr;
 
@@ -135,11 +136,13 @@ public class RoboClient {
 
             case "gameRules":
                 gameRules = new GameRules(arguments[1]);
+                if (lobbyStage != null) lobbyStage.updatePlayerTable();
                 parser(str.substring("gameRules,,".length() + arguments[1].length()));
                 break;
 
             case "lobby":
                 lobbyInfo = new LobbyInfo(arguments[1]);
+                if (lobbyStage != null) lobbyStage.updatePlayerTable();
                 parser(str.substring("lobby,,".length() + arguments[1].length()));
                 break;
 
@@ -159,29 +162,42 @@ public class RoboClient {
 
             case "changeNick":
                 lobbyInfo.changeNick(Integer.parseInt(arguments[1]),arguments[2]);
+                lobbyStage.updatePlayerTable();
                 break;
 
             case "changeRobot":
                 lobbyInfo.changeRobot(Integer.parseInt(arguments[1]),arguments[2],arguments[3]);
+                lobbyStage.updatePlayerTable();
                 break;
 
             case "ready":
                 lobbyInfo.playerSetReady(Integer.parseInt(arguments[1]),true);
+                lobbyStage.updatePlayerTable();
                 break;
 
             case "unReady":
                 System.out.println("here it happens");
                 lobbyInfo.playerSetReady(Integer.parseInt(arguments[1]),false);
+                lobbyStage.updatePlayerTable();
                 break;
 
             case "quit":
                 lobbyInfo.playerQuit(Integer.parseInt(arguments[1]));
+                lobbyStage.updatePlayerTable();
                 break;
 
             default:
                 return;
         }
     }
+    public int getClientPlayerNr() {
+        return clientPlayerNr;
+    }
+
+    public void setLobbyStage(LobbyStage lobbyStage) {
+        this.lobbyStage = lobbyStage;
+    }
+
     public LobbyInfo getLobbyInfo() {
         return lobbyInfo;
     }

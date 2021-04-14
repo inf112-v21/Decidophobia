@@ -15,6 +15,7 @@ public class LobbyScreen implements Screen {
 
     public RoboClient client;
 
+
     //Constructor for hosts
     public LobbyScreen(ScreenManager screenManager){
         this.screenManager = screenManager;
@@ -33,7 +34,8 @@ public class LobbyScreen implements Screen {
 
     @Override
     public void show() {
-        lobbyStage = new LobbyStage(this, screenManager.batch, client);
+        lobbyStage = new LobbyStage(this, client);
+        lobbyStage.show();
         Gdx.input.setInputProcessor(lobbyStage.stage);
     }
 
@@ -63,7 +65,7 @@ public class LobbyScreen implements Screen {
 
     @Override
     public void hide() {
-        System.out.println("I'm hiding");
+
     }
 
     @Override
