@@ -25,7 +25,7 @@ public class GameStage {
 
     GameLogic gl;
 
-    HashMap<CardType,Image> cardImages;
+    HashMap<CardType,TextureRegion> cardImages;
 
     Table handCardsTable;
 
@@ -41,14 +41,14 @@ public class GameStage {
 
         TextureRegion[][] cardTextures = TextureRegion.split(new Texture("src/assets/cardTiles.png"), 380, 600);
         cardImages = new HashMap<>();
-        cardImages.put(CardType.FORWARD_1,new Image(cardTextures[0][0]));
-        cardImages.put(CardType.FORWARD_2,new Image(cardTextures[0][1]));
-        cardImages.put(CardType.FORWARD_3,new Image(cardTextures[0][2]));
-        cardImages.put(CardType.U_TURN,new Image(cardTextures[0][3]));
-        cardImages.put(CardType.REVERSE,new Image(cardTextures[0][4]));
-        cardImages.put(CardType.ROTATE_LEFT,new Image(cardTextures[0][5]));
-        cardImages.put(CardType.ROTATE_RIGHT,new Image(cardTextures[0][6]));
-        cardImages.put(CardType.CLOSED,new Image(cardTextures[0][7]));
+        cardImages.put(CardType.FORWARD_1,cardTextures[0][0]);
+        cardImages.put(CardType.FORWARD_2,cardTextures[0][1]);
+        cardImages.put(CardType.FORWARD_3,cardTextures[0][2]);
+        cardImages.put(CardType.U_TURN,cardTextures[0][3]);
+        cardImages.put(CardType.REVERSE,cardTextures[0][4]);
+        cardImages.put(CardType.ROTATE_LEFT,cardTextures[0][5]);
+        cardImages.put(CardType.ROTATE_RIGHT,cardTextures[0][6]);
+        cardImages.put(CardType.CLOSED,cardTextures[0][7]);
 
 
 
@@ -56,9 +56,12 @@ public class GameStage {
     }
     public void updateCards(PlayerCards localCards){
         System.out.printf(localCards.toString() + " <-- komt hit");
-        float scale = 0.5f;
+        handCardsTable.clearChildren();
+        handCardsTable.setFillParent(true);
+        handCardsTable.bottom();
+        float scale = 0.4f;
         for(Cards card : localCards.getCardsInHand()){
-            Image cardImg = cardImages.get(card.getType());
+            Image cardImg = new Image(cardImages.get(card.getType()));
             cardImg.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
