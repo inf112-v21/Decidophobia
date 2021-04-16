@@ -11,9 +11,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import inf112.skeleton.app.GUI.screen.GameScreen;
 import inf112.skeleton.app.GUI.screen.LobbyScreen;
 import inf112.skeleton.app.GUI.screen.MenuScreen;
-import inf112.skeleton.app.GUI.screen.ScreenManager;
+import inf112.skeleton.app.GUI.ScreenManager;
+import inf112.skeleton.app.GameLogic;
 import inf112.skeleton.app.Multiplayer.RoboClient;
 import inf112.skeleton.app.Multiplayer.packets.PlayerInfo;
 
@@ -81,6 +83,7 @@ public class LobbyStage {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 client.quit();
+                if(ScreenManager.server != null){ScreenManager.server.stopServer();}
                 lobbyScreen.dispose();
                 lobbyScreen.screenManager.setScreen(new MenuScreen(lobbyScreen.screenManager));
             }
@@ -156,5 +159,11 @@ public class LobbyStage {
             }
             playerTable.row();
         }
+    }
+
+    public void startGame() {
+        GameLogic roboGame = new GameLogic(client);
+        lobbyScreen.dispose();
+        lobbyScreen.screenManager.setScreen(new GameScreen(lobbyScreen.screenManager, roboGame));
     }
 }

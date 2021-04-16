@@ -117,6 +117,7 @@ public class RoboClient {
     public void parser(String str){
         switch (str){
             case "start":
+                lobbyStage.startGame();
                 break;
 
             case "end":
@@ -154,10 +155,10 @@ public class RoboClient {
                 break;
 
             case "dealCards":
-                System.out.println(arguments[1]);
                 roundCards = new GameCards(new Deck());
                 clientsCards = new PlayerCards(arguments[1]);
                 roundCards.addPlayerCards(clientPlayerNr, clientsCards);
+                if(gameLogic != null) gameLogic.stage.updateCards(clientsCards);
                 break;
 
             case "changeNick":
@@ -176,7 +177,6 @@ public class RoboClient {
                 break;
 
             case "unReady":
-                System.out.println("here it happens");
                 lobbyInfo.playerSetReady(Integer.parseInt(arguments[1]),false);
                 lobbyStage.updatePlayerTable();
                 break;

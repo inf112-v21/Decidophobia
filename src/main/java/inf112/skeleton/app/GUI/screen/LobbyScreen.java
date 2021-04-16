@@ -3,6 +3,7 @@ package inf112.skeleton.app.GUI.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import inf112.skeleton.app.GUI.ScreenManager;
 import inf112.skeleton.app.GUI.stages.LobbyStage;
 import inf112.skeleton.app.Multiplayer.RoboClient;
 import inf112.skeleton.app.Multiplayer.RoboServer;
@@ -11,7 +12,6 @@ public class LobbyScreen implements Screen {
     public ScreenManager screenManager;
     private LobbyStage lobbyStage;
 
-    public RoboServer server;
 
     public RoboClient client;
 
@@ -19,15 +19,14 @@ public class LobbyScreen implements Screen {
     //Constructor for hosts
     public LobbyScreen(ScreenManager screenManager){
         this.screenManager = screenManager;
-        server = new RoboServer();
-        server.runServer();
-        clientJoin("localhost");
+        ScreenManager.server = new RoboServer();
+        ScreenManager.server.runServer();
+        clientJoin(RoboServer.getLANIp());
 
     }
     //Constructor for clients
     public LobbyScreen(ScreenManager screenManager, String ip){
         this.screenManager = screenManager;
-        this.server = null;
         clientJoin(ip);
     }
 
@@ -70,8 +69,6 @@ public class LobbyScreen implements Screen {
 
     @Override
     public void dispose() {
-        if(server != null)
-            server.stopServer();
         lobbyStage.stage.dispose();
     }
 

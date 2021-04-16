@@ -11,7 +11,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import inf112.skeleton.app.GUI.ScreenManager;
 import inf112.skeleton.app.GUI.screen.*;
+import inf112.skeleton.app.GameLogic;
+import inf112.skeleton.app.Multiplayer.RoboClient;
+import inf112.skeleton.app.Multiplayer.RoboServer;
 
 public class MenuStage {
     public Stage stage;
@@ -50,7 +54,17 @@ public class MenuStage {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 menuScreen.dispose();
-                menuScreen.screenManager.setScreen(new GameScreen());
+                ScreenManager.server = new RoboServer();
+                ScreenManager.server.runServer();
+                RoboClient client = new RoboClient("localhost");
+                client.join();
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                GameLogic gl = new GameLogic(client);
+                menuScreen.screenManager.setScreen(new GameScreen(menuScreen.screenManager,gl));
                 System.out.println("Starting simple singleplayer game");
             }
         });
@@ -71,7 +85,23 @@ public class MenuStage {
         testGameButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Gdx.app.exit();
+                menuScreen.dispose();
+                ScreenManager.server = new RoboServer();
+                ScreenManager.server.runServer();
+                RoboClient client = new RoboClient(RoboServer.getLANIp());
+                client.join();
+                while(client.getLobbyInfo() == null) {
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                ScreenManager.server.gameStarted = true;
+                GameLogic gl = new GameLogic(client);
+                client.setGameReference(gl);
+                menuScreen.screenManager.setScreen(new GameScreen(menuScreen.screenManager,gl));
+                System.out.println("Starting testenvirourmeant");
             }
         });
 

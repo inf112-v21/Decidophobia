@@ -1,5 +1,6 @@
 package inf112.skeleton.app;
 
+import inf112.skeleton.app.GUI.stages.GameStage;
 import inf112.skeleton.app.Multiplayer.MoveCardsPacket;
 import inf112.skeleton.app.Multiplayer.RoboClient;
 import inf112.skeleton.app.Multiplayer.RoboServer;
@@ -23,9 +24,11 @@ public class GameLogic {
 
     private RoboClient networkClient;
 
+    public GameStage stage;
+
     private int localPlayerNumber;
 
-    public static Map<Integer, PlayerCards> playerMoves;
+    public Map<Integer, PlayerCards> playerMoves;
 
     PlayerCards yourCards;
 
@@ -102,5 +105,9 @@ public class GameLogic {
 
     public GameCards getLastRound() {
         return lastRound;
+    }
+
+    public void setStage(GameStage stage) {
+        this.stage = stage;
     }
 }

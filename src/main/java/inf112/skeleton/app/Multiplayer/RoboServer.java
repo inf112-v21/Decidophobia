@@ -16,7 +16,7 @@ import java.net.UnknownHostException;
 import java.util.*;
 
 public class RoboServer {
-    private boolean gameStarted;
+    public boolean gameStarted;
 
     //server.getConnections();
     Map<String, Connection> playerIpToConnect;

@@ -8,6 +8,7 @@ public enum CardType {
     REVERSE,
     ROTATE_RIGHT,
     ROTATE_LEFT,
-    U_TURN
+    U_TURN,
+    CLOSED
 
 }

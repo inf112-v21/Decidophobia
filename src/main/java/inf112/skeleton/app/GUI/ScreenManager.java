@@ -1,13 +1,17 @@
-package inf112.skeleton.app.GUI.screen;
+package inf112.skeleton.app.GUI;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import inf112.skeleton.app.GUI.screen.MenuScreen;
+import inf112.skeleton.app.Multiplayer.RoboServer;
 
 public class ScreenManager extends Game {
     public SpriteBatch batch;
     public static final int V_WIDTH = 1920;
     public static final int V_HEIGHT = 1080;
+
+    public static RoboServer server;
 
     private static ScreenManager screenManagerInstance = null;
 
@@ -32,8 +36,8 @@ public class ScreenManager extends Game {
 
     @Override
     public void dispose() {
-        if(this.screen instanceof LobbyScreen){
-            ((LobbyScreen) this.screen).server.stopServer();
+        if(ScreenManager.server != null){
+            ScreenManager.server.stopServer();
         }
         Gdx.app.exit();
     }

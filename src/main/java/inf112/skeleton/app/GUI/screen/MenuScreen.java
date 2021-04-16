@@ -3,9 +3,7 @@ package inf112.skeleton.app.GUI.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
+import inf112.skeleton.app.GUI.ScreenManager;
 import inf112.skeleton.app.GUI.stages.MenuStage;
 
 public class MenuScreen implements Screen {
