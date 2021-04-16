@@ -104,7 +104,7 @@ public class PlayerCards {
     public LinkedList<Cards> getActiveCards() {
         LinkedList<Cards> cards = new LinkedList<>();
         for(Cards card : activeCards)
-            cards.add(card);
+            if(card != null) cards.add(card);
         return cards;
     }
 
@@ -130,6 +130,12 @@ public class PlayerCards {
             throw new IllegalArgumentException("Card is already active");
         activeCards[activeCardsIndex] = card;
         cardsInHand.remove(cardsIndex);
+    }
+    public void setLastActiveCard(Cards card) {
+        if(cardsInHand.contains(card)){
+            cardsInHand.remove(card);
+            activeCards[getActiveCards().size()] = card;
+        }
     }
 
     private boolean activeCardsContains(Cards card) {

@@ -83,6 +83,7 @@ public class RoboClient {
     }
 
     public void sendMoves(PlayerCards cards){
+        System.out.println("Move,"+cards+",");
         sendRequest("Move,"+cards+",");
     }
 

@@ -22,7 +22,7 @@ public class GameLogic {
 
     private GameRules gameRules;
 
-    private RoboClient networkClient;
+    public RoboClient networkClient;
 
     public GameStage stage;
 
