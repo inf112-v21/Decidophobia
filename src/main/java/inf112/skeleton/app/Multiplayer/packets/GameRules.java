@@ -5,6 +5,8 @@ import java.io.Serializable;
 public class GameRules implements Serializable {
     private int damageTokens;
     private int lifeTokens;
+    private String boardPath;
+    private String readBoardFile;
 
     public GameRules(){
         this.damageTokens = 9;
@@ -47,5 +49,17 @@ public class GameRules implements Serializable {
     @Override
     public String toString() {
         return "gameRules,"+lifeTokens+";"+damageTokens+",";
+    }
+
+    public String getBoardPath(){
+        return boardPath;
+    }
+
+    public void setBoard(String file) {
+        readBoardFile = file;
+    }
+
+    public String getBoard() {
+        return readBoardFile;
     }
 }

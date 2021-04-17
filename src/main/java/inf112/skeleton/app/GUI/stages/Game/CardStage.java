@@ -1,4 +1,4 @@
-package inf112.skeleton.app.GUI.stages;
+package inf112.skeleton.app.GUI.stages.Game;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -21,7 +21,7 @@ import inf112.skeleton.app.cards.PlayerCards;
 
 import java.util.HashMap;
 
-public class GameStage {
+public class CardStage {
     private GameScreen gameScreen;
     public Stage cardStage;
     Viewport viewport;
@@ -36,7 +36,7 @@ public class GameStage {
     BitmapFont font;
     Label.LabelStyle labelStyle;
 
-    public GameStage(GameScreen gameScreen, GameLogic gl){
+    public CardStage(GameScreen gameScreen, GameLogic gl){
         this.gameScreen = gameScreen;
         this.gl = gl;
         viewport = new FitViewport(ScreenManager.V_WIDTH,ScreenManager.V_HEIGHT);

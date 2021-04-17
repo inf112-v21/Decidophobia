@@ -3,15 +3,19 @@ package inf112.skeleton.app.GUI.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import inf112.skeleton.app.GUI.ScreenManager;
-import inf112.skeleton.app.GUI.stages.GameStage;
+import inf112.skeleton.app.GUI.stages.Game.BoardStage;
+import inf112.skeleton.app.GUI.stages.Game.CardStage;
 import inf112.skeleton.app.GameLogic;
+import inf112.skeleton.app.cards.PlayerCards;
 
 public class GameScreen implements Screen {
     ScreenManager screenManager;
     GameLogic roboGame;
 
-    GameStage gameStage;
+    CardStage cardStage;
+    BoardStage boardStage;
 
     public GameScreen(ScreenManager screenManager, GameLogic roboGame) {
         this.screenManager = screenManager;
@@ -21,9 +25,11 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
-        gameStage = new GameStage(this, roboGame);
-        roboGame.setStage(gameStage);
-        Gdx.input.setInputProcessor(gameStage.cardStage);
+        cardStage = new CardStage(this, roboGame);
+        boardStage = new BoardStage(this, roboGame);
+
+        roboGame.setGameGUI(this);
+        Gdx.input.setInputProcessor(cardStage.cardStage);
         roboGame.dealCards();
     }
 
@@ -32,8 +38,13 @@ public class GameScreen implements Screen {
         Gdx.gl.glClearColor(1,1,1,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        screenManager.batch.setProjectionMatrix(gameStage.cardStage.getCamera().combined);
-        gameStage.cardStage.draw();
+        boardStage.boardCam.update();
+        boardStage.mapRenderer.setView(boardStage.boardCam);
+        boardStage.mapRenderer.render();
+        screenManager.batch.setProjectionMatrix(boardStage.boardCam.combined);
+
+        screenManager.batch.setProjectionMatrix(cardStage.cardStage.getCamera().combined);
+        cardStage.cardStage.draw();
 
 
     }
@@ -61,5 +72,13 @@ public class GameScreen implements Screen {
     @Override
     public void dispose() {
 
+    }
+
+    public void updateCards(PlayerCards clientsCards) {
+        cardStage.updateCards(clientsCards);
+    }
+
+    public TiledMap getMap(){
+        return boardStage.getBoardMap();
     }
 }

@@ -159,7 +159,7 @@ public class RoboClient {
                 roundCards = new GameCards(new Deck());
                 clientsCards = new PlayerCards(arguments[1]);
                 roundCards.addPlayerCards(clientPlayerNr, clientsCards);
-                if(gameLogic != null) gameLogic.stage.updateCards(clientsCards);
+                if(gameLogic != null) gameLogic.gameGUI.updateCards(clientsCards);
                 break;
 
             case "changeNick":

@@ -1,13 +1,12 @@
 package inf112.skeleton.app;
 
-import inf112.skeleton.app.GUI.stages.GameStage;
-import inf112.skeleton.app.Multiplayer.MoveCardsPacket;
+import inf112.skeleton.app.GUI.screen.GameScreen;
+import inf112.skeleton.app.GUI.stages.Game.CardStage;
 import inf112.skeleton.app.Multiplayer.RoboClient;
 import inf112.skeleton.app.Multiplayer.RoboServer;
 import inf112.skeleton.app.Multiplayer.packets.GameCards;
 import inf112.skeleton.app.Multiplayer.packets.GameRules;
 import inf112.skeleton.app.Multiplayer.packets.PlayerInfo;
-import inf112.skeleton.app.board.IBoard;
 import inf112.skeleton.app.cards.Cards;
 import inf112.skeleton.app.cards.Deck;
 import inf112.skeleton.app.cards.PlayerCards;
@@ -24,7 +23,7 @@ public class GameLogic {
 
     public RoboClient networkClient;
 
-    public GameStage stage;
+    public GameScreen gameGUI;
 
     private int localPlayerNumber;
 
@@ -107,7 +106,11 @@ public class GameLogic {
         return lastRound;
     }
 
-    public void setStage(GameStage stage) {
-        this.stage = stage;
+    public void setGameGUI(GameScreen gameGUI) {
+        this.gameGUI = gameGUI;
+    }
+
+    public GameRules getGameRules(){
+        return gameRules;
     }
 }
