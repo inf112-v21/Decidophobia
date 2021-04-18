@@ -1,6 +1,7 @@
 package inf112.skeleton.app.GUI.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -29,7 +30,10 @@ public class GameScreen implements Screen {
         boardStage = new BoardStage(this, roboGame);
 
         roboGame.setGameGUI(this);
-        Gdx.input.setInputProcessor(cardStage.cardStage);
+        InputMultiplexer inputs = new InputMultiplexer();
+        inputs.addProcessor(cardStage.cardStage);
+        inputs.addProcessor(boardStage);
+        Gdx.input.setInputProcessor(inputs);
         roboGame.dealCards();
     }
 
@@ -37,6 +41,8 @@ public class GameScreen implements Screen {
     public void render(float v) {
         Gdx.gl.glClearColor(1,1,1,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        boardStage.moveBoard(Gdx.input.getX(),Gdx.input.getY());
 
         boardStage.boardCam.update();
         boardStage.mapRenderer.setView(boardStage.boardCam);
