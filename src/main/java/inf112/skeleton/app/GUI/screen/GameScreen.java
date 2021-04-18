@@ -39,7 +39,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float v) {
-        Gdx.gl.glClearColor(1,1,1,1);
+        Gdx.gl.glClearColor(0,0,0,0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         boardStage.moveBoard(Gdx.input.getX(),Gdx.input.getY());
@@ -57,7 +57,9 @@ public class GameScreen implements Screen {
     }
 
     @Override
-    public void resize(int i, int i1) {
+    public void resize(int width, int height) {
+        cardStage.cardStage.getViewport().update(width,height);
+        boardStage.boardCam.setToOrtho(false,width,height);
 
     }
 

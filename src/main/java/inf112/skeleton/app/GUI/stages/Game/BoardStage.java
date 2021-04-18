@@ -17,7 +17,6 @@ import inf112.skeleton.app.GameLogic;
 public class BoardStage extends InputAdapter {
     private GameLogic roboGame;
     private GameScreen gameScreen;
-    public Viewport viewport;
 
     public OrthogonalTiledMapRenderer mapRenderer;
     public OrthographicCamera boardCam;
@@ -39,13 +38,13 @@ public class BoardStage extends InputAdapter {
 
         //Setting up camera for game board
         boardCam = new OrthographicCamera();
-        this.viewport = new ExtendViewport(ScreenManager.V_WIDTH,ScreenManager.V_HEIGHT,boardCam);
         boardLayer = (TiledMapTileLayer) boardMap.getLayers().get("Board");
-        boardCam.setToOrtho(false, boardLayer.getWidth(), boardLayer.getHeight());
+        boardCam.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         boardCam.translate(boardLayer.getWidth()/2,boardLayer.getHeight()/2);
+        boardCam.zoom = 0.01f;
 
         //Creating the map renderer
-        mapRenderer = new OrthogonalTiledMapRenderer(boardMap,(float) 1/10);
+        mapRenderer = new OrthogonalTiledMapRenderer(boardMap,(float) 1/300);
 
 
     }
@@ -61,7 +60,8 @@ public class BoardStage extends InputAdapter {
 
     @Override
     public boolean scrolled(int amount) {
-        if(boardCam.zoom+amount>0) boardCam.zoom += amount;
+        float zoomScale = (float) amount/300;
+        if(boardCam.zoom+zoomScale>0) boardCam.zoom += zoomScale;
         return super.scrolled(amount);
     }
 
@@ -69,23 +69,37 @@ public class BoardStage extends InputAdapter {
         float width = Gdx.graphics.getWidth();
         float height = Gdx.graphics.getHeight();
 
-        float boardWidth = boardLayer.getWidth()*boardLayer.getTileWidth()/boardCam.viewportWidth;
-        float boardHeight = boardLayer.getHeight()*boardLayer.getTileHeight()/boardCam.viewportHeight;
+        float boardWidth = boardLayer.getWidth();
+        float boardHeight = boardLayer.getHeight();
 
-        int fraction = 10;
-        int amount = 2;
-        float padding = Math.min(width/fraction,height/fraction);
+        int fraction = 3;
+        float amount = (float) 1/150; //amount*1 till 10 good boundaries
+
+        int topSpeed = 10;
+        float padding = Math.min((float) width/fraction,(float) height/fraction);
         if(screenX<padding){
-            if(boardCam.position.x>boardCam.viewportWidth/2) boardCam.translate(-amount,0);
+            if(boardCam.position.x>0){
+                float speed = topSpeed*amount*(padding-screenX)/padding;
+                boardCam.translate(-speed,0);
+            }
         }
         else if(screenX>width-padding){
-            if(boardCam.position.x<boardWidth-boardCam.viewportWidth/2) boardCam.translate(amount,0);
+            if(boardCam.position.x<boardWidth){
+                float speed = topSpeed*amount*(padding-(width-screenX))/padding;
+                boardCam.translate(speed,0);
+            }
         }
         if(screenY<padding){
-            if(boardCam.position.y<boardHeight-boardCam.viewportHeight/2) boardCam.translate(0,amount);
+            if(boardCam.position.y<boardHeight){
+                float speed = topSpeed*amount*(padding-screenY)/padding;
+                boardCam.translate(0,speed);
+            }
         }
         else if(screenY>height-padding){
-            if(boardCam.position.y>boardCam.viewportHeight/2) boardCam.translate(0,-amount);
+            if(boardCam.position.y>0){
+                float speed = topSpeed*amount*(padding-(height-screenY))/padding;
+                boardCam.translate(0,-speed);
+            }
         }
     }
 }
