@@ -43,6 +43,7 @@ public class GameScreen implements Screen {
         boardStage.mapRenderer.render();
         screenManager.batch.setProjectionMatrix(boardStage.boardCam.combined);
 
+        cardStage.cardStage.getCamera().update();
         screenManager.batch.setProjectionMatrix(cardStage.cardStage.getCamera().combined);
         cardStage.cardStage.draw();
 
