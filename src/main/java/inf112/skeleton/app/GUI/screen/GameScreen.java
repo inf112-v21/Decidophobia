@@ -27,7 +27,7 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         cardStage = new CardStage(this, roboGame);
-        boardStage = new BoardStage(this, roboGame);
+        boardStage = new BoardStage();
 
         roboGame.setGameGUI(this);
         InputMultiplexer inputs = new InputMultiplexer();

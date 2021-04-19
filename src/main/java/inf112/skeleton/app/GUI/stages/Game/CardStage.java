@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.skeleton.app.GUI.ScreenManager;
@@ -39,7 +40,7 @@ public class CardStage {
     public CardStage(GameScreen gameScreen, GameLogic gl){
         this.gameScreen = gameScreen;
         this.gl = gl;
-        viewport = new FitViewport(ScreenManager.V_WIDTH,ScreenManager.V_HEIGHT);
+        viewport = new ExtendViewport(ScreenManager.V_WIDTH,ScreenManager.V_HEIGHT);
         cardStage = new Stage(viewport);
 
         font = new BitmapFont();
@@ -47,7 +48,7 @@ public class CardStage {
 
         labelStyle = new Label.LabelStyle();
         labelStyle.font = font;
-        labelStyle.fontColor = Color.BLACK;
+        labelStyle.fontColor = Color.WHITE;
 
         //Set up cardTextures
         TextureRegion[][] cardTextures = TextureRegion.split(new Texture("src/assets/cardTiles.png"), 380, 600);
