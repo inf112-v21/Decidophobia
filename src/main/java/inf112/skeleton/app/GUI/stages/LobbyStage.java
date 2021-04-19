@@ -168,4 +168,9 @@ public class LobbyStage {
         lobbyScreen.dispose();
         lobbyScreen.screenManager.setScreen(new GameScreen(lobbyScreen.screenManager, roboGame));
     }
+
+    public void destroyLobby() {
+        lobbyScreen.dispose();
+        lobbyScreen.screenManager.setScreen(new MenuScreen(lobbyScreen.screenManager));
+    }
 }

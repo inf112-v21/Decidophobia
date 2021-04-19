@@ -172,6 +172,7 @@ public class RoboServer {
     }
 
     public void stopServer(){
+        sendToAll("quit,0,");
         server.stop();
     }
 

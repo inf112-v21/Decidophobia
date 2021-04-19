@@ -187,6 +187,11 @@ public class RoboClient {
                 break;
 
             case "quit":
+                int pNr = Integer.parseInt(arguments[1]);
+                if(pNr==0){
+                    lobbyStage.destroyLobby();
+                    break;
+                }
                 lobbyInfo.playerQuit(Integer.parseInt(arguments[1]));
                 lobbyStage.updatePlayerTable();
                 break;
