@@ -95,10 +95,11 @@ public class RoboServer {
                 break;
 
             case "Quit":
-                lobby.playerQuit(getPlayerNumber(connection));
+                int pNr = getPlayerNumber(connection);
+                lobby.playerQuit(pNr);
                 this.playerIpToConnect.remove(connectionToIp(connection));
-                playerNrToIp.remove(getPlayerNumber(connection));
-                sendToAll("quit;"+getPlayerNumber(connection)+",");
+                playerNrToIp.remove(pNr);
+                sendToAll("quit,"+pNr+",");
                 break;
 
             case "Start":

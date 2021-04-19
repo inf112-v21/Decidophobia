@@ -108,6 +108,7 @@ public class RoboClient {
             public void received (Connection connection, Object object) {
                 if (object instanceof String) {
                     response = (String) object;
+                    System.out.println(response);
                     parser((String) object);
                 }
 
