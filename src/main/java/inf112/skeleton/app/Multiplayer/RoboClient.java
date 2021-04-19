@@ -133,6 +133,9 @@ public class RoboClient {
                 break;
 
             case "playerJoined":
+                System.out.println("playerJoined " + arguments[1]);
+                lobbyInfo.addPlayer(Integer.parseInt(arguments[1]));
+                lobbyStage.updatePlayerTable();
                 parser(str.substring("joined,,".length() + arguments[1].length()));
                 break;
 

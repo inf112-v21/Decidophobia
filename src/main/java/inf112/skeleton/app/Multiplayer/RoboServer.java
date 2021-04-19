@@ -23,7 +23,7 @@ public class RoboServer {
 
     Map<Integer,String> playerNrToIp;
 
-    int highestPlayerNumb = 0;
+    int highestPlayerNumb;
 
     Server server;
 
@@ -36,6 +36,7 @@ public class RoboServer {
         playerIpToConnect = new HashMap<>();
         playerNrToIp = new HashMap<>();
         server = new Server();
+        highestPlayerNumb = 0;
 
         gameRules = new GameRules(3,9);
         lobby = new LobbyInfo();
@@ -66,13 +67,14 @@ public class RoboServer {
                 if(!gameStarted & !playerIpToConnect.containsKey(connectionToIp(connection))) {
                     playerIpToConnect.put(connectionToIp(connection), connection);
                     playerNrToIp.put(highestPlayerNumb,connectionToIp(connection));
-                    highestPlayerNumb++;
-                    lobby.addPlayer(getPlayerNumber(connection));
-                    send(connection,"joined,"+getPlayerNumber(connection)+","+gameRules+lobby);
+                    lobby.addPlayer(highestPlayerNumb);
+                    System.out.println(playerNrToIp);
+                    send(connection,"joined,"+highestPlayerNumb+","+gameRules+lobby);
                     for(String ips : playerIpToConnect.keySet()) {
                         if(!ips.equals(connectionToIp(connection)))
-                            playerIpToConnect.get(ips).sendTCP("playerJoined,"+getPlayerNumber(connection)+","+gameRules+lobby);
+                            send(playerIpToConnect.get(ips),"playerJoined,"+highestPlayerNumb+",");
                     }
+                    highestPlayerNumb++;
                 }
                 else if(playerIpToConnect.containsKey(connectionToIp(connection))) {
                     connection.sendTCP("AlreadyJoined");
@@ -149,8 +151,9 @@ public class RoboServer {
     }
 
     private int getPlayerNumber(Connection connection){
+        System.out.println(connectionToIp(connection));
         for(Integer pNr : playerNrToIp.keySet()){
-            if(playerNrToIp.get(pNr).equals(connectionToIp(connection)));
+            if(playerNrToIp.get(pNr).equals(connectionToIp(connection)))
                 return pNr;
         }
         return -1;

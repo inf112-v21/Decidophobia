@@ -140,7 +140,6 @@ public class LobbyStage {
                 playerTable.add(together).padRight(10).expandX();
                 playerTable.add(new Label(pl.getHost() ? "x" : "", labelStyle)).expandX();
                 TextButton ready = new TextButton(pl.getReady() ? "|v|" : "|_|", buttonStyle);
-                playerTable.add(ready).expandX();
                 ready.addListener(new ClickListener(){
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
@@ -153,6 +152,7 @@ public class LobbyStage {
                         }
                     }
                 });
+                playerTable.add(ready).expandX();
                 //Other players
             } else{
                 playerTable.add(new Label(pl.getNickname(),labelStyle)).padRight(10).expandX();
