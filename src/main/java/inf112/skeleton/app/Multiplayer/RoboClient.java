@@ -188,11 +188,7 @@ public class RoboClient {
 
             case "quit":
                 int pNr = Integer.parseInt(arguments[1]);
-                if(pNr==0){
-                    lobbyStage.destroyLobby();
-                    break;
-                }
-                lobbyInfo.playerQuit(Integer.parseInt(arguments[1]));
+                lobbyInfo.playerQuit(pNr);
                 lobbyStage.updatePlayerTable();
                 break;
 
@@ -234,5 +230,8 @@ public class RoboClient {
 
     public PlayerCards getClientCards() {
         return clientsCards;
+    }
+    public void clientStop(){
+        client.stop();
     }
 }

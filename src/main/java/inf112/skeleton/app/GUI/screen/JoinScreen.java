@@ -84,7 +84,6 @@ public class JoinScreen implements Screen {
         cancel.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                String ip = ipInput.getText();
                 dispose();
                 screenManager.setScreen(new MenuScreen(screenManager));
             }

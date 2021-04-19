@@ -85,6 +85,7 @@ public class LobbyStage {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 client.quit();
+                client.clientStop();
                 if(ScreenManager.server != null){ScreenManager.server.stopServer();}
                 lobbyScreen.dispose();
                 lobbyScreen.screenManager.setScreen(new MenuScreen(lobbyScreen.screenManager));
@@ -114,8 +115,11 @@ public class LobbyStage {
         playerTable.row();
 
         TextField localNick = new TextField("", textStyle);
-
-
+        //If host leaves
+        if(!client.getLobbyInfo().getPlayers().keySet().contains(0)) {
+            destroyLobby();
+            return;
+        }
         //Draws playerTable in lobby
         for(PlayerInfo pl : this.client.getLobbyInfo().getPlayers().values()){
             //Local player
@@ -170,6 +174,7 @@ public class LobbyStage {
     }
 
     public void destroyLobby() {
+        client.clientStop();
         lobbyScreen.dispose();
         lobbyScreen.screenManager.setScreen(new MenuScreen(lobbyScreen.screenManager));
     }
