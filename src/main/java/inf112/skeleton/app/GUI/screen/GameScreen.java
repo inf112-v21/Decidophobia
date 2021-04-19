@@ -80,6 +80,8 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
+        cardStage.cardStage.dispose();
+        boardStage = null;
 
     }
 

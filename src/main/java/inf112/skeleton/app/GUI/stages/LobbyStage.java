@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.skeleton.app.GUI.screen.GameScreen;
@@ -37,7 +38,8 @@ public class LobbyStage {
     BitmapFont font;
 
     public LobbyStage(LobbyScreen lobbyScreen, RoboClient client) {
-        viewport = new FitViewport(ScreenManager.V_WIDTH, ScreenManager.V_HEIGHT, new OrthographicCamera());
+        OrthographicCamera lobbyCam = new OrthographicCamera();
+        viewport = new FitViewport(ScreenManager.V_WIDTH, ScreenManager.V_HEIGHT, lobbyCam);
         stage = new Stage(viewport);
         this.client = client;
         this.lobbyScreen = lobbyScreen;
