@@ -33,7 +33,7 @@ public class LobbyScreen implements Screen {
 
     @Override
     public void show() {
-        lobbyStage = new LobbyStage(this, client);
+        lobbyStage = new LobbyStage(this);
         lobbyStage.show();
         Gdx.input.setInputProcessor(lobbyStage.stage);
     }

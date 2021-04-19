@@ -37,11 +37,11 @@ public class LobbyStage {
 
     BitmapFont font;
 
-    public LobbyStage(LobbyScreen lobbyScreen, RoboClient client) {
+    public LobbyStage(LobbyScreen lobbyScreen) {
         OrthographicCamera lobbyCam = new OrthographicCamera();
         viewport = new FitViewport(ScreenManager.V_WIDTH, ScreenManager.V_HEIGHT, lobbyCam);
         stage = new Stage(viewport);
-        this.client = client;
+        this.client = lobbyScreen.client;
         this.lobbyScreen = lobbyScreen;
 
     }
@@ -90,7 +90,8 @@ public class LobbyStage {
                 lobbyScreen.screenManager.setScreen(new MenuScreen(lobbyScreen.screenManager));
             }
         });
-
+        playerTable = new Table();
+        playerTable.setFillParent(true);
         //The table that shows the players
         updatePlayerTable();
 
@@ -105,8 +106,7 @@ public class LobbyStage {
         stage.addActor(renderTable);
     }
     public void updatePlayerTable(){
-        playerTable = new Table();
-        playerTable.setFillParent(true);
+        playerTable.clearChildren();
         playerTable.top();
         playerTable.add(new Label("Player",labelStyle)).padRight(10).expandX();
         playerTable.add(new Label("Host",labelStyle)).padRight(10).expandX();
