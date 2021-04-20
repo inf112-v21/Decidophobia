@@ -100,6 +100,6 @@ public class LobbyScreen implements Screen {
     public void destroyLobby() {
         client.clientStop();
         dispose();
-        screenManager.setScreen(new MenuScreen(screenManager));
+        screenManager.setScreen(new JoinScreen(screenManager, "host quit the lobby"));
     }
 }

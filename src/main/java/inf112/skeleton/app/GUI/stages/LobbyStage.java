@@ -82,8 +82,12 @@ public class LobbyStage {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 client.quit();
+                if(ScreenManager.server != null){
+                    ScreenManager.server.stopServer();
+                    ScreenManager.server = null;
+                }
+
                 client.clientStop();
-                if(ScreenManager.server != null){ScreenManager.server.stopServer();}
                 lobbyScreen.dispose();
                 lobbyScreen.screenManager.setScreen(new MenuScreen(lobbyScreen.screenManager));
             }
