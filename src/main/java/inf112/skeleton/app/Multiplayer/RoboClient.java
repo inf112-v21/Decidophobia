@@ -40,6 +40,7 @@ public class RoboClient {
     private int clientPlayerNr;
 
     public RoboClient(){
+        GameCards roundCards = new GameCards(new Deck());
         client = new Client();
         hostOnline = true;
 
