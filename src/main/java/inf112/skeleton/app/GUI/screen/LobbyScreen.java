@@ -12,12 +12,15 @@ public class LobbyScreen implements Screen {
     public ScreenManager screenManager;
     private LobbyStage lobbyStage;
 
+    boolean startGame;
+
 
     public RoboClient client;
 
 
     //Constructor for hosts
     public LobbyScreen(ScreenManager screenManager){
+        startGame = false;
         this.screenManager = screenManager;
         ScreenManager.server = new RoboServer();
         ScreenManager.server.runServer();
@@ -46,6 +49,10 @@ public class LobbyScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         if(!client.hostOnline){
             destroyLobby();
+            return;
+        }
+        if(startGame){
+            lobbyStage.startGame();
             return;
         }
         lobbyStage.stage.getCamera().update();
@@ -90,7 +97,7 @@ public class LobbyScreen implements Screen {
     }
 
     public void startGame() {
-        lobbyStage.startGame();
+        startGame = true;
     }
 
     public void updatePlayerTable() {

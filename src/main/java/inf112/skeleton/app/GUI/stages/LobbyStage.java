@@ -166,6 +166,7 @@ public class LobbyStage {
     public void startGame() {
         GameLogic roboGame = new GameLogic(client);
         lobbyScreen.dispose();
+        client.setGameReference(roboGame);
         lobbyScreen.screenManager.setScreen(new GameScreen(lobbyScreen.screenManager, roboGame));
     }
 }

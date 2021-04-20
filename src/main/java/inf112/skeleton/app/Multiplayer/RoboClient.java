@@ -9,6 +9,7 @@ import inf112.skeleton.app.Multiplayer.packets.GameCards;
 import inf112.skeleton.app.Multiplayer.packets.GameRules;
 import inf112.skeleton.app.Multiplayer.packets.LobbyInfo;
 
+import inf112.skeleton.app.Multiplayer.packets.PlayerInfo;
 import inf112.skeleton.app.cards.Deck;
 import inf112.skeleton.app.cards.PlayerCards;
 
@@ -175,6 +176,13 @@ public class RoboClient {
             case "ready":
                 lobbyInfo.playerSetReady(Integer.parseInt(arguments[1]),true);
                 lobbyScreen.updatePlayerTable();
+                boolean allReady = true;
+                if(getClientPlayerNr()==0){
+                    for(PlayerInfo player : lobbyInfo.getPlayers().values()){
+                        allReady = allReady && player.getReady();
+                    }
+                    if(allReady) this.startGame();
+                }
                 break;
 
             case "unReady":
