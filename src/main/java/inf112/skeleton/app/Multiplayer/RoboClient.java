@@ -32,22 +32,16 @@ public class RoboClient {
 
     private GameRules gameRules;
 
-    public GameCards getRoundCards() {
-        return roundCards;
-    }
-
     private GameCards roundCards;
 
     private PlayerCards clientsCards;
 
     private int clientPlayerNr;
 
-    public RoboClient(String serverAddress){
-        roundCards = new GameCards(new Deck());
-        this.serverAddress = serverAddress;
+    public RoboClient(){
         client = new Client();
         hostOnline = true;
-        client.start();
+
     }
 
     public void sendRequest(String request){
@@ -95,7 +89,9 @@ public class RoboClient {
         sendRequest(request);
     }
 
-    public void join() {
+    public void join(String serverAddress) {
+        client.start();
+        this.serverAddress = serverAddress;
         try {
             System.out.println(serverAddress);
             client.connect(5000, serverAddress, 9000, 54777); //ip-addresse til server
@@ -189,7 +185,8 @@ public class RoboClient {
             case "quit":
                 int pNr = Integer.parseInt(arguments[1]);
                 lobbyInfo.playerQuit(pNr);
-                hostOnline = false;
+                hostOnline = pNr != 0;
+                lobbyScreen.updatePlayerTable();
                 break;
 
             default:

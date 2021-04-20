@@ -172,6 +172,10 @@ public class RoboServer {
     }
 
     public void stopServer(){
+        String ip = playerNrToIp.get(0);
+        playerNrToIp.remove(0);
+        getPlayerIpToConnect().remove(ip);
+        sendToAll("quit,0,");
         server.stop();
     }
 

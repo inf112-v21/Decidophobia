@@ -21,10 +21,10 @@ public class GameLogicTest {
         server = new RoboServer();
         server.runServer();
         Thread.sleep(1000);
-        client = new RoboClient(RoboServer.getLANIp());
+        client = new RoboClient();
         roboRally = new GameLogic(client);
         client.setGameReference(roboRally);
-        client.join();
+        client.join(RoboServer.getLANIp());
         while(client.getGameRules()==null && client.getLobbyInfo()==null){
             Thread.sleep(1000);
         }

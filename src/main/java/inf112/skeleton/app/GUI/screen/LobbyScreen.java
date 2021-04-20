@@ -79,8 +79,8 @@ public class LobbyScreen implements Screen {
     }
 
     public void clientJoin(String ip){
-        client = new RoboClient(ip);
-        client.join();
+        client = new RoboClient();
+        client.join(ip);
         try {
             for(int i = 0; i<5;i++){
                 i = (client.getLobbyInfo() != null) ? 6 : i;

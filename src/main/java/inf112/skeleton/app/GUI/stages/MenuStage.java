@@ -60,8 +60,8 @@ public class MenuStage {
                 menuScreen.dispose();
                 ScreenManager.server = new RoboServer();
                 ScreenManager.server.runServer();
-                RoboClient client = new RoboClient(RoboServer.getLANIp());
-                client.join();
+                RoboClient client = new RoboClient();
+                client.join(RoboServer.getLANIp());
                 while(client.getLobbyInfo() == null) {
                     try {
                         Thread.sleep(100);
