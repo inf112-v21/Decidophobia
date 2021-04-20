@@ -40,7 +40,6 @@ public class RoboClient {
     private int clientPlayerNr;
 
     public RoboClient(){
-        GameCards roundCards = new GameCards(new Deck());
         client = new Client();
         hostOnline = true;
 
@@ -160,7 +159,6 @@ public class RoboClient {
             case "dealCards":
                 roundCards = new GameCards(new Deck());
                 clientsCards = new PlayerCards(arguments[1]);
-                roundCards.addPlayerCards(clientPlayerNr, clientsCards);
                 if(gameLogic != null) gameLogic.gameGUI.updateCards(clientsCards);
                 break;
 

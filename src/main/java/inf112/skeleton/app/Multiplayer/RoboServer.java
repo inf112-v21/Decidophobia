@@ -134,7 +134,7 @@ public class RoboServer {
                     System.out.println(req[1] + "," + req[2] + "  <--   SE HER");
                     for (int i = 1; i < req.length; i += 2) {
                         int pNr = Integer.parseInt(req[i]);
-                        playerIpToConnect.get(playerNrToIp.get(pNr)).sendTCP("dealCards," + req[i + 1] + ",");
+                        send(playerIpToConnect.get(playerNrToIp.get(pNr)),"dealCards," + req[i + 1] + ",");
                     }
                 }
                 break;
