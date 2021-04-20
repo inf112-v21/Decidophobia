@@ -81,11 +81,11 @@ public class LobbyStage {
         quit.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                client.quit();
                 if(ScreenManager.server != null){
                     ScreenManager.server.stopServer();
                     ScreenManager.server = null;
-                }
+                }else
+                    client.quit();
 
                 client.clientStop();
                 lobbyScreen.dispose();
