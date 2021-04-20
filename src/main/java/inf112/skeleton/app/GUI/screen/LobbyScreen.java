@@ -33,6 +33,8 @@ public class LobbyScreen implements Screen {
 
     @Override
     public void show() {
+        //connects client-object to screen
+        client.setLobbyScreen(this);
         lobbyStage = new LobbyStage(this);
         lobbyStage.show();
         Gdx.input.setInputProcessor(lobbyStage.stage);
@@ -42,7 +44,10 @@ public class LobbyScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(1,1,1,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+        if(!client.hostOnline){
+            destroyLobby();
+            return;
+        }
         lobbyStage.stage.getCamera().update();
         screenManager.batch.setProjectionMatrix(lobbyStage.stage.getCamera().combined);
         lobbyStage.stage.draw();
@@ -82,5 +87,19 @@ public class LobbyScreen implements Screen {
                 Thread.sleep(1000);
             }
         } catch (Exception e) {}
+    }
+
+    public void startGame() {
+        lobbyStage.startGame();
+    }
+
+    public void updatePlayerTable() {
+        lobbyStage.updatePlayerTable();
+    }
+
+    public void destroyLobby() {
+        client.clientStop();
+        dispose();
+        screenManager.setScreen(new MenuScreen(screenManager));
     }
 }

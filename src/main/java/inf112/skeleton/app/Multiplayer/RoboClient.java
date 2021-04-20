@@ -3,7 +3,7 @@ package inf112.skeleton.app.Multiplayer;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import inf112.skeleton.app.GUI.stages.LobbyStage;
+import inf112.skeleton.app.GUI.screen.LobbyScreen;
 import inf112.skeleton.app.GameLogic;
 import inf112.skeleton.app.Multiplayer.packets.GameCards;
 import inf112.skeleton.app.Multiplayer.packets.GameRules;
@@ -18,6 +18,8 @@ public class RoboClient {
 
     private String serverAddress;
 
+    public boolean hostOnline;
+
     public String response;
 
     private Client client;
@@ -26,9 +28,7 @@ public class RoboClient {
 
     private LobbyInfo lobbyInfo;
 
-
-
-    private LobbyStage lobbyStage;
+    private LobbyScreen lobbyScreen;
 
     private GameRules gameRules;
 
@@ -46,7 +46,7 @@ public class RoboClient {
         roundCards = new GameCards(new Deck());
         this.serverAddress = serverAddress;
         client = new Client();
-
+        hostOnline = true;
         client.start();
     }
 
@@ -119,7 +119,7 @@ public class RoboClient {
     public void parser(String str){
         switch (str){
             case "start":
-                lobbyStage.startGame();
+                lobbyScreen.startGame();
                 break;
 
             case "end":
@@ -136,19 +136,19 @@ public class RoboClient {
             case "playerJoined":
                 System.out.println("playerJoined " + arguments[1]);
                 lobbyInfo.addPlayer(Integer.parseInt(arguments[1]));
-                lobbyStage.updatePlayerTable();
+                lobbyScreen.updatePlayerTable();
                 parser(str.substring("joined,,".length() + arguments[1].length()));
                 break;
 
             case "gameRules":
                 gameRules = new GameRules(arguments[1]);
-                if (lobbyStage != null) lobbyStage.updatePlayerTable();
+                if (lobbyScreen != null) lobbyScreen.updatePlayerTable();
                 parser(str.substring("gameRules,,".length() + arguments[1].length()));
                 break;
 
             case "lobby":
                 lobbyInfo = new LobbyInfo(arguments[1]);
-                if (lobbyStage != null) lobbyStage.updatePlayerTable();
+                if (lobbyScreen != null) lobbyScreen.updatePlayerTable();
                 parser(str.substring("lobby,,".length() + arguments[1].length()));
                 break;
 
@@ -168,28 +168,28 @@ public class RoboClient {
 
             case "changeNick":
                 lobbyInfo.changeNick(Integer.parseInt(arguments[1]),arguments[2]);
-                lobbyStage.updatePlayerTable();
+                lobbyScreen.updatePlayerTable();
                 break;
 
             case "changeRobot":
                 lobbyInfo.changeRobot(Integer.parseInt(arguments[1]),arguments[2],arguments[3]);
-                lobbyStage.updatePlayerTable();
+                lobbyScreen.updatePlayerTable();
                 break;
 
             case "ready":
                 lobbyInfo.playerSetReady(Integer.parseInt(arguments[1]),true);
-                lobbyStage.updatePlayerTable();
+                lobbyScreen.updatePlayerTable();
                 break;
 
             case "unReady":
                 lobbyInfo.playerSetReady(Integer.parseInt(arguments[1]),false);
-                lobbyStage.updatePlayerTable();
+                lobbyScreen.updatePlayerTable();
                 break;
 
             case "quit":
                 int pNr = Integer.parseInt(arguments[1]);
                 lobbyInfo.playerQuit(pNr);
-                lobbyStage.updatePlayerTable();
+                hostOnline = false;
                 break;
 
             default:
@@ -200,8 +200,8 @@ public class RoboClient {
         return clientPlayerNr;
     }
 
-    public void setLobbyStage(LobbyStage lobbyStage) {
-        this.lobbyStage = lobbyStage;
+    public void setLobbyScreen(LobbyScreen lobbyScreen) {
+        this.lobbyScreen = lobbyScreen;
     }
 
     public LobbyInfo getLobbyInfo() {
@@ -232,6 +232,6 @@ public class RoboClient {
         return clientsCards;
     }
     public void clientStop(){
-        client.stop();
+
     }
 }

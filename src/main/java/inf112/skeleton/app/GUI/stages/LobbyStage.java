@@ -9,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.skeleton.app.GUI.screen.GameScreen;
@@ -46,8 +45,6 @@ public class LobbyStage {
 
     }
     public void show(){
-        //connects client-object to screen
-        client.setLobbyStage(this);
         //Sets up style
         font = new BitmapFont();
         font.getData().setScale(3);
@@ -115,11 +112,6 @@ public class LobbyStage {
         playerTable.row();
 
         TextField localNick = new TextField("", textStyle);
-        //If host leaves
-        if(!client.getLobbyInfo().getPlayers().keySet().contains(0)) {
-            destroyLobby();
-            return;
-        }
         //Draws playerTable in lobby
         for(PlayerInfo pl : this.client.getLobbyInfo().getPlayers().values()){
             //Local player
@@ -171,11 +163,5 @@ public class LobbyStage {
         GameLogic roboGame = new GameLogic(client);
         lobbyScreen.dispose();
         lobbyScreen.screenManager.setScreen(new GameScreen(lobbyScreen.screenManager, roboGame));
-    }
-
-    public void destroyLobby() {
-        client.clientStop();
-        lobbyScreen.dispose();
-        lobbyScreen.screenManager.setScreen(new MenuScreen(lobbyScreen.screenManager));
     }
 }

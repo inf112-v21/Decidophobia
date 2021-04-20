@@ -28,8 +28,9 @@ public class ScreenManager extends Game {
     public void dispose() {
         if(ScreenManager.server != null){
             ScreenManager.server.stopServer();
+            ScreenManager.server = null;
         }
-        Gdx.app.exit();
+        //Gdx.app.exit();
     }
 
     @Override
