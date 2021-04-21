@@ -22,7 +22,7 @@ public class Board {
 
         boardMap = new TmxMapLoader().load(String.valueOf(this));
         boardLayers = new HashMap<>();
-        for(int i = 0; i < boardMap.getLayers().size(); i++) {
+        for (int i = 0; i < boardMap.getLayers().size(); i++) {
             boardLayers.put(boardMap.getLayers().get(i).getName(), (TiledMapTileLayer) boardMap.getLayers().get(i));
         }
 
@@ -49,6 +49,6 @@ public class Board {
     }
 
     public TiledMap getBoard() {
-            return boardMap;
+        return boardMap;
     }
 }
