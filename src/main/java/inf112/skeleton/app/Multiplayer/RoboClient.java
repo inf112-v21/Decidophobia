@@ -21,6 +21,8 @@ public class RoboClient {
 
     public boolean hostOnline;
 
+    public boolean gameStarted;
+
     public String response;
 
     private Client client;
@@ -42,6 +44,7 @@ public class RoboClient {
     public RoboClient(){
         client = new Client();
         hostOnline = true;
+        gameStarted = false;
 
     }
 
@@ -117,6 +120,7 @@ public class RoboClient {
         switch (str){
             case "start":
                 lobbyScreen.startGame();
+                gameStarted = true;
                 break;
 
             case "end":
