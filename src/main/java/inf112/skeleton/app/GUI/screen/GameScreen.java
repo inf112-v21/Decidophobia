@@ -11,15 +11,17 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import inf112.skeleton.app.GUI.ScreenManager;
 import inf112.skeleton.app.GUI.stages.Game.BoardStage;
 import inf112.skeleton.app.GUI.stages.Game.CardStage;
+import inf112.skeleton.app.GUI.stages.Game.PlayersStage;
 import inf112.skeleton.app.GameLogic;
 import inf112.skeleton.app.cards.PlayerCards;
 
 public class GameScreen implements Screen {
     public ScreenManager screenManager;
-    GameLogic roboGame;
+    public GameLogic roboGame;
 
     CardStage cardStage;
     BoardStage boardStage;
+    PlayersStage playerStage;
 
     public GameScreen(ScreenManager screenManager, GameLogic roboGame) {
         this.screenManager = screenManager;
@@ -31,6 +33,7 @@ public class GameScreen implements Screen {
     public void show() {
         cardStage = new CardStage(this, roboGame);
         boardStage = new BoardStage();
+        playerStage = new PlayersStage(this);
 
         roboGame.setGameGUI(this);
         InputMultiplexer inputs = new InputMultiplexer();
@@ -53,14 +56,12 @@ public class GameScreen implements Screen {
 
         cardStage.cardStage.getCamera().update();
         screenManager.batch.setProjectionMatrix(cardStage.cardStage.getCamera().combined);
-        screenManager.batch.begin();
-        for(Actor act : cardStage.cardStage.getActors()){
-            if(act instanceof TextButton){
-                ((TextButton) act).getBackground().draw(screenManager.batch, act.getX(), act.getY(),act.getWidth(),act.getHeight());
-            }
-        }
-        screenManager.batch.end();
         cardStage.cardStage.draw();
+
+        playerStage.updatePlayerTags();
+        playerStage.stage.getCamera().update();
+        screenManager.batch.setProjectionMatrix(playerStage.stage.getCamera().combined);
+        playerStage.stage.draw();
 
 
 
@@ -70,9 +71,9 @@ public class GameScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        cardStage.cardStage.getViewport().update(width,height);
         boardStage.boardCam.setToOrtho(false,width,height);
-
+        cardStage.cardStage.getViewport().update(width,height);
+        playerStage.stage.getViewport().update(width,height);
     }
 
     @Override
@@ -94,6 +95,7 @@ public class GameScreen implements Screen {
     public void dispose() {
         cardStage.cardStage.dispose();
         boardStage = null;
+        playerStage.stage.dispose();
 
     }
 
