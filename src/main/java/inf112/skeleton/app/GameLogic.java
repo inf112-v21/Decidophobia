@@ -57,7 +57,7 @@ public class GameLogic {
     }
     public void doRound(GameCards playerMoves){
         for(int r = 0; r < 5; r++){
-            //colission with wall needs to happen in every move
+            //collision with wall needs to happen in every move
 
             //move for all players
             List<Integer> playerPriority = getHighestPriorityOfNewCard(r,playerMoves);
@@ -67,11 +67,11 @@ public class GameLogic {
             }
 
             //Robots shoot lasers
-            //colision hole and flag
+            //collision hole and flag
             //conveyor belts move blue double and yellow ones
-            //colision hole and flag
+            //collision hole and flag
             //pushers push
-            //colision hole and flag
+            //collision hole and flag
             //Gears rotate 90*
 
 

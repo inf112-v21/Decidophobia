@@ -2,21 +2,16 @@ package inf112.skeleton.app.gameboard.utilities;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.skeleton.app.Direction;
-
 import java.util.Locale;
 
 public enum TileLayer {
 
-    HOLE_LAYER,
-    FLAG_LAYER,
-    WALL_LAYER,
-    LASER_LAYER,
-    PUSH_LAYER,
-    CONVEYOR_LAYER,
-    WRENCH_LAYER,
-    GEAR_LAYER,
-    HEALTH_LAYER;
-
+    BOARD,
+    FLAG,
+    WALL,
+    LASER,
+    PLAYER,
+    PLAYER_LASER;
 
     public static TileLayer asTileLayer (String name) {
         try {
