@@ -13,16 +13,6 @@ public class ScreenManager extends Game {
 
     public static RoboServer server;
 
-    private static ScreenManager screenManagerInstance = null;
-
-    public static ScreenManager getInstance() {
-
-        if(screenManagerInstance == null)
-            screenManagerInstance = new ScreenManager();
-
-        return screenManagerInstance;
-    }
-
     @Override
     public void create() {
         batch = new SpriteBatch();
@@ -38,8 +28,9 @@ public class ScreenManager extends Game {
     public void dispose() {
         if(ScreenManager.server != null){
             ScreenManager.server.stopServer();
+            ScreenManager.server = null;
         }
-        Gdx.app.exit();
+        //Gdx.app.exit();
     }
 
     @Override

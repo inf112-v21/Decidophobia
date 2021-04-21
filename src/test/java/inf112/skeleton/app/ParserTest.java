@@ -17,7 +17,7 @@ public class ParserTest {
     RoboClient robo;
     @Before
     public void setup(){
-        robo = new RoboClient(null);
+        robo = new RoboClient();
     }
 
     @Test

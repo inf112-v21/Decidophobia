@@ -23,7 +23,7 @@ public class RoboServer {
 
     Map<Integer,String> playerNrToIp;
 
-    int highestPlayerNumb = 0;
+    int highestPlayerNumb;
 
     Server server;
 
@@ -36,6 +36,7 @@ public class RoboServer {
         playerIpToConnect = new HashMap<>();
         playerNrToIp = new HashMap<>();
         server = new Server();
+        highestPlayerNumb = 0;
 
         gameRules = new GameRules(3,9);
         lobby = new LobbyInfo();
@@ -66,13 +67,14 @@ public class RoboServer {
                 if(!gameStarted & !playerIpToConnect.containsKey(connectionToIp(connection))) {
                     playerIpToConnect.put(connectionToIp(connection), connection);
                     playerNrToIp.put(highestPlayerNumb,connectionToIp(connection));
-                    highestPlayerNumb++;
-                    lobby.addPlayer(getPlayerNumber(connection));
-                    send(connection,"joined,"+getPlayerNumber(connection)+","+gameRules+lobby);
+                    lobby.addPlayer(highestPlayerNumb);
+                    System.out.println(playerNrToIp);
+                    send(connection,"joined,"+highestPlayerNumb+","+gameRules+lobby);
                     for(String ips : playerIpToConnect.keySet()) {
                         if(!ips.equals(connectionToIp(connection)))
-                            playerIpToConnect.get(ips).sendTCP("playerJoined,"+getPlayerNumber(connection)+","+gameRules+lobby);
+                            send(playerIpToConnect.get(ips),"playerJoined,"+highestPlayerNumb+",");
                     }
+                    highestPlayerNumb++;
                 }
                 else if(playerIpToConnect.containsKey(connectionToIp(connection))) {
                     connection.sendTCP("AlreadyJoined");
@@ -93,10 +95,11 @@ public class RoboServer {
                 break;
 
             case "Quit":
-                lobby.playerQuit(getPlayerNumber(connection));
+                int pNr = getPlayerNumber(connection);
+                lobby.playerQuit(pNr);
                 this.playerIpToConnect.remove(connectionToIp(connection));
-                playerNrToIp.remove(getPlayerNumber(connection));
-                sendToAll("quit;"+getPlayerNumber(connection)+",");
+                playerNrToIp.remove(pNr);
+                sendToAll("quit,"+pNr+",");
                 break;
 
             case "Start":
@@ -131,7 +134,7 @@ public class RoboServer {
                     System.out.println(req[1] + "," + req[2] + "  <--   SE HER");
                     for (int i = 1; i < req.length; i += 2) {
                         int pNr = Integer.parseInt(req[i]);
-                        playerIpToConnect.get(playerNrToIp.get(pNr)).sendTCP("dealCards," + req[i + 1] + ",");
+                        send(playerIpToConnect.get(playerNrToIp.get(pNr)),"dealCards," + req[i + 1] + ",");
                     }
                 }
                 break;
@@ -149,8 +152,9 @@ public class RoboServer {
     }
 
     private int getPlayerNumber(Connection connection){
+        System.out.println(connectionToIp(connection));
         for(Integer pNr : playerNrToIp.keySet()){
-            if(playerNrToIp.get(pNr).equals(connectionToIp(connection)));
+            if(playerNrToIp.get(pNr).equals(connectionToIp(connection)))
                 return pNr;
         }
         return -1;
@@ -168,6 +172,10 @@ public class RoboServer {
     }
 
     public void stopServer(){
+        String ip = playerNrToIp.get(0);
+        playerNrToIp.remove(0);
+        getPlayerIpToConnect().remove(ip);
+        sendToAll("quit,0,");
         server.stop();
     }
 

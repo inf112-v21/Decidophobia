@@ -9,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.skeleton.app.GUI.screen.GameScreen;
@@ -46,8 +45,6 @@ public class LobbyStage {
 
     }
     public void show(){
-        //connects client-object to screen
-        client.setLobbyStage(this);
         //Sets up style
         font = new BitmapFont();
         font.getData().setScale(3);
@@ -84,8 +81,13 @@ public class LobbyStage {
         quit.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                client.quit();
-                if(ScreenManager.server != null){ScreenManager.server.stopServer();}
+                if(ScreenManager.server != null){
+                    ScreenManager.server.stopServer();
+                    ScreenManager.server = null;
+                }else
+                    client.quit();
+
+                client.clientStop();
                 lobbyScreen.dispose();
                 lobbyScreen.screenManager.setScreen(new MenuScreen(lobbyScreen.screenManager));
             }
@@ -114,8 +116,6 @@ public class LobbyStage {
         playerTable.row();
 
         TextField localNick = new TextField("", textStyle);
-
-
         //Draws playerTable in lobby
         for(PlayerInfo pl : this.client.getLobbyInfo().getPlayers().values()){
             //Local player
@@ -140,7 +140,6 @@ public class LobbyStage {
                 playerTable.add(together).padRight(10).expandX();
                 playerTable.add(new Label(pl.getHost() ? "x" : "", labelStyle)).expandX();
                 TextButton ready = new TextButton(pl.getReady() ? "|v|" : "|_|", buttonStyle);
-                playerTable.add(ready).expandX();
                 ready.addListener(new ClickListener(){
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
@@ -153,6 +152,7 @@ public class LobbyStage {
                         }
                     }
                 });
+                playerTable.add(ready).expandX();
                 //Other players
             } else{
                 playerTable.add(new Label(pl.getNickname(),labelStyle)).padRight(10).expandX();
@@ -166,6 +166,7 @@ public class LobbyStage {
     public void startGame() {
         GameLogic roboGame = new GameLogic(client);
         lobbyScreen.dispose();
+        client.setGameReference(roboGame);
         lobbyScreen.screenManager.setScreen(new GameScreen(lobbyScreen.screenManager, roboGame));
     }
 }

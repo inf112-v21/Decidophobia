@@ -82,6 +82,7 @@ public class CardStage {
                     localCards.setLastActiveCard(card);
                     if(localCards.getActiveCards().size() == 5){
                         System.out.println("moves sent");
+                        handCardsTable.clearChildren();
                         gl.networkClient.sendMoves(localCards);
 
                     }else{

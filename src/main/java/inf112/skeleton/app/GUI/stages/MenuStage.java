@@ -35,8 +35,6 @@ public class MenuStage {
 
         //Declearing buttons
         TextButton start = new TextButton("play multiplayer", style);
-        TextButton startLocal = new TextButton("play solo", style);
-        TextButton settings = new TextButton("settings", style);
         TextButton exit = new TextButton("quit", style);
         //Remove on launch
         TextButton testGameButton = new TextButton("test game locally", style);
@@ -48,32 +46,6 @@ public class MenuStage {
                 menuScreen.dispose();
                 menuScreen.screenManager.setScreen(new JoinScreen(menuScreen.screenManager));
                 System.out.println("Starting Multiplayer");
-            }
-        });
-        startLocal.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                menuScreen.dispose();
-                ScreenManager.server = new RoboServer();
-                ScreenManager.server.runServer();
-                RoboClient client = new RoboClient("localhost");
-                client.join();
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                GameLogic gl = new GameLogic(client);
-                menuScreen.screenManager.setScreen(new GameScreen(menuScreen.screenManager,gl));
-                System.out.println("Starting simple singleplayer game");
-            }
-        });
-        settings.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                menuScreen.dispose();
-                menuScreen.screenManager.setScreen(new SettingScreen());
-                System.out.println("Go to settings");
             }
         });
         exit.addListener(new ClickListener(){
@@ -88,8 +60,8 @@ public class MenuStage {
                 menuScreen.dispose();
                 ScreenManager.server = new RoboServer();
                 ScreenManager.server.runServer();
-                RoboClient client = new RoboClient(RoboServer.getLANIp());
-                client.join();
+                RoboClient client = new RoboClient();
+                client.join(RoboServer.getLANIp());
                 while(client.getLobbyInfo() == null) {
                     try {
                         Thread.sleep(100);
@@ -109,11 +81,7 @@ public class MenuStage {
         Table table = new Table();
         table.center();
         table.setFillParent(true);
-        table.add(start).expandX();
-        table.row();
-        table.add(startLocal).expandX();
-        table.row();
-        table.add(settings).expandX();
+        table.add(start).expandX();;
         table.row();
         table.add(exit).expandX();
         table.row();

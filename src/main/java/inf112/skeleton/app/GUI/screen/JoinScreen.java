@@ -6,20 +6,20 @@ import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.skeleton.app.GUI.ScreenManager;
+
+import javax.swing.text.LabelView;
 
 
 public class JoinScreen implements Screen {
     ScreenManager screenManager;
     OrthographicCamera joinCam;
     Viewport joinPort;
+    String message;
 
     Stage joinStage;
 
@@ -27,6 +27,12 @@ public class JoinScreen implements Screen {
         this.screenManager = screenManager;
         joinCam = new OrthographicCamera();
         joinPort = new StretchViewport(ScreenManager.V_WIDTH,ScreenManager.V_HEIGHT,joinCam);
+    }
+    public JoinScreen(ScreenManager screenManager, String message){
+        this.screenManager = screenManager;
+        joinCam = new OrthographicCamera();
+        joinPort = new StretchViewport(ScreenManager.V_WIDTH,ScreenManager.V_HEIGHT,joinCam);
+        this.message = message;
     }
 
 
@@ -42,6 +48,10 @@ public class JoinScreen implements Screen {
 
         Pixmap cursorColor = new Pixmap(1, 30, Pixmap.Format.RGB888);
         cursorColor.setColor(Color.BLACK);
+
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = font;
+        labelStyle.fontColor = Color.RED;
 
         TextField.TextFieldStyle textStyle = new TextField.TextFieldStyle();
         textStyle.font = font;
@@ -84,7 +94,6 @@ public class JoinScreen implements Screen {
         cancel.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                String ip = ipInput.getText();
                 dispose();
                 screenManager.setScreen(new MenuScreen(screenManager));
             }
@@ -103,6 +112,11 @@ public class JoinScreen implements Screen {
         joinTable.add(host);
         joinTable.row();
         joinTable.add(cancel);
+        if(message != null){
+            Label mes = new Label(message, labelStyle);
+            mes.setBounds(250, 50, mes.getWidth(),30);
+            joinStage.addActor(mes);
+        }
 
         joinStage.addActor(joinTable);
 

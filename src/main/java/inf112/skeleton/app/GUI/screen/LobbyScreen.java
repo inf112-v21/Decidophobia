@@ -12,12 +12,15 @@ public class LobbyScreen implements Screen {
     public ScreenManager screenManager;
     private LobbyStage lobbyStage;
 
+    boolean startGame;
+
 
     public RoboClient client;
 
 
     //Constructor for hosts
     public LobbyScreen(ScreenManager screenManager){
+        startGame = false;
         this.screenManager = screenManager;
         ScreenManager.server = new RoboServer();
         ScreenManager.server.runServer();
@@ -33,6 +36,8 @@ public class LobbyScreen implements Screen {
 
     @Override
     public void show() {
+        //connects client-object to screen
+        client.setLobbyScreen(this);
         lobbyStage = new LobbyStage(this);
         lobbyStage.show();
         Gdx.input.setInputProcessor(lobbyStage.stage);
@@ -42,7 +47,14 @@ public class LobbyScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(1,1,1,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+        if(!client.hostOnline){
+            destroyLobby();
+            return;
+        }
+        if(startGame){
+            lobbyStage.startGame();
+            return;
+        }
         lobbyStage.stage.getCamera().update();
         screenManager.batch.setProjectionMatrix(lobbyStage.stage.getCamera().combined);
         lobbyStage.stage.draw();
@@ -74,13 +86,27 @@ public class LobbyScreen implements Screen {
     }
 
     public void clientJoin(String ip){
-        client = new RoboClient(ip);
-        client.join();
+        client = new RoboClient();
+        client.join(ip);
         try {
             for(int i = 0; i<5;i++){
                 i = (client.getLobbyInfo() != null) ? 6 : i;
                 Thread.sleep(1000);
             }
         } catch (Exception e) {}
+    }
+
+    public void startGame() {
+        startGame = true;
+    }
+
+    public void updatePlayerTable() {
+        lobbyStage.updatePlayerTable();
+    }
+
+    public void destroyLobby() {
+        client.clientStop();
+        dispose();
+        screenManager.setScreen(new JoinScreen(screenManager, "host quit the lobby"));
     }
 }
