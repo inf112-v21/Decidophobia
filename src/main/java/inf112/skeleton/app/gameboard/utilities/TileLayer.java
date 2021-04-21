@@ -3,7 +3,6 @@ package inf112.skeleton.app.gameboard.utilities;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.skeleton.app.Direction;
 
-import java.util.ArrayList;
 import java.util.Locale;
 
 public enum TileLayer {
