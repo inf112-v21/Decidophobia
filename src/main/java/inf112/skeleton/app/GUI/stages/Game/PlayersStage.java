@@ -102,6 +102,6 @@ public class PlayersStage {
         pInfo.addActor(life);
 
         //stack information over frame
-        playerTagsTable.add(pInfo).size(tagFrame.getWidth()*scale,tagFrame.getHeight()*scale).padBottom(20);
+        playerTagsTable.add(pInfo).size(tagFrame.getWidth()*scale,tagFrame.getHeight()*scale).padBottom(25);
     }
 }
