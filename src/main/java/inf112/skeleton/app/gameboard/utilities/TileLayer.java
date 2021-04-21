@@ -7,7 +7,6 @@ import java.util.Locale;
 
 public enum TileLayer {
 
-    PLAYER_LAYER,
     HOLE_LAYER,
     FLAG_LAYER,
     WALL_LAYER,
