@@ -54,30 +54,30 @@ public class PlayersStage {
     }
     public void updatePlayerTags(){
         playerTagsTable.clearChildren();
-        playerTagsTable.left();
+        playerTagsTable.left().top().padTop(50);
         PlayerInfo localPlayer = client.getLobbyInfo().getPlayers().get(client.getClientPlayerNr());
         playerTagSetup(localPlayer,0.5f);
         for(PlayerInfo playerInfo : client.getLobbyInfo().getPlayers().values()){
             if(playerInfo != localPlayer){
                 playerTagsTable.row();
-                playerTagSetup(playerInfo,0.3f);
+                playerTagSetup(playerInfo,0.4f);
             }
         }
 
     }
 
     public void playerTagSetup(PlayerInfo playerInfo, float scale){
-        //Stacks information on top of frame
+        //Group contains all available information about players.
+        Group pInfo = new Group();
+
         Image tagFrame = new Image(playerTagTexture);
         tagFrame.setSize(tagFrame.getWidth()*scale,tagFrame.getHeight()*scale);
         tagFrame.setPosition(0,0);
-        //Group contains all information about player.
-        Group pInfo = new Group();
+
+        labelStyle.font.getData().setScale(2*scale);
 
         Label nickName = new Label(playerInfo.getNickname(),labelStyle);
         nickName.setPosition(102*scale,50*scale);
-
-        labelStyle.font.getData().setScale(2*scale);
 
         Image damageImage = new Image(botBoardTextures[1][2]);
         damageImage.setSize(40*scale,40*scale);
@@ -102,6 +102,6 @@ public class PlayersStage {
         pInfo.addActor(life);
 
         //stack information over frame
-        playerTagsTable.add(pInfo).size(tagFrame.getWidth()*scale,tagFrame.getHeight()*scale);
+        playerTagsTable.add(pInfo).size(tagFrame.getWidth()*scale,tagFrame.getHeight()*scale).padBottom(20);
     }
 }

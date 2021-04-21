@@ -54,10 +54,11 @@ public class LobbyScreen implements Screen {
         if(startGame){
             lobbyStage.startGame();
             return;
+        } else {
+            lobbyStage.stage.getCamera().update();
+            screenManager.batch.setProjectionMatrix(lobbyStage.stage.getCamera().combined);
+            lobbyStage.stage.draw();
         }
-        lobbyStage.stage.getCamera().update();
-        screenManager.batch.setProjectionMatrix(lobbyStage.stage.getCamera().combined);
-        lobbyStage.stage.draw();
     }
 
     @Override
