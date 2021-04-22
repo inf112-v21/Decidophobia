@@ -1,6 +1,5 @@
 package inf112.skeleton.app.Multiplayer;
 
-import com.badlogic.gdx.Game;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
@@ -114,14 +113,55 @@ public class RoboClient {
                 if (object instanceof String) {
                     response = (String) object;
                     System.out.println(response);
-                    parser((String) object);
+                    if(!gameStarted)
+                        lobbyRequestParser((String) object);
+                    else
+                        gameRequestParser((String) object);
                 }
 
             }
         });
 
     }
-    public void parser(String str){
+
+    private void gameRequestParser(String str) {
+        switch (str) {
+            case "end":
+                break;
+        }
+        String[] arguments = str.split(",");
+        switch (arguments[0]) {
+            case "lobby":
+                lobbyInfo = new LobbyInfo(arguments[1]);
+                if (lobbyScreen != null) lobbyScreen.updatePlayerTable();
+                gameRequestParser(str.substring("lobby,,".length() + arguments[1].length()));
+                break;
+
+            case "move":
+                roundCards.addPlayerCards(Integer.parseInt(arguments[1]), arguments[2]);
+                if (roundCards.getAllPlayerHands().keySet().size() == lobbyInfo.getPlayers().size()) {
+                    if (gameLogic != null) gameLogic.doRound(roundCards);
+                }
+                break;
+
+            case "dealCards":
+                roundCards = new GameCards(new Deck());
+                clientsCards = new PlayerCards(arguments[1]);
+                if (gameLogic != null) gameLogic.gameGUI.updateCards(clientsCards);
+                break;
+
+            case "quit":
+                int pNr = Integer.parseInt(arguments[1]);
+                lobbyInfo.playerQuit(pNr);
+                hostOnline = pNr != 0;
+                gameLogic.hostQuit();
+                break;
+
+            default:
+                return;
+        }
+    }
+    public void lobbyRequestParser(String str){
         switch (str){
             case "start":
                 lobbyScreen.startGame();
@@ -136,26 +176,26 @@ public class RoboClient {
             case "joined":
                 clientPlayerNr = Integer.parseInt(arguments[1]);
                 if(gameLogic != null) gameLogic.setLocalPlayerNumber(clientPlayerNr);
-                parser(str.substring("joined,,".length() + arguments[1].length()));
+                lobbyRequestParser(str.substring("joined,,".length() + arguments[1].length()));
                 break;
 
             case "playerJoined":
                 System.out.println("playerJoined " + arguments[1]);
                 lobbyInfo.addPlayer(Integer.parseInt(arguments[1]));
                 lobbyScreen.updatePlayerTable();
-                parser(str.substring("joined,,".length() + arguments[1].length()));
+                lobbyRequestParser(str.substring("joined,,".length() + arguments[1].length()));
                 break;
 
             case "gameRules":
                 gameRules = new GameRules(str.substring("gameRules,".length()));
                 if (lobbyScreen != null) lobbyScreen.updateRulesTable();
-                parser(str.substring("gameRules,".length() + arguments[1].length()));
+                lobbyRequestParser(str.substring("gameRules,".length() + arguments[1].length()));
                 break;
 
             case "lobby":
                 lobbyInfo = new LobbyInfo(arguments[1]);
                 if (lobbyScreen != null) lobbyScreen.updatePlayerTable();
-                parser(str.substring("lobby,,".length() + arguments[1].length()));
+                lobbyRequestParser(str.substring("lobby,,".length() + arguments[1].length()));
                 break;
 
             case "move":

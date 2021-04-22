@@ -3,12 +3,10 @@ package inf112.skeleton.app;
 import inf112.skeleton.app.Multiplayer.RoboClient;
 import inf112.skeleton.app.Multiplayer.packets.GameRules;
 import inf112.skeleton.app.Multiplayer.packets.LobbyInfo;
-import inf112.skeleton.app.cards.CardType;
 import inf112.skeleton.app.cards.Cards;
 import inf112.skeleton.app.cards.PlayerCards;
 import org.junit.Before;
 import org.junit.Test;
-import org.lwjgl.system.CallbackI;
 
 import static inf112.skeleton.app.cards.CardType.*;
 import static org.junit.Assert.*;
@@ -22,20 +20,20 @@ public class ParserTest {
 
     @Test
     public void gameRulesIsCorrectlyConstructed1(){
-        robo.parser("gameRules,4;10,");
+        robo.lobbyRequestParser("gameRules,4;10;;");
         assertEquals(4,robo.getGameRules().getLifeTokens());
         assertEquals(10,robo.getGameRules().getDamageTokens());
     }
     @Test
     public void gameRulesObjectIsCorrectlyConstructedAndParsed(){
-        GameRules rules = new GameRules(4,10,"");
-        robo.parser(rules.toString());
+        GameRules rules = new GameRules(4,10);
+        robo.lobbyRequestParser(rules.toString());
         assertEquals(4,robo.getGameRules().getLifeTokens());
         assertEquals(10,robo.getGameRules().getDamageTokens());
     }
     @Test
     public void lobbyInfoIsCorrectlyConstructed(){
-        robo.parser("lobby,1;Isak;1;true;true:2;Alex;2;false;false:,");
+        robo.lobbyRequestParser("lobby,1;Isak;1;true;true:2;Alex;2;false;false:,");
         lobbyInfoEvaluation(1,2);
     }
     @Test
@@ -46,13 +44,13 @@ public class ParserTest {
         lobby.getPlayers().get(0).setNickname("Isak");
         lobby.getPlayers().get(1).setNickname("Alex");
         lobby.getPlayers().get(0).setReady(true);
-        robo.parser(lobby.toString());
+        robo.lobbyRequestParser(lobby.toString());
         lobbyInfoEvaluation(0,1);
 
     }
     @Test
     public void joinRequestParsesLobbyAndGameRules(){
-        robo.parser("joined,1,gameRules,4;10,lobby,0;Isak;0;true;true:1;Alex;1;false;false:,");
+        robo.lobbyRequestParser("joined,1,gameRules,4;10,lobby,0;Isak;0;true;true:1;Alex;1;false;false:,");
         lobbyInfoEvaluation(0,1);
         assertEquals(4,robo.getGameRules().getLifeTokens());
         assertEquals(10,robo.getGameRules().getDamageTokens());

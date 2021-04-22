@@ -116,4 +116,7 @@ public class GameLogic {
     public GameRules getGameRules(){
         return gameRules;
     }
+
+    public void hostQuit() {
+    }
 }

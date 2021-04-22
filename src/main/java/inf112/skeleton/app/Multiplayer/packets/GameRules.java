@@ -15,7 +15,10 @@ public class GameRules implements Serializable {
         this.damageTokens = 9;
         this.lifeTokens = 3;
     }
-
+    public GameRules( int lifeTokens, int damageTokens){
+        this.damageTokens = damageTokens;
+        this.lifeTokens = lifeTokens;
+    }
     public GameRules( int lifeTokens, int damageTokens, String boardPath){
         this.damageTokens = damageTokens;
         this.lifeTokens = lifeTokens;
