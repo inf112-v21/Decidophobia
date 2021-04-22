@@ -58,39 +58,39 @@ public class BoardStage extends InputAdapter {
     }
 
     public void moveBoard(int screenX, int screenY) {
-        float width = Gdx.graphics.getWidth();
-        float height = Gdx.graphics.getHeight();
+        if(Gdx.input.isButtonPressed(1)) { //Right mouse button.
+            float width = Gdx.graphics.getWidth();
+            float height = Gdx.graphics.getHeight();
 
-        float boardWidth = boardLayer.getWidth();
-        float boardHeight = boardLayer.getHeight();
+            float boardWidth = boardLayer.getWidth();
+            float boardHeight = boardLayer.getHeight();
 
-        int fraction = 3;
-        float amount = (float) 1/150; //amount*1 till 10 good boundaries
+            int fraction = 2;
+            float amount = (float) 1 / 150; //amount*1 till 10 good boundaries
 
-        int topSpeed = 10;
-        float padding = Math.min((float) width/fraction,(float) height/fraction);
-        if(screenX<padding){
-            if(boardCam.position.x>0){
-                float speed = topSpeed*amount*(padding-screenX)/padding;
-                boardCam.translate(-speed,0);
+            int topSpeed = 10;
+            float padding = Math.min((float) width / fraction, (float) height / fraction);
+            if (screenX < padding) {
+                if (boardCam.position.x > 0) {
+                    float speed = topSpeed * amount * (padding - screenX) / padding;
+                    boardCam.translate(-speed, 0);
+                }
+            } else if (screenX > width - padding) {
+                if (boardCam.position.x < boardWidth) {
+                    float speed = topSpeed * amount * (padding - (width - screenX)) / padding;
+                    boardCam.translate(speed, 0);
+                }
             }
-        }
-        else if(screenX>width-padding){
-            if(boardCam.position.x<boardWidth){
-                float speed = topSpeed*amount*(padding-(width-screenX))/padding;
-                boardCam.translate(speed,0);
-            }
-        }
-        if(screenY<padding){
-            if(boardCam.position.y<boardHeight){
-                float speed = topSpeed*amount*(padding-screenY)/padding;
-                boardCam.translate(0,speed);
-            }
-        }
-        else if(screenY>height-padding){
-            if(boardCam.position.y>0){
-                float speed = topSpeed*amount*(padding-(height-screenY))/padding;
-                boardCam.translate(0,-speed);
+            if (screenY < padding) {
+                if (boardCam.position.y < boardHeight) {
+                    float speed = topSpeed * amount * (padding - screenY) / padding;
+                    boardCam.translate(0, speed);
+                }
+            } else if (screenY > height - padding) {
+                if (boardCam.position.y > 0) {
+                    float speed = topSpeed * amount * (padding - (height - screenY)) / padding;
+                    boardCam.translate(0, -speed);
+                }
             }
         }
     }

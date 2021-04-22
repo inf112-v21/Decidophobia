@@ -74,7 +74,8 @@
         * Tested if cards load and show on screen when dealt out.
         * Tested if cards are clickable and if they get sent when 5 cards are reached.
         * Tested if playerTags (the icon showing each players robots status) show for all players.
-        * Tested if boards (actually the boardCamera) is moveable by the mouse againsta the edges.
+        * Tested if boards (actually the boardCamera) is moveable by the mouse against the edges of the screen
+        while holding right mousebutton.
         * Tested if the board can move off screen, it can only if you resize the screen.
         * Tested if scrolling zooms the board.
     All of these tests passed.
