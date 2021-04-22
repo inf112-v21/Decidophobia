@@ -14,9 +14,6 @@ public class MenuScreen implements Screen {
     public MenuScreen(ScreenManager screenManager){
         this.screenManager = screenManager;
 
-
-
-
     }
     @Override
     public void show() {

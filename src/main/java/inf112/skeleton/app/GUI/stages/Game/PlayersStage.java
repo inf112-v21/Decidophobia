@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.skeleton.app.GUI.screen.GameScreen;
 import inf112.skeleton.app.Multiplayer.RoboClient;
 import inf112.skeleton.app.Multiplayer.packets.PlayerInfo;
+import inf112.skeleton.app.player.Robot;
 
 
 public class PlayersStage {
@@ -66,6 +67,8 @@ public class PlayersStage {
     }
 
     public void playerTagSetup(PlayerInfo playerInfo, float scale){
+        Robot playerRobot = gameScreen.roboGame.robots.get(playerInfo.getPlayerNr());
+
         //Group contains all available information about players.
         Group pInfo = new Group();
 
@@ -82,15 +85,19 @@ public class PlayersStage {
         damageImage.setSize(40*scale,40*scale);
         damageImage.setPosition(110*scale,18*scale);
 
-        Label dmg = new Label(": 9",labelStyle);
+        Label dmg = new Label(": "+playerRobot.getDamageTokens(),labelStyle);
         dmg.setPosition(150*scale,20*scale);
 
         Image lifeImage = new Image(botBoardTextures[2][0]);
         lifeImage.setSize(40*scale,40*scale);
         lifeImage.setPosition(200*scale,18*scale);
 
-        Label life = new Label(": 3",labelStyle);
+        Label life = new Label(": "+playerRobot.getLifeTokens(),labelStyle);
         life.setPosition(240*scale,20*scale);
+
+        Image powerDown = new Image(botBoardTextures[0][0]);
+        powerDown.setSize(70*scale,70*scale);
+        powerDown.setPosition(50*scale,-18*scale);
 
         //add all information to group
         pInfo.addActor(tagFrame);
@@ -99,6 +106,7 @@ public class PlayersStage {
         pInfo.addActor(dmg);
         pInfo.addActor(lifeImage);
         pInfo.addActor(life);
+        if(playerRobot.isPowerDown()) pInfo.addActor(powerDown);
 
         //stack information over frame
         playerTagsTable.add(pInfo).size(tagFrame.getWidth()*scale,tagFrame.getHeight()*scale).padBottom(25);

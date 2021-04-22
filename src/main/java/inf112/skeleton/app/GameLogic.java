@@ -29,7 +29,7 @@ public class GameLogic {
 
     private int localPlayerNumber;
 
-    private Map<Integer, Robot> robots;
+    public Map<Integer, Robot> robots;
 
     public Map<Integer, PlayerCards> playerMoves;
 
@@ -56,7 +56,7 @@ public class GameLogic {
             Map.Entry player = (Map.Entry)playerIterator.next();
             // Needs update when textures and player start are implemented
             Robot bot = new Robot(new Vector2(i, 2), Direction.NORTH, "src/assets/player.png",
-                    (TiledMapTileLayer) gameGUI.getMap().getLayers().get("Robot"));
+                    (TiledMapTileLayer) gameGUI.getMap().getLayers().get("Robot"),gameRules.getLifeTokens(), gameRules.getDamageTokens());
 
             bot.setRobotNr((Integer) player.getKey());
             robots.put(bot.getRobotNr(), bot);

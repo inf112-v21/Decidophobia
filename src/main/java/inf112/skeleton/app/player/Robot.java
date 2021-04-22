@@ -24,11 +24,19 @@ public class Robot {
     private TiledMapTileLayer robotLayer;
     private int robotNr; //same as playerNr
 
-    public Robot(Vector2 position, Direction facingDirection, String RobotImagePath, TiledMapTileLayer robotLayer){
+    private int damageTokens;
+    private int lifeTokens;
+    private boolean powerDown;
+
+    public Robot(Vector2 position, Direction facingDirection, String RobotImagePath, TiledMapTileLayer robotLayer,int lifeTokens, int damageTokens){
         this.robotPosition = position;
         this.facingDirection = facingDirection;
         this.activeRobot = true;
         this.robotLayer = robotLayer;
+
+        this.lifeTokens = lifeTokens;
+        this.damageTokens = damageTokens;
+        this.powerDown = false;
 
         if(!(RobotImagePath==null)) {
             //Setting up texture for different player orientations
@@ -102,15 +110,14 @@ public class Robot {
         robotLayer.setCell((int) getPosition().x,(int) getPosition().y,null);
 
         switch (card.getType()) {
+
             case FORWARD_1 :
-                robotLayer.setCell((int) getPosition().x,(int) getPosition().y,null);
                 robotPosition.add(directionToVector(facingDirection));
                 robotLayer.setCell((int) getPosition().x,(int) getPosition().y, getPlayerTileCell());
                 GameLogic.wait(moveDelay);
                 break;
 
             case FORWARD_2:
-                robotLayer.setCell((int) getPosition().x,(int) getPosition().y,null);
                 robotPosition.add(directionToVector(facingDirection));
                 robotLayer.setCell((int) getPosition().x,(int) getPosition().y, getPlayerTileCell());
                 GameLogic.wait(moveDelay);
@@ -121,7 +128,6 @@ public class Robot {
                 break;
 
             case FORWARD_3:
-                robotLayer.setCell((int) getPosition().x,(int) getPosition().y,null);
                 robotPosition.add(directionToVector(facingDirection));
                 robotLayer.setCell((int) getPosition().x,(int) getPosition().y, getPlayerTileCell());
                 GameLogic.wait(moveDelay);
@@ -136,28 +142,24 @@ public class Robot {
                 break;
 
             case REVERSE:
-                robotLayer.setCell((int) getPosition().x,(int) getPosition().y,null);
                 robotPosition.sub(directionToVector(facingDirection));
                 robotLayer.setCell((int) getPosition().x,(int) getPosition().y, getPlayerTileCell());
                 GameLogic.wait(moveDelay);
                 break;
 
             case ROTATE_RIGHT:
-                robotLayer.setCell((int) getPosition().x,(int) getPosition().y,null);
                 facingDirection = rotationToDirection(facingDirection,true);
                 robotLayer.setCell((int) getPosition().x,(int) getPosition().y, getPlayerTileCell());
                 GameLogic.wait(moveDelay);
                 break;
 
             case ROTATE_LEFT:
-                robotLayer.setCell((int) getPosition().x,(int) getPosition().y,null);
                 facingDirection = rotationToDirection(facingDirection,false);
                 robotLayer.setCell((int) getPosition().x,(int) getPosition().y, getPlayerTileCell());
                 GameLogic.wait(moveDelay);
                 break;
 
             case U_TURN:
-                robotLayer.setCell((int) getPosition().x,(int) getPosition().y,null);
                 facingDirection = (rotationToDirection(facingDirection, true));
                 facingDirection = (rotationToDirection(facingDirection, true));
                 robotLayer.setCell((int) getPosition().x,(int) getPosition().y, getPlayerTileCell());
@@ -165,11 +167,8 @@ public class Robot {
                 break;
         }
 
-        //Adds sprite in new position
-
     }
 
-    //Needs to be removed with GameGUI Class
     public void move(Action move) {
         if(!activeRobot)
             return;
@@ -191,5 +190,15 @@ public class Robot {
                 facingDirection = (rotationToDirection(facingDirection, true));
                 break;
         }
+    }
+
+    public int getDamageTokens() {
+        return damageTokens;
+    }
+    public int getLifeTokens() {
+        return lifeTokens;
+    }
+    public boolean isPowerDown() {
+        return powerDown;
     }
 }

@@ -94,7 +94,7 @@ public class GameGUI extends InputAdapter implements ApplicationListener {
 
         //Placing the player
         playerLayer = (TiledMapTileLayer) mapTile.getLayers().get("Player");
-        p1 = new Robot(new Vector2(1,3),Direction.NORTH,"src/assets/player.png", playerLayer);
+        p1 = new Robot(new Vector2(1,3),Direction.NORTH,"src/assets/player.png", playerLayer,3,9);
         Vector2 pos = p1.getPosition();
 
         playerLayer.setCell((int)pos.x,(int) pos.y, p1.getPlayerTileCell());
