@@ -44,6 +44,16 @@
 #### 4 GUI:
     Tested if the application worked correctly over 2 computers:
     I run the computers side by side and visually check if they pass.
+    The main menu:
+        * Tested if "play multiplayer" button worked by sending the user to JoinScreen.
+        * Tested if "quit" exited the game and stop all currently running Threads.
+        * Tested if you can come back to the menu after getting the joinScreen.
+    The join screen:
+        * Tested if host button starts lobby.
+        * Tested if join-button joins a lobby by using the ip or stays on the joinScreen if join is not
+        possible. Tested this by having the second computer hosting (then it could joind) and when it was
+        not hosting the main computer stayed on the joinScreen.
+        * Tested if cancel-button sent the user back to main menu.
     The lobby:
         * Tested if host starts a lobby, that he sees himself.
         * Tested if a player joins the lobby that the lobby gets updated for all players.
@@ -67,4 +77,5 @@
         * Tested if boards (actually the boardCamera) is moveable by the mouse againsta the edges.
         * Tested if the board can move off screen, it can only if you resize the screen.
         * Tested if scrolling zooms the board.
+    All of these tests passed.
         
