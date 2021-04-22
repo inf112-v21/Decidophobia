@@ -146,4 +146,9 @@ public class GameLogic {
 
     public void hostQuit() {
     }
+    public static void wait(int mm){
+        try{
+            Thread.sleep(mm);
+        } catch (Exception e){}
+    }
 }
