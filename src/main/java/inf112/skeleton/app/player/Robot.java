@@ -7,6 +7,7 @@ import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.Action;
 import inf112.skeleton.app.Direction;
+import inf112.skeleton.app.GameLogic;
 import inf112.skeleton.app.cards.Cards;
 
 import java.util.HashMap;
@@ -96,45 +97,76 @@ public class Robot {
      * @param card that defines which move to make
      */
     public void useCard(Cards card){
+        int moveDelay = 500;
         // Removes sprite in current position
         robotLayer.setCell((int) getPosition().x,(int) getPosition().y,null);
 
         switch (card.getType()) {
             case FORWARD_1 :
+                robotLayer.setCell((int) getPosition().x,(int) getPosition().y,null);
                 robotPosition.add(directionToVector(facingDirection));
+                robotLayer.setCell((int) getPosition().x,(int) getPosition().y, getPlayerTileCell());
+                GameLogic.wait(moveDelay);
                 break;
 
             case FORWARD_2:
+                robotLayer.setCell((int) getPosition().x,(int) getPosition().y,null);
                 robotPosition.add(directionToVector(facingDirection));
+                robotLayer.setCell((int) getPosition().x,(int) getPosition().y, getPlayerTileCell());
+                GameLogic.wait(moveDelay);
+                robotLayer.setCell((int) getPosition().x,(int) getPosition().y,null);
                 robotPosition.add(directionToVector(facingDirection));
+                robotLayer.setCell((int) getPosition().x,(int) getPosition().y, getPlayerTileCell());
+                GameLogic.wait(moveDelay);
                 break;
 
             case FORWARD_3:
+                robotLayer.setCell((int) getPosition().x,(int) getPosition().y,null);
                 robotPosition.add(directionToVector(facingDirection));
+                robotLayer.setCell((int) getPosition().x,(int) getPosition().y, getPlayerTileCell());
+                GameLogic.wait(moveDelay);
+                robotLayer.setCell((int) getPosition().x,(int) getPosition().y,null);
                 robotPosition.add(directionToVector(facingDirection));
+                robotLayer.setCell((int) getPosition().x,(int) getPosition().y, getPlayerTileCell());
+                GameLogic.wait(moveDelay);
+                robotLayer.setCell((int) getPosition().x,(int) getPosition().y,null);
                 robotPosition.add(directionToVector(facingDirection));
+                robotLayer.setCell((int) getPosition().x,(int) getPosition().y, getPlayerTileCell());
+                GameLogic.wait(moveDelay);
                 break;
 
             case REVERSE:
+                robotLayer.setCell((int) getPosition().x,(int) getPosition().y,null);
                 robotPosition.sub(directionToVector(facingDirection));
+                robotLayer.setCell((int) getPosition().x,(int) getPosition().y, getPlayerTileCell());
+                GameLogic.wait(moveDelay);
                 break;
 
             case ROTATE_RIGHT:
+                robotLayer.setCell((int) getPosition().x,(int) getPosition().y,null);
                 facingDirection = rotationToDirection(facingDirection,true);
+                robotLayer.setCell((int) getPosition().x,(int) getPosition().y, getPlayerTileCell());
+                GameLogic.wait(moveDelay);
                 break;
 
             case ROTATE_LEFT:
+                robotLayer.setCell((int) getPosition().x,(int) getPosition().y,null);
                 facingDirection = rotationToDirection(facingDirection,false);
+                robotLayer.setCell((int) getPosition().x,(int) getPosition().y, getPlayerTileCell());
+                GameLogic.wait(moveDelay);
                 break;
 
             case U_TURN:
+                robotLayer.setCell((int) getPosition().x,(int) getPosition().y,null);
                 facingDirection = (rotationToDirection(facingDirection, true));
                 facingDirection = (rotationToDirection(facingDirection, true));
+                robotLayer.setCell((int) getPosition().x,(int) getPosition().y, getPlayerTileCell());
+                GameLogic.wait(moveDelay);
                 break;
         }
 
         //Adds sprite in new position
-        robotLayer.setCell((int) getPosition().x,(int) getPosition().y, getPlayerTileCell());
+
     }
 
     //Needs to be removed with GameGUI Class

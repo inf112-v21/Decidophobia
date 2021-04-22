@@ -69,26 +69,27 @@ public class BoardStage extends InputAdapter {
             float amount = (float) 1 / 150; //amount*1 till 10 good boundaries
 
             int topSpeed = 10;
-            float padding = Math.min((float) width / fraction, (float) height / fraction);
-            if (screenX < padding) {
+            float paddingY = height / fraction ;
+            float paddingX = width / fraction ;
+            if (screenX < paddingX) {
                 if (boardCam.position.x > 0) {
-                    float speed = topSpeed * amount * (padding - screenX) / padding;
+                    float speed = topSpeed * amount * (paddingX - screenX) / paddingX;
                     boardCam.translate(-speed, 0);
                 }
-            } else if (screenX > width - padding) {
+            } else if (screenX > width - paddingX) {
                 if (boardCam.position.x < boardWidth) {
-                    float speed = topSpeed * amount * (padding - (width - screenX)) / padding;
+                    float speed = topSpeed * amount * (paddingX - (width - screenX)) / paddingX;
                     boardCam.translate(speed, 0);
                 }
             }
-            if (screenY < padding) {
+            if (screenY < paddingY) {
                 if (boardCam.position.y < boardHeight) {
-                    float speed = topSpeed * amount * (padding - screenY) / padding;
+                    float speed = topSpeed * amount * (paddingY - screenY) / paddingY;
                     boardCam.translate(0, speed);
                 }
-            } else if (screenY > height - padding) {
+            } else if (screenY > height - paddingY) {
                 if (boardCam.position.y > 0) {
-                    float speed = topSpeed * amount * (padding - (height - screenY)) / padding;
+                    float speed = topSpeed * amount * (paddingY - (height - screenY)) / paddingY;
                     boardCam.translate(0, -speed);
                 }
             }
