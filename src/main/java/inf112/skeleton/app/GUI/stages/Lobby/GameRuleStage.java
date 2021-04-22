@@ -93,7 +93,7 @@ public class GameRuleStage {
             int damage = client.getGameRules().getDamageTokens();
             int life = client.getGameRules().getLifeTokens();
             String path = boardFolderPath+"/"+boardFiles.get(0);
-            GameRules newRules = new GameRules(damage,life,path);
+            GameRules newRules = new GameRules(life,damage,path);
             client.sendRules(newRules);
         }
 
@@ -119,20 +119,23 @@ public class GameRuleStage {
         Actor countDamageTokens;
         Actor countLifeTokens;
         Actor chosenMap;
+        Actor applyChanges;
         //Sets up GameRules (it is editable for the host but not others)
         if(!isHost){
             countDamageTokens = new Label(client.getGameRules().getDamageTokens()+"",labelStyle);
 
             countLifeTokens = new Label(client.getGameRules().getLifeTokens()+"",labelStyle);
 
-            chosenMap = new Label(client.getGameRules().getBoardPath(),labelStyle);
+            chosenMap = new Label(client.getGameRules().getBoardPath().substring(boardFolderPath.length()+1),labelStyle);
+
+            applyChanges = new Label("host chooses rules", labelStyle);
         }else{
             countDamageTokens = new TextField(client.getGameRules().getDamageTokens()+"",textStyle);
 
             countLifeTokens = new TextField(client.getGameRules().getLifeTokens()+"",textStyle);
 
             //rules.add(chosenMap).padLeft(4).expandX();
-            chosenMap = new TextButton(boardFiles.get(0),buttonStyle);
+            chosenMap = new TextButton(client.getGameRules().getBoardPath().substring(boardFolderPath.length()+1),buttonStyle);
             chosenMap.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -160,8 +163,7 @@ public class GameRuleStage {
                     super.clicked(event, x, y);
                 }
             });
-            TextButton applyChanges = new TextButton("apply rules", buttonStyle);
-            applyChanges.setPosition(1500, 600);
+            applyChanges = new TextButton("apply rules", buttonStyle);
             applyChanges.setSize(300,50);
             applyChanges.addListener(new ClickListener(){
                 @Override
@@ -171,24 +173,26 @@ public class GameRuleStage {
                         int damage = Integer.parseInt(((TextField)countDamageTokens).getText());
                         int life = Integer.parseInt(((TextField)countLifeTokens).getText());
                         String path = boardFolderPath+"/"+((TextButton)chosenMap).getText();
-                        newRules = new GameRules(damage,life,path);
+                        newRules = new GameRules(life,damage,path);
                         client.sendRules(newRules);
 
                     }catch (Exception e){}
                     super.clicked(event, x, y);
                 }
             });
-            gameRulesGroup.addActor(applyChanges);
+
         }
         countDamageTokens.setPosition(1700,900);
         countLifeTokens.setPosition(1700,800);
         chosenMap.setPosition(1700,700);
+        applyChanges.setPosition(1500, 600);
         gameRulesGroup.addActor(heading);
         gameRulesGroup.addActor(damageTokens);
         gameRulesGroup.addActor(countDamageTokens);
         gameRulesGroup.addActor(lifeTokens);
         gameRulesGroup.addActor(countLifeTokens);
         gameRulesGroup.addActor(map);
+        gameRulesGroup.addActor(applyChanges);
 
         gameRulesGroup.addActor(chosenMap);
 

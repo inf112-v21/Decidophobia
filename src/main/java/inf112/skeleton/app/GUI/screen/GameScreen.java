@@ -32,7 +32,7 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         cardStage = new CardStage(this, roboGame);
-        boardStage = new BoardStage();
+        boardStage = new BoardStage(this);
         playerStage = new PlayersStage(this);
 
         roboGame.setGameGUI(this);

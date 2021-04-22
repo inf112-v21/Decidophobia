@@ -44,7 +44,6 @@ public class LobbyScreen implements Screen {
         lobbyStage = new LobbyStage(this);
         lobbyStage.show();
         gameRuleStage = new GameRuleStage(this);
-        gameRuleStage.updateGameRulesGroup();
 
         InputMultiplexer inputs = new InputMultiplexer();
         inputs.addProcessor(lobbyStage.stage);
@@ -118,11 +117,16 @@ public class LobbyScreen implements Screen {
 
     public void updatePlayerTable() {
         lobbyStage.updatePlayerTable();
+
     }
 
     public void destroyLobby() {
         client.clientStop();
         dispose();
         screenManager.setScreen(new JoinScreen(screenManager, "host quit the lobby"));
+    }
+
+    public void updateRulesTable() {
+        gameRuleStage.updateGameRulesGroup();
     }
 }

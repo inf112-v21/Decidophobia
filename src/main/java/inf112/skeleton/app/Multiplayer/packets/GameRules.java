@@ -29,7 +29,7 @@ public class GameRules implements Serializable {
         this.damageTokens = Integer.valueOf(rules[1]);
         this.boardPath = rules[2];
         for(int i = 3; i<rules.length; i++){
-            this.readBoardFile += rules[i];
+            this.readBoardFile += rules[i]+";";
         }
     }
 

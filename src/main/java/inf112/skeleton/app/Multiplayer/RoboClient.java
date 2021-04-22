@@ -147,8 +147,8 @@ public class RoboClient {
                 break;
 
             case "gameRules":
-                gameRules = new GameRules(arguments[1]);
-                if (lobbyScreen != null) lobbyScreen.updatePlayerTable();
+                gameRules = new GameRules(str.substring("gameRules,".length()));
+                if (lobbyScreen != null) lobbyScreen.updateRulesTable();
                 parser(str.substring("gameRules,".length() + arguments[1].length()));
                 break;
 

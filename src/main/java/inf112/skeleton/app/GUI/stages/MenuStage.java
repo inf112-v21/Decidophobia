@@ -16,6 +16,7 @@ import inf112.skeleton.app.GUI.screen.*;
 import inf112.skeleton.app.GameLogic;
 import inf112.skeleton.app.Multiplayer.RoboClient;
 import inf112.skeleton.app.Multiplayer.RoboServer;
+import inf112.skeleton.app.Multiplayer.packets.GameRules;
 
 public class MenuStage {
     public Stage stage;
@@ -62,7 +63,9 @@ public class MenuStage {
                 ScreenManager.server.runServer();
                 RoboClient client = new RoboClient();
                 client.join(RoboServer.getLANIp());
-                while(client.getLobbyInfo() == null) {
+                GameRules rules = new GameRules(3,9,"src/assets/boards/vault.tmx");
+                client.sendRules(rules);
+                while(client.getGameRules() == null) {
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
