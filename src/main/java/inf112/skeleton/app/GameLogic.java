@@ -1,7 +1,8 @@
 package inf112.skeleton.app;
 
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.GUI.screen.GameScreen;
-import inf112.skeleton.app.GUI.stages.Game.CardStage;
 import inf112.skeleton.app.Multiplayer.RoboClient;
 import inf112.skeleton.app.Multiplayer.RoboServer;
 import inf112.skeleton.app.Multiplayer.packets.GameCards;
@@ -10,6 +11,7 @@ import inf112.skeleton.app.Multiplayer.packets.PlayerInfo;
 import inf112.skeleton.app.cards.Cards;
 import inf112.skeleton.app.cards.Deck;
 import inf112.skeleton.app.cards.PlayerCards;
+import inf112.skeleton.app.player.Robot;
 
 import java.util.*;
 
@@ -27,6 +29,8 @@ public class GameLogic {
 
     private int localPlayerNumber;
 
+    private Map<Integer, Robot> robots;
+
     public Map<Integer, PlayerCards> playerMoves;
 
     PlayerCards yourCards;
@@ -37,6 +41,27 @@ public class GameLogic {
         this.networkClient = networkClient;
         gameRules = networkClient.getGameRules();
         cardDeck = new Deck();
+    }
+
+    /**
+     * Creates a robot for each player and places the robots on the board
+     */
+    public void spawnRobots() {
+        Map<Integer, PlayerInfo> players = networkClient.getLobbyInfo().getPlayers();
+        Iterator playerIterator = players.entrySet().iterator();
+
+        int i = 0; //placeholder
+        robots = new HashMap<Integer, Robot>();
+        while (playerIterator.hasNext()) {
+            Map.Entry player = (Map.Entry)playerIterator.next();
+            // Needs update when textures and player start are implemented
+            Robot bot = new Robot(new Vector2(i, 2), Direction.NORTH, "src/assets/player.png",
+                    (TiledMapTileLayer) gameGUI.getMap().getLayers().get("Robot"));
+
+            bot.setRobotNr((Integer) player.getKey());
+            robots.put(bot.getRobotNr(), bot);
+            i++;
+        }
     }
 
     public void dealCards() {
@@ -58,7 +83,8 @@ public class GameLogic {
             networkClient.dealCards(thisRound);
         }
     }
-    public void doRound(GameCards playerMoves){
+
+    public void doRound(GameCards playerMoves) {
         for(int r = 0; r < 5; r++){
             //collision with wall needs to happen in every move
 
@@ -77,12 +103,11 @@ public class GameLogic {
             //collision hole and flag
             //Gears rotate 90*
 
-
-
         }
         lastRound = playerMoves;
         dealCards();
     }
+
     private List<Integer> getHighestPriorityOfNewCard(int turn, GameCards playerMoves){
         Map<Integer,PlayerCards> playerHands = playerMoves.getAllPlayerHands();
         List<Integer> playerPriority = new ArrayList<>();
@@ -98,7 +123,9 @@ public class GameLogic {
         }
         return playerPriority;
     }
+
     private void doMove(Integer pNr, Cards activeCard) {
+        robots.get(pNr).useCard(activeCard);
     }
 
     public void setLocalPlayerNumber(int playerNr) {

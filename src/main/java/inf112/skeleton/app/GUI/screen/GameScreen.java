@@ -5,9 +5,6 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import inf112.skeleton.app.GUI.ScreenManager;
 import inf112.skeleton.app.GUI.stages.Game.BoardStage;
 import inf112.skeleton.app.GUI.stages.Game.CardStage;
@@ -36,10 +33,12 @@ public class GameScreen implements Screen {
         playerStage = new PlayersStage(this);
 
         roboGame.setGameGUI(this);
+
         InputMultiplexer inputs = new InputMultiplexer();
         inputs.addProcessor(cardStage.cardStage);
         inputs.addProcessor(boardStage);
         Gdx.input.setInputProcessor(inputs);
+        roboGame.spawnRobots();
         roboGame.dealCards();
     }
 

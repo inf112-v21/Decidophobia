@@ -24,7 +24,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import inf112.skeleton.app.board.Board;
-import inf112.skeleton.app.player.LocalPlayer;
+import inf112.skeleton.app.player.Robot;
 import inf112.skeleton.app.GUI.screen.MainMenuScreen;
 
 import java.util.Map;
@@ -60,8 +60,8 @@ public class GameGUI extends InputAdapter implements ApplicationListener {
     private static Board board;
 
     //PLayers
-    LocalPlayer p1;
-    Map<Integer, LocalPlayer> playerIdToPlayer;
+    Robot p1;
+    Map<Integer, Robot> playerIdToPlayer;
 
     @Override
     public void create() {
@@ -94,7 +94,7 @@ public class GameGUI extends InputAdapter implements ApplicationListener {
 
         //Placing the player
         playerLayer = (TiledMapTileLayer) mapTile.getLayers().get("Player");
-        p1 = new LocalPlayer(new Vector2(1,3),Direction.NORTH,"src/assets/player.png");
+        p1 = new Robot(new Vector2(1,3),Direction.NORTH,"src/assets/player.png", playerLayer);
         Vector2 pos = p1.getPosition();
 
         playerLayer.setCell((int)pos.x,(int) pos.y, p1.getPlayerTileCell());
@@ -148,14 +148,14 @@ public class GameGUI extends InputAdapter implements ApplicationListener {
         Vector2 p1Pos = p1.getPosition();
         if(!(flagLayer.getCell((int) p1Pos.x,(int) p1Pos.y)==null)){
             playerLayer.setCell((int) p1Pos.x, (int) p1Pos.y, null);
-            p1.setActivePlayer(false);
+            p1.setActiveRobot(false);
 
         }
         //Collision with hole or player goes off-board -> player dissapear and can't move (Dies)
         boolean playerOnBoard = p1Pos.x>=0 && p1Pos.y>=0 && p1Pos.x<boardLayer.getWidth() && p1Pos.y<boardLayer.getHeight();
         if(!(obstacleLayer.getCell((int) p1Pos.x,(int) p1Pos.y)==null) || !playerOnBoard){
             playerLayer.setCell((int) p1Pos.x, (int) p1Pos.y, null);
-            p1.setActivePlayer(false);
+            p1.setActiveRobot(false);
         }
 
         //Renders the player deck
@@ -205,7 +205,7 @@ public class GameGUI extends InputAdapter implements ApplicationListener {
 		u: 49
 		 */
         //Player Dead or Won
-        if(!p1.isActivePlayer())
+        if(!p1.isActiveRobot())
             return super.keyUp(keycode);
 
         playerLayer.setCell((int) p1.getPosition().x,(int) p1.getPosition().y,null);
