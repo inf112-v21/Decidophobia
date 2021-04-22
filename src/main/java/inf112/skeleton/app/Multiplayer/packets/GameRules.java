@@ -1,8 +1,6 @@
 package inf112.skeleton.app.Multiplayer.packets;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.Serializable;
+import java.io.*;
 import java.util.Scanner;
 
 public class GameRules implements Serializable {
@@ -23,7 +21,6 @@ public class GameRules implements Serializable {
         this.damageTokens = damageTokens;
         this.lifeTokens = lifeTokens;
         changeMap(boardPath);
-        System.out.println("it happened");
     }
 
     public GameRules(String str) {
@@ -31,9 +28,22 @@ public class GameRules implements Serializable {
         this.lifeTokens = Integer.valueOf(rules[0]);
         this.damageTokens = Integer.valueOf(rules[1]);
         this.boardPath = rules[2];
+
         for(int i = 3; i<rules.length; i++){
             this.readBoardFile += rules[i]+";";
         }
+        //writes down boardFile, if not it already exist.
+        try {
+            File f = new File(boardPath);
+            if (f.createNewFile()) {
+                System.out.println("File created: " + f.getName());
+                FileWriter boardWriter = new FileWriter(boardPath);
+                boardWriter.write(readBoardFile);
+                boardWriter.close();
+            }
+        } catch (IOException e) {}
+
+
     }
 
     public void changeMap(String fileName){
