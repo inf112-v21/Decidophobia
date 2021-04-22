@@ -95,6 +95,8 @@ public class GameRuleStage {
             String path = boardFolderPath+"/"+boardFiles.get(0);
             GameRules newRules = new GameRules(life,damage,path);
             client.sendRules(newRules);
+        }else{
+            updateGameRulesGroup();
         }
 
 

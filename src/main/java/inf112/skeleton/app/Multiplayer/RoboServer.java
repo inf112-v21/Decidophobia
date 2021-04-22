@@ -140,7 +140,9 @@ public class RoboServer {
                 break;
             case "GameRules":
                 if(connectionToIp(connection).equals(getLANIp())) {
-                    sendToAll("gameRules,"+request.substring("GameRules,".length()));
+                    String ruleString = request.substring("GameRules,".length());
+                    gameRules = new GameRules(ruleString);
+                    sendToAll("gameRules,"+ ruleString);
                 }
         }
     }
