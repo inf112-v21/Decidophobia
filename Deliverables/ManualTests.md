@@ -40,3 +40,31 @@
         3. The player moves toward the pit.
         4. The player  dissapear, hence the player is dead.
     The test was successfull
+
+#### 4 GUI:
+    Tested if the application worked correctly over 2 computers:
+    I run the computers side by side and visually check if they pass.
+    The lobby:
+        * Tested if host starts a lobby, that he sees himself.
+        * Tested if a player joins the lobby that the lobby gets updated for all players.
+        * Tested if the lobby updated when a player is ready (it unchecked for both players)
+        * Tested if default rules and a board were selected when starting a lobby.
+        * Tested if newRules were applied by clicking the button (host) the rules changed for  
+        all players.
+        * Tested if a player does not have the selected board (selected in the rules) that it  
+        downloads it from the server (the map is uploaded by the host). 
+        * Tested if all are ready the game starts for all players.
+        * Tested if a non-host player quits, that it gets removed by the lobby.
+        * Tested if a host quits, that all other players gets kicked and sent to a different screen.
+        * Tested if a player changes his nickname, that it gets updated for all players.
+            - note that ',' cuts the nickname (Carl,Petterson, -> Carl).
+            - since , is used to split information between Client/Server.
+    The Game:
+        * Tested if board loaded equally for both computers.
+        * Tested if cards load and show on screen when dealt out.
+        * Tested if cards are clickable and if they get sent when 5 cards are reached.
+        * Tested if playerTags (the icon showing each players robots status) show for all players.
+        * Tested if boards (actually the boardCamera) is moveable by the mouse againsta the edges.
+        * Tested if the board can move off screen, it can only if you resize the screen.
+        * Tested if scrolling zooms the board.
+        
