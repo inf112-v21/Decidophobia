@@ -1,16 +1,19 @@
 package inf112.skeleton.app.GUI.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import inf112.skeleton.app.GUI.ScreenManager;
-import inf112.skeleton.app.GUI.stages.LobbyStage;
+import inf112.skeleton.app.GUI.stages.Lobby.GameRuleStage;
+import inf112.skeleton.app.GUI.stages.Lobby.LobbyStage;
 import inf112.skeleton.app.Multiplayer.RoboClient;
 import inf112.skeleton.app.Multiplayer.RoboServer;
 
 public class LobbyScreen implements Screen {
     public ScreenManager screenManager;
     private LobbyStage lobbyStage;
+    private GameRuleStage gameRuleStage;
 
     boolean startGame;
 
@@ -40,7 +43,13 @@ public class LobbyScreen implements Screen {
         client.setLobbyScreen(this);
         lobbyStage = new LobbyStage(this);
         lobbyStage.show();
-        Gdx.input.setInputProcessor(lobbyStage.stage);
+        gameRuleStage = new GameRuleStage(this);
+        gameRuleStage.updateGameRulesGroup();
+
+        InputMultiplexer inputs = new InputMultiplexer();
+        inputs.addProcessor(lobbyStage.stage);
+        inputs.addProcessor(gameRuleStage.stage);
+        Gdx.input.setInputProcessor(inputs);
     }
 
     @Override
@@ -58,12 +67,17 @@ public class LobbyScreen implements Screen {
             lobbyStage.stage.getCamera().update();
             screenManager.batch.setProjectionMatrix(lobbyStage.stage.getCamera().combined);
             lobbyStage.stage.draw();
+
+            gameRuleStage.stage.getCamera().update();
+            screenManager.batch.setProjectionMatrix(gameRuleStage.stage.getCamera().combined);
+            gameRuleStage.stage.draw();
         }
     }
 
     @Override
     public void resize(int width, int height) {
         lobbyStage.stage.getViewport().update(width, height);
+        gameRuleStage.stage.getViewport().update(width, height);
     }
 
     @Override
@@ -84,6 +98,7 @@ public class LobbyScreen implements Screen {
     @Override
     public void dispose() {
         lobbyStage.stage.dispose();
+        gameRuleStage.stage.dispose();
     }
 
     public void clientJoin(String ip){

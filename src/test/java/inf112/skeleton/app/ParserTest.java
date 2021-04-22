@@ -28,7 +28,7 @@ public class ParserTest {
     }
     @Test
     public void gameRulesObjectIsCorrectlyConstructedAndParsed(){
-        GameRules rules = new GameRules(4,10);
+        GameRules rules = new GameRules(4,10,"");
         robo.parser(rules.toString());
         assertEquals(4,robo.getGameRules().getLifeTokens());
         assertEquals(10,robo.getGameRules().getDamageTokens());

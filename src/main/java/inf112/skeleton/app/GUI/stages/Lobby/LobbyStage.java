@@ -1,4 +1,4 @@
-package inf112.skeleton.app.GUI.stages;
+package inf112.skeleton.app.GUI.stages.Lobby;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -98,12 +98,14 @@ public class LobbyStage {
         updatePlayerTable();
 
         Table renderTable = new Table();
-        renderTable.setFillParent(true);
+        renderTable.setPosition(0,0);
+        renderTable.setSize(1400,1080);
         renderTable.left();
         renderTable.add(playerTable);
 
         renderTable.bottom();
         renderTable.add(quit);
+
 
         stage.addActor(renderTable);
     }
@@ -135,7 +137,7 @@ public class LobbyStage {
                     }
                 });
                 Table together = new Table();
-                together.add(localNick).expandX();
+                together.add(localNick).padRight(5).expandX();
                 together.add(changeNick);
                 playerTable.add(together).padRight(10).expandX();
                 playerTable.add(new Label(pl.getHost() ? "x" : "", labelStyle)).expandX();
@@ -155,7 +157,10 @@ public class LobbyStage {
                 playerTable.add(ready).expandX();
                 //Other players
             } else{
-                playerTable.add(new Label(pl.getNickname(),labelStyle)).padRight(10).expandX();
+                Table together = new Table();
+                together.add(new Label(pl.getNickname(),labelStyle)).padRight(5).expandX();
+                together.add();
+                playerTable.add(together).padRight(10).expandX();
                 playerTable.add(new Label(pl.getHost() ? "x" : "", labelStyle)).padRight(10).expandX();
                 playerTable.add(new Label(pl.getReady() ? "|v|" : "|_|", labelStyle)).padRight(10).expandX();
             }

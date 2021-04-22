@@ -1,6 +1,9 @@
 package inf112.skeleton.app.Multiplayer.packets;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.Serializable;
+import java.util.Scanner;
 
 public class GameRules implements Serializable {
     private int damageTokens;
@@ -13,15 +16,40 @@ public class GameRules implements Serializable {
         this.lifeTokens = 3;
     }
 
-    public GameRules( int lifeTokens, int damageTokens){
+    public GameRules( int lifeTokens, int damageTokens, String boardPath){
         this.damageTokens = damageTokens;
         this.lifeTokens = lifeTokens;
+        changeMap(boardPath);
+        System.out.println("it happened");
     }
 
     public GameRules(String str) {
         String[] rules = str.split(";");
         this.lifeTokens = Integer.valueOf(rules[0]);
         this.damageTokens = Integer.valueOf(rules[1]);
+        this.boardPath = rules[2];
+        for(int i = 3; i<rules.length; i++){
+            this.readBoardFile += rules[i];
+        }
+    }
+
+    public void changeMap(String fileName){
+        try {
+            File boardFile = new File(fileName);
+            Scanner myReader = new Scanner(boardFile);
+
+            String file = "";
+            while (myReader.hasNextLine()) {
+                file += myReader.nextLine();
+            }
+            myReader.close();
+            boardPath = fileName;
+            readBoardFile = file;
+        }
+        catch (FileNotFoundException e) {
+        }
+
+
     }
 
     public int getDamageTokens() {
@@ -48,7 +76,7 @@ public class GameRules implements Serializable {
 
     @Override
     public String toString() {
-        return "gameRules,"+lifeTokens+";"+damageTokens+",";
+        return lifeTokens+";"+damageTokens+";"+boardPath+";"+readBoardFile;
     }
 
     public String getBoardPath(){

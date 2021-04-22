@@ -1,5 +1,6 @@
 package inf112.skeleton.app.Multiplayer;
 
+import com.badlogic.gdx.Game;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
@@ -42,7 +43,7 @@ public class RoboClient {
     private int clientPlayerNr;
 
     public RoboClient(){
-        client = new Client();
+        client = new Client(8192,2048*4);
         hostOnline = true;
         gameStarted = false;
 
@@ -78,6 +79,10 @@ public class RoboClient {
 
     public void sendRobot(int robTexture, int color) {
         sendRequest("ChangeRobot," + robTexture + "," + color + ",");
+    }
+
+    public void sendRules(GameRules game){
+        sendRequest("GameRules,"+game);
     }
 
     public void sendMoves(PlayerCards cards){
@@ -144,7 +149,7 @@ public class RoboClient {
             case "gameRules":
                 gameRules = new GameRules(arguments[1]);
                 if (lobbyScreen != null) lobbyScreen.updatePlayerTable();
-                parser(str.substring("gameRules,,".length() + arguments[1].length()));
+                parser(str.substring("gameRules,".length() + arguments[1].length()));
                 break;
 
             case "lobby":
