@@ -101,6 +101,9 @@ public class GameScreen implements Screen {
     public void updateCards(PlayerCards clientsCards) {
         cardStage.updateCards(clientsCards);
     }
+    public void updateTags() {
+        playerStage.updatePlayerTags();
+    }
 
     public TiledMap getMap(){
         return boardStage.getBoardMap();

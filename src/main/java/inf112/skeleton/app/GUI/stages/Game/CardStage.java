@@ -29,6 +29,7 @@ public class CardStage {
     GameLogic gl;
 
     HashMap<CardType, TextureRegionDrawable> cardImages;
+    TextureRegion powerDown;
     Table handCardsTable;
 
     BitmapFont font;
@@ -53,6 +54,9 @@ public class CardStage {
         buttonStyle.fontColor = Color.WHITE;
         buttonStyle.font.getData().setScale(1.3f);
 
+
+        //PowerDown texture
+        powerDown = (new TextureRegion().split(new Texture("src/assets/botBoardTiles.png"), 300, 300))[0][0];
         //Set up cardTextures
         TextureRegion[][] cardTextures = TextureRegion.split(new Texture("src/assets/cardTiles.png"), 380, 600);
         cardImages = new HashMap<>();
@@ -77,6 +81,17 @@ public class CardStage {
         handCardsTable.clearChildren();
         handCardsTable.bottom();
         float scale = 0.3f;
+        Image powerDownCard = new Image(powerDown);
+        powerDownCard.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                localCards.removeAllCards();
+                handCardsTable.clearChildren();
+                gl.networkClient.sendMoves(localCards);
+                super.clicked(event, x, y);
+            }
+        });
+        handCardsTable.add(powerDownCard).size(600*scale,600*scale);
         //Sets up dealt cards and make them clickable
         handCardsTable.add(new Label("hand:",labelStyle)).padRight(50);
         for(Cards card : localCards.getCardsInHand()) {
@@ -88,7 +103,6 @@ public class CardStage {
                 public void clicked(InputEvent event, float x, float y) {
                     localCards.setLastActiveCard(card);
                     if(localCards.getActiveCards().size() == 5){
-                        System.out.println("moves sent");
                         handCardsTable.clearChildren();
                         gl.networkClient.sendMoves(localCards);
 
@@ -105,7 +119,6 @@ public class CardStage {
         }
         handCardsTable.add(new Label("chosen:",labelStyle)).padRight(50);
         for(Cards card : localCards.getActiveCards()){
-            System.out.println("activeCard: " + card);
             Stack cardStack = new Stack();
             Image cardImg = new Image(cardImages.get(card.getType()));
             TextButton cardButton = setupCardButton(card.getPriority()+"", cardImg);

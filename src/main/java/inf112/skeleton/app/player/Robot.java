@@ -201,4 +201,8 @@ public class Robot {
     public boolean isPowerDown() {
         return powerDown;
     }
+
+    public void powerDown(boolean on) {
+        powerDown = on;
+    }
 }

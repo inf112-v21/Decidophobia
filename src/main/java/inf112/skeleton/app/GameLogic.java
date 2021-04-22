@@ -85,8 +85,18 @@ public class GameLogic {
     }
 
     public void doRound(GameCards playerMoves) {
+        // Detects powerdowns.
+        for(Integer pNr : playerMoves.getAllPlayerHands().keySet()){
+            if(playerMoves.getAllPlayerHands().get(pNr).getActiveCards().size()==0){
+                playerMoves.getAllPlayerHands().remove(pNr);
+                robots.get(pNr).powerDown(true);
+            }
+        }
+        gameGUI.updateTags();
         for(int r = 0; r < 5; r++){
             //collision with wall needs to happen in every move
+
+
 
             //move for all players
             List<Integer> playerPriority = getHighestPriorityOfNewCard(r,playerMoves);
@@ -104,6 +114,12 @@ public class GameLogic {
             //Gears rotate 90*
 
         }
+        // Removes powerDown
+        for(Robot rob : robots.values()){
+            rob.powerDown(false);
+        }
+        gameGUI.updateTags();
+
         lastRound = playerMoves;
         dealCards();
     }
