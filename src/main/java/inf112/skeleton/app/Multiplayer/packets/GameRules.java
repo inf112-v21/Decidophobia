@@ -30,8 +30,9 @@ public class GameRules implements Serializable {
         this.boardPath = rules[2];
 
         for(int i = 3; i<rules.length; i++){
-            this.readBoardFile += rules[i]+";";
+            this.readBoardFile += (rules[i]==null) ? "" : rules[i]+";";
         }
+        this.readBoardFile = this.readBoardFile.substring(0,readBoardFile.length()-1);
         //writes down boardFile, if not it already exist.
         try {
             File f = new File(boardPath);
@@ -53,7 +54,7 @@ public class GameRules implements Serializable {
 
             String file = "";
             while (myReader.hasNextLine()) {
-                file += myReader.nextLine();
+                file += myReader.nextLine() + "\n";
             }
             myReader.close();
             boardPath = fileName;
