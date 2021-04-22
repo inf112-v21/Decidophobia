@@ -35,10 +35,10 @@ public class RoboServer {
         gameStarted = false;
         playerIpToConnect = new HashMap<>();
         playerNrToIp = new HashMap<>();
-        server = new Server();
+        server = new Server(16384,2048*4);
         highestPlayerNumb = 0;
 
-        gameRules = new GameRules(3,9);
+        gameRules = new GameRules();
         lobby = new LobbyInfo();
     }
 
@@ -69,7 +69,7 @@ public class RoboServer {
                     playerNrToIp.put(highestPlayerNumb,connectionToIp(connection));
                     lobby.addPlayer(highestPlayerNumb);
                     System.out.println(playerNrToIp);
-                    send(connection,"joined,"+highestPlayerNumb+","+gameRules+lobby);
+                    send(connection,"joined,"+highestPlayerNumb+","+lobby+"gameRules,"+gameRules);
                     for(String ips : playerIpToConnect.keySet()) {
                         if(!ips.equals(connectionToIp(connection)))
                             send(playerIpToConnect.get(ips),"playerJoined,"+highestPlayerNumb+",");
@@ -138,6 +138,12 @@ public class RoboServer {
                     }
                 }
                 break;
+            case "GameRules":
+                if(connectionToIp(connection).equals(getLANIp())) {
+                    String ruleString = request.substring("GameRules,".length());
+                    gameRules = new GameRules(ruleString);
+                    sendToAll("gameRules,"+ ruleString);
+                }
         }
     }
 

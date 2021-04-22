@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.skeleton.app.GUI.ScreenManager;
@@ -77,6 +76,7 @@ public class CardStage {
     public void updateCards(PlayerCards localCards){
         System.out.println(localCards.toString() + " <-- komt hit");
         handCardsTable.clearChildren();
+        handCardsTable.bottom();
         float scale = 0.3f;
         //Sets up dealt cards and make them clickable
         handCardsTable.add(new Label("hand:",labelStyle)).padRight(50);

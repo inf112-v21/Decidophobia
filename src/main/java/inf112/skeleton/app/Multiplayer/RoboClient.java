@@ -42,7 +42,7 @@ public class RoboClient {
     private int clientPlayerNr;
 
     public RoboClient(){
-        client = new Client();
+        client = new Client(8192,2048*4);
         hostOnline = true;
         gameStarted = false;
 
@@ -80,6 +80,10 @@ public class RoboClient {
         sendRequest("ChangeRobot," + robTexture + "," + color + ",");
     }
 
+    public void sendRules(GameRules game){
+        sendRequest("GameRules,"+game);
+    }
+
     public void sendMoves(PlayerCards cards){
         System.out.println("Move,"+cards+",");
         sendRequest("Move,"+cards+",");
@@ -109,14 +113,55 @@ public class RoboClient {
                 if (object instanceof String) {
                     response = (String) object;
                     System.out.println(response);
-                    parser((String) object);
+                    if(!gameStarted)
+                        lobbyRequestParser((String) object);
+                    else
+                        gameRequestParser((String) object);
                 }
 
             }
         });
 
     }
-    public void parser(String str){
+
+    private void gameRequestParser(String str) {
+        switch (str) {
+            case "end":
+                break;
+        }
+        String[] arguments = str.split(",");
+        switch (arguments[0]) {
+            case "lobby":
+                lobbyInfo = new LobbyInfo(arguments[1]);
+                if (lobbyScreen != null) lobbyScreen.updatePlayerTable();
+                gameRequestParser(str.substring("lobby,,".length() + arguments[1].length()));
+                break;
+
+            case "move":
+                roundCards.addPlayerCards(Integer.parseInt(arguments[1]), arguments[2]);
+                if (roundCards.getAllPlayerHands().keySet().size() == lobbyInfo.getPlayers().size()) {
+                    if (gameLogic != null) gameLogic.doRound(roundCards);
+                }
+                break;
+
+            case "dealCards":
+                roundCards = new GameCards(new Deck());
+                clientsCards = new PlayerCards(arguments[1]);
+                if (gameLogic != null) gameLogic.gameGUI.updateCards(clientsCards);
+                break;
+
+            case "quit":
+                int pNr = Integer.parseInt(arguments[1]);
+                lobbyInfo.playerQuit(pNr);
+                hostOnline = pNr != 0;
+                gameLogic.hostQuit();
+                break;
+
+            default:
+                return;
+        }
+    }
+    public void lobbyRequestParser(String str){
         switch (str){
             case "start":
                 lobbyScreen.startGame();
@@ -131,26 +176,26 @@ public class RoboClient {
             case "joined":
                 clientPlayerNr = Integer.parseInt(arguments[1]);
                 if(gameLogic != null) gameLogic.setLocalPlayerNumber(clientPlayerNr);
-                parser(str.substring("joined,,".length() + arguments[1].length()));
+                lobbyRequestParser(str.substring("joined,,".length() + arguments[1].length()));
                 break;
 
             case "playerJoined":
                 System.out.println("playerJoined " + arguments[1]);
                 lobbyInfo.addPlayer(Integer.parseInt(arguments[1]));
                 lobbyScreen.updatePlayerTable();
-                parser(str.substring("joined,,".length() + arguments[1].length()));
+                lobbyRequestParser(str.substring("joined,,".length() + arguments[1].length()));
                 break;
 
             case "gameRules":
-                gameRules = new GameRules(arguments[1]);
-                if (lobbyScreen != null) lobbyScreen.updatePlayerTable();
-                parser(str.substring("gameRules,,".length() + arguments[1].length()));
+                gameRules = new GameRules(str.substring("gameRules,".length()));
+                if (lobbyScreen != null) lobbyScreen.updateRulesTable();
+                lobbyRequestParser(str.substring("gameRules,".length() + arguments[1].length()));
                 break;
 
             case "lobby":
                 lobbyInfo = new LobbyInfo(arguments[1]);
                 if (lobbyScreen != null) lobbyScreen.updatePlayerTable();
-                parser(str.substring("lobby,,".length() + arguments[1].length()));
+                lobbyRequestParser(str.substring("lobby,,".length() + arguments[1].length()));
                 break;
 
             case "move":

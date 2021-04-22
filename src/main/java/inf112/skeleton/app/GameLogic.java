@@ -47,7 +47,10 @@ public class GameLogic {
                 int pNr = pInfo.getPlayerNr();
                 PlayerCards pCards = new PlayerCards();
                 for(int i = 0; i<9;i++){
-                    pCards.dealToHand(cardDeck.pop());
+                    Cards card = cardDeck.pop();
+                    if(cardDeck.size()==0)
+                        cardDeck = new Deck();
+                    pCards.dealToHand(card);
                 }
                 newHands.put(pNr,pCards);
             }
@@ -112,5 +115,8 @@ public class GameLogic {
 
     public GameRules getGameRules(){
         return gameRules;
+    }
+
+    public void hostQuit() {
     }
 }

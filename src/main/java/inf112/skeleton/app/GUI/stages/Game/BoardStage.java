@@ -9,7 +9,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import inf112.skeleton.app.GUI.screen.GameScreen;
-import inf112.skeleton.app.GameLogic;
 
 public class BoardStage extends InputAdapter {
 
@@ -19,15 +18,15 @@ public class BoardStage extends InputAdapter {
     private TiledMap boardMap;
     TiledMapTileLayer boardLayer;
 
-    public BoardStage(){
+    public BoardStage(GameScreen gameScreen){
 
-        String boardPath = "src/assets/boards/vault.tmx"; // should refference the GameRules.
+        String boardPath = gameScreen.roboGame.networkClient.getGameRules().getBoardPath();
         AssetManager assetManager = new AssetManager();
         assetManager.setLoader(TiledMap.class, new TmxMapLoader());
-        assetManager.load(boardPath, TiledMap.class); // should refference the GameRules.
+        assetManager.load(boardPath, TiledMap.class);
         assetManager.finishLoading();
 
-        boardMap = assetManager.get(boardPath); // should refference the GameRules.
+        boardMap = assetManager.get(boardPath);
 
         //Setting up camera for game board
         boardCam = new OrthographicCamera();
