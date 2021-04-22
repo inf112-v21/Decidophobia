@@ -32,14 +32,16 @@ public class GameRules implements Serializable {
         for(int i = 3; i<rules.length; i++){
             this.readBoardFile += (rules[i]==null) ? "" : rules[i]+";";
         }
-        this.readBoardFile = this.readBoardFile.substring(0,readBoardFile.length()-1);
+        this.readBoardFile = this.readBoardFile.substring(4,readBoardFile.length()-1); // 4 is because of an error with it writing null at the start. and -1 since it ends with ;
         //writes down boardFile, if not it already exist.
         try {
             File f = new File(boardPath);
             if (f.createNewFile()) {
                 System.out.println("File created: " + f.getName());
                 FileWriter boardWriter = new FileWriter(boardPath);
-                boardWriter.write(readBoardFile);
+                for(int i = 0; i<readBoardFile.length();i++){
+                    boardWriter.write(readBoardFile.charAt(i));
+                }
                 boardWriter.close();
             }
         } catch (IOException e) {}
