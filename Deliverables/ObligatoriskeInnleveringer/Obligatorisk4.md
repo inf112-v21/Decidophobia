@@ -73,13 +73,8 @@ men i vår tilfelle har vi ikke hatt særlig nytte av det siden en oppgave tar k
 tendens til å lage veldig åpne oppgaver med få detaljer, sånn at den som tar oppgaven kan "spesialisere" seg innenfor det feltet oppgaven krever.  
   
 #### Retroperspektiv
-Slik koden er i dag er det særlig 3 store deler av prosjektet, det er Server/Client (multiplayer), Game (spill-logikk) og GUI.  
-Planen er at GUI-en kjører kontinuerlig og fanger opp endringer i Game. GUI tar også input fra bruker og "sender" dette til Game.  
-Game tar så å gir inputet i form av hvilke kort som brukeren har valgt til sin Client som sender dette til server.  
-Server sender til alle spillernes client hvilke kort som er valgt og alle bruker disse kortene til å oppdatere sin versjon av spillet.  
-Client gir dette til Game, som da prossesserer runden etter å fått kortene til alle.  
-Av dette så er Server/Client og gameLogic sin kommunikasjon fungerende, mens GUI er enda ikke knytta til Game-objektet i spillets prosess.  
-Veien videre er å få med GUI-en i spill-prosessen og å få til at man kan navigere en meny for å sette opp spill.  
+Alle har falt litt av fra prosjektet grunnet andre fag som kommer med obliger, dette har gjort at folk ikke har hatt spesielt mye tid til å jobbe med prosjektet.  
+Det har også gjort at det er vanskligere å jobbe sammen siden alle har forskjellige fag. Men vi har hatt noen møter og har sakte fått inn arbeid i prosjektet som har gitt os mulighet til å bli ferdig med Multiplayer og kommet langt på GUI. Vi synes det hadde vært bedre å ha et fag som dette alene sånn at vi kan fokusere og lettere samarbeide med hverandre.
   
 #### Det som er gjort er:  
 __Server/Client:__    
