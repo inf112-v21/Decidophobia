@@ -32,12 +32,12 @@ public class MenuStage {
 
         TextButton.TextButtonStyle style =  new TextButton.TextButtonStyle();
         style.font = font;
-        style.font.getData().setScale(10);
+        style.font.getData().setScale(7);
         style.fontColor = Color.BLUE;
 
         Image background = new Image(new Texture("src/assets/roboRallyBackground.png"));
-        background.setSize(1920,1920);
-        background.setPosition(0,0);
+        background.setSize(1080,1080);
+        background.setPosition(1920-1080,0);
         stage.addActor(background);
 
         //Declearing buttons
@@ -88,13 +88,13 @@ public class MenuStage {
 
         //Organization
         Table table = new Table();
-        table.center();
+        table.left();
         table.setFillParent(true);
-        table.add(start).expandX();;
+        table.add(start);;
         table.row();
-        table.add(exit).expandX();
+        table.add(exit);
         table.row();
-        table.add(testGameButton).expandX();
+        table.add(testGameButton);
 
         stage.addActor(table);
     }

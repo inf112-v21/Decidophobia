@@ -176,3 +176,13 @@
     server1 & server4 | Skrive en håndtering og respons av "join"-request.
     server2 | Skrive en håndtering og respons av "lockCards"-request.
     server3 | Slrive en håndtering og respons av "quit"-request.
+
+## GUI
+#### Brukerhistorier
+    MenuScreen | Som MenuScreen vil jeg vise brukeren måter å gå ut av spillet på, slik at brukeren kan avslutte spillet.
+    MenuScreen | Som MenuScreen vil jeg at brukere skal kunne trykke seg videre til JoinScreen.
+    MenuScreen | Som MenuScreen vil jeg vise forsiden til RoboRally til brukeren slik at han vet Hvilket spill han spiller.
+
+    LobbyScreen | Som lobbyScreen vil jeg vise alle spillere som er koblet til Server slik at de kan bli med i spillet.
+    LobbyScreen | Som lobbyScreen vil jeg endre navn til en spiller for alle spillere, når spilleren endrer navnet sitt i meg.
+    
