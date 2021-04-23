@@ -76,6 +76,9 @@ public class PlayersStage {
         tagFrame.setSize(tagFrame.getWidth()*scale,tagFrame.getHeight()*scale);
         tagFrame.setPosition(0,0);
 
+        Image robotIcon = new Image(playerRobot.getPlayerTileCell().getTile().getTextureRegion());
+        robotIcon.setBounds(22*scale,22*scale,60*scale,60*scale);
+
         labelStyle.font.getData().setScale(2*scale);
 
         Label nickName = new Label(playerInfo.getNickname(),labelStyle);
@@ -100,6 +103,7 @@ public class PlayersStage {
         powerDown.setPosition(50*scale,-18*scale);
 
         //add all information to group
+        pInfo.addActor(robotIcon);
         pInfo.addActor(tagFrame);
         pInfo.addActor(nickName);
         pInfo.addActor(damageImage);
