@@ -25,5 +25,9 @@ Use the left and right key to rotate your charachter 90° to the left and right,
     * have udp: 54777 open in the router
 
 ## Known bugs
-There are bugs related checkering of the board when changing the size of the gameLogic window.
-
+* There are bugs related to the boardcamera when changing the size of the gameScreen the camera can get moved off the board.
+* When delivering PowerDown instead of cards when playing more than 1, ConcurrentModificationException is thrown.
+* Sometimes when all players are ready, the game crashes for the host.
+* If a player edits his nickname when another sends his changed nickname in, the whole lobby gets updated and the changes  
+  from the first player dissapears. The cause is that when a change arrives at the lobby the whole lobbyTable gets updated.  
+* If board is changed in the lobby, there will be written a null-file in src.

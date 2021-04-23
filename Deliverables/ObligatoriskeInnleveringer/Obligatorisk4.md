@@ -131,8 +131,7 @@ Bugs ligger i README.md
 
 Manuelle tester ligger i ManuelTests.md
 
-Vi har ikke tilføyd noen flere brukerhistorier og slikt siden vi ikke har kommet noe nytt under denne sprinten,  
-bare videreutviklet det fra forrige sprint.  
+Brukerhistorier ligger i BrukerhistorierOblig4.md
 
 #### Spillet
     Spillet startes ved å kjøre launcher.class,

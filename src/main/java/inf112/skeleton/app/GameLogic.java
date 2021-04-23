@@ -52,13 +52,11 @@ public class GameLogic {
 
         int i = 0; //placeholder
         robots = new HashMap<Integer, Robot>();
-        while (playerIterator.hasNext()) {
-            Map.Entry player = (Map.Entry)playerIterator.next();
+        for(Integer pNr : players.keySet()) {
             // Needs update when textures and player start are implemented
-            Robot bot = new Robot(new Vector2(i, 2), Direction.NORTH, "src/assets/player.png",
-                    (TiledMapTileLayer) gameGUI.getMap().getLayers().get("Robot"),gameRules.getLifeTokens(), gameRules.getDamageTokens());
+            Robot bot = new Robot(new Vector2(i, 2), Direction.NORTH, "src/assets/robots.png",
+                    (TiledMapTileLayer) gameGUI.getMap().getLayers().get("Robot"),gameRules.getLifeTokens(), gameRules.getDamageTokens(),pNr);
 
-            bot.setRobotNr((Integer) player.getKey());
             robots.put(bot.getRobotNr(), bot);
             i++;
         }

@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.skeleton.app.GUI.ScreenManager;
 import inf112.skeleton.app.GUI.screen.LobbyScreen;
 import inf112.skeleton.app.Multiplayer.RoboClient;
+import inf112.skeleton.app.Multiplayer.RoboServer;
 import inf112.skeleton.app.Multiplayer.packets.GameRules;
 
 import java.io.File;
@@ -94,7 +95,16 @@ public class GameRuleStage {
             int life = client.getGameRules().getLifeTokens();
             String path = boardFolderPath+"/"+boardFiles.get(0);
             GameRules newRules = new GameRules(life,damage,path);
+
+            Label lan = new Label("LAN:    "+RoboServer.getLANIp(),labelStyle);
+            Label publicIp = new Label("Public: "+ RoboServer.getPublicIp(),labelStyle);
+            lan.setBounds(1400,400,200,100);
+            publicIp.setBounds(1400,300,200,100);
+            stage.addActor(lan);
+            stage.addActor(publicIp);
+
             client.sendRules(newRules);
+
         }else{
             updateGameRulesGroup();
         }
