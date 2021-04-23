@@ -130,10 +130,7 @@ Brukerhistorier ligger i BrukerhistorierOblig4.md
 
 #### Spillet
     Spillet startes ved å kjøre launcher.class,
-    Denne delen av spillet er foreløpig bare for
-    å manuelt kunne teste hvordan en robot kan
-    bevege seg, hvordan UI ser ut.
-
+    Den starter GUI-en som åpner MenuScreenen.
 #### Online - RoboServer & RoboClient
     Testene til denne delen av prosjektet er parserTest og serverTest.
     serverTest tester at man kan bare joine et spill 1 gang, man kan ikke joine flere ganger.
