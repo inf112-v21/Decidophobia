@@ -65,8 +65,7 @@ Det nye vi har prøvd av arbeidsmetodikk er at vi har prøvd å bruke mer parpro
 Det ble lettere å oppdage feil når vi kodet ilag, i tillegg "tvang" det oss til å forklare koden mer. Vi brukte også mye tid på å diskutere hva som var beste  
 løsning og implementerte letter ting som passet ilag (når vi programmerte forskjellige ting).  
 Samtidig ble det vanskelig hos GUI-gruppen å få tid samtidig og individuelt arbeid ble brukt mer i praksis.  
-  
-  
+
 Vi har også hatt et projectBoard i Git der vi publiserte oppgaver, men dette har vært lite brukt og vi har i stede blitt enige om oppgavene vi skal gjøre muntlig på  
 gruppetimer. Vi ser at et projectboard kan være svært nyttig i arbeidslivet, at man kommer på jobb og kan "plukke" en oppgave å jobbe med i noen timer eller lignende,  
 men i vår tilfelle har vi ikke hatt særlig nytte av det siden en oppgave tar kanskje en uke og i og med at vi ikke er så erfarne med systemutvikling har vi også hatt en  
@@ -75,33 +74,6 @@ tendens til å lage veldig åpne oppgaver med få detaljer, sånn at den som tar
 #### Retroperspektiv
 Alle har falt litt av fra prosjektet grunnet andre fag som kommer med obliger, dette har gjort at folk ikke har hatt spesielt mye tid til å jobbe med prosjektet.  
 Det har også gjort at det er vanskligere å jobbe sammen siden alle har forskjellige fag. Men vi har hatt noen møter og har sakte fått inn arbeid i prosjektet som har gitt os mulighet til å bli ferdig med Multiplayer og kommet langt på GUI. Vi synes det hadde vært bedre å ha et fag som dette alene sånn at vi kan fokusere og lettere samarbeide med hverandre.
-  
-#### Det som er gjort er:  
-__Server/Client:__    
-    utviklet Server/Client objekter som kommuniserer ilag og client kommuniserer med Game.  
-    Her har vi også laget mange verktøy til Server/Client-forholdet som kan bli svært nyttig til neste sprint.  
-    Vi synes at utviklingen av Server/Client har vært god, vi har truffet noen hinder som object-serializing der vi veide  
-    våre muligheter i forhold til tid og videre utvikling og valgte da en annen metode å utvikle et request/response-språk  
-    på. Vi synes at det valget vi tok var lurt siden det er enkelt å legge til mere i språket, det som kan være litt prolematisk  
-    er derimot at for nye personer som ser koden kan det ta litt tid å bli kjent med Requestene og debugge om testene ikke  
-    skulle passere senere.  
-  
-__Vi har også gjort en del utvikling med GUI:__  
-    Utviklingen for GUI-en har vist seg å være svært vanskelig, under første sprint utviklet vi et rotete  
-    GUI-objekt som skulle kun gjøre jobben for den sprinten og for at vi skulle bli kjent med hvordan LibGDX  
-    fungerte, i denne sprinten har jobben fortsatt med å dele opp oppgavene som denne gamle GUI-en gjorde og  
-    i tillegg, legge til rette for at applikasjonen kan ha andre scenes/screens som "main-menu", "settings" og  
-    "lobby". Derfor har mye av tiden til GUI-gruppen gått til å utvikle en screenManager som bytter mellom screens  
-    og som "manager" objketene for hver screen.  
-
-__Tre ting vi skal forbedre i løp av neste sprint:__  
-1. ScreenManager, lage et system som gjør det mulig å "bevege" seg mellom forskjellige screens.  
-2. At en GameGUI er definert til å vise informasjon av et Game-Objekt.  
-3. Implementere spill-logikk i Game-objektet.  
-  
-Når det gjelder hver enkelts deltakelse i kodingen vil dette variere noe fra person til person. Det er naturlig at tech-lead  
-vil bidra med mer kode enn UI-designer eller sekretær. Vi forsøker likevel ha en jevn fordeling av koding i teamet  
-slik at alle får bidra, men lar hver enkelt få styre sin egen deltakelse etter ønske og evne.  
 
 ### Deloppgave 2: Krav
 
@@ -111,14 +83,9 @@ slik at alle får bidra, men lar hver enkelt få styre sin egen deltakelse etter
 3. GUI for å starte opp spillet, skal inneholde startside, settings og lobby for multiplayer  
 4. GUI for spillet som viser brett og lar bruker velge kort som kan bli spilt med  
   
-Vårt mål for Oblig3 var å få til mv og levere et spill som kan spilles over nettet. Vi prioriterte multiplayer og GUI fordi  
-vi er usikre på hvordan det virker og hvordan vi kan implementere de for prosjektet. Vi har klart å få server og client oppe  
-å gå sånn at det er mulig å sende informasjon over nettet. Forklaring av multiplayer finnes under Online - RoboServer & RoboClient.  
-Vi har også fått sammenkoblet RoboClient sammen med Game der gameLogic logikken skal ligge. GUI for spill, lobby og start meny  
-har ikke vært så stor framgang pågrunn av vanskeligheter med skin til kanpper og andre funksjoner som er nødvendig. Vi har  
-fått begynt på et setup med screens for alle kravene men pågrunn av vanskeligheter med skins har ikke det kommet særlig lengre. 
-  
-Brukerhistorier finner du i BrukerHistorierOblig3.md  
+Vi har samme mål som i oblig 4 som vi hadde i oblig 3. Vi har klart å få til multiplayer og vi har klart å lage en startside og lobby for spillet. Vi har også blitt ferdig med GUI til brettet som viser kort og spiller status. Du kan også bevege robot med kort.
+
+Brukerhistorier finner du i BrukerHistorierOblig4.md  
   
 Bugs ligger i README.md  
   
