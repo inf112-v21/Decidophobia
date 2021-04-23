@@ -3,9 +3,11 @@ package inf112.skeleton.app.GUI.stages;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -17,6 +19,7 @@ import inf112.skeleton.app.GameLogic;
 import inf112.skeleton.app.Multiplayer.RoboClient;
 import inf112.skeleton.app.Multiplayer.RoboServer;
 import inf112.skeleton.app.Multiplayer.packets.GameRules;
+import org.lwjgl.system.CallbackI;
 
 public class MenuStage {
     public Stage stage;
@@ -30,9 +33,12 @@ public class MenuStage {
         TextButton.TextButtonStyle style =  new TextButton.TextButtonStyle();
         style.font = font;
         style.font.getData().setScale(10);
-        style.fontColor = Color.BLACK;
-        style.downFontColor = Color.GRAY;
-        //TODO set color when mouse over.
+        style.fontColor = Color.BLUE;
+
+        Image background = new Image(new Texture("src/assets/roboRallyBackground.png"));
+        background.setSize(1920,1920);
+        background.setPosition(0,0);
+        stage.addActor(background);
 
         //Declearing buttons
         TextButton start = new TextButton("play multiplayer", style);
