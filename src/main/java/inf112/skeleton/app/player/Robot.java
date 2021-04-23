@@ -27,11 +27,13 @@ public class Robot {
     private int lifeTokens;
     private boolean powerDown;
 
-    public Robot(Vector2 position, Direction facingDirection, String RobotImagePath, TiledMapTileLayer robotLayer,int lifeTokens, int damageTokens){
+    public Robot(Vector2 position, Direction facingDirection, String RobotImagePath, TiledMapTileLayer robotLayer,int lifeTokens, int damageTokens,int robotNr){
         this.robotPosition = position;
         this.facingDirection = facingDirection;
         this.activeRobot = true;
         this.robotLayer = robotLayer;
+
+        this.robotNr = robotNr;
 
         this.lifeTokens = lifeTokens;
         this.damageTokens = damageTokens;
@@ -46,10 +48,10 @@ public class Robot {
             TiledMapTileLayer.Cell robotSouth = new TiledMapTileLayer.Cell();
             TiledMapTileLayer.Cell robotEast = new TiledMapTileLayer.Cell();
 
-            robotNorth.setTile(new StaticTiledMapTile(playerTexture[robotNr % 6][0]));
-            robotWest.setTile(new StaticTiledMapTile(playerTexture[robotNr % 6][1]));
-            robotSouth.setTile(new StaticTiledMapTile(playerTexture[robotNr % 6][2]));
-            robotEast.setTile(new StaticTiledMapTile(playerTexture[robotNr % 6][3]));
+            robotNorth.setTile(new StaticTiledMapTile(playerTexture[robotNr%6][0]));
+            robotWest.setTile(new StaticTiledMapTile(playerTexture[robotNr%6][1]));
+            robotSouth.setTile(new StaticTiledMapTile(playerTexture[robotNr%6][2]));
+            robotEast.setTile(new StaticTiledMapTile(playerTexture[robotNr%6][3]));
 
             //Putting the textures in a map where orientation is the keys.
             robotOrientationToTiles = new HashMap<>();
