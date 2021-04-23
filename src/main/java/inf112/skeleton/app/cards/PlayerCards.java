@@ -226,4 +226,8 @@ public class PlayerCards {
     public void dealToHand(Cards card) {
         cardsInHand.add(card);
     }
+
+    public int size() {
+        return cardsInHand.size()+getActiveCards().size();
+    }
 }

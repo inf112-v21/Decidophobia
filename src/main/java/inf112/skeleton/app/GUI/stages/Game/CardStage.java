@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -25,12 +26,14 @@ public class CardStage {
     public GameScreen gameScreen;
     public Stage cardStage;
     Viewport viewport;
+    OrthographicCamera camera;
 
     GameLogic gl;
+    public  PlayerCards localCards;
 
     HashMap<CardType, TextureRegionDrawable> cardImages;
     TextureRegion powerDown;
-    Table handCardsTable;
+    Group handCardsGroup;
 
     BitmapFont font;
     Label.LabelStyle labelStyle;
@@ -39,7 +42,8 @@ public class CardStage {
     public CardStage(GameScreen gameScreen, GameLogic gl){
         this.gameScreen = gameScreen;
         this.gl = gl;
-        viewport = new ExtendViewport(ScreenManager.V_WIDTH,ScreenManager.V_HEIGHT,new OrthographicCamera());
+        camera = new OrthographicCamera();
+        viewport = new ExtendViewport(ScreenManager.V_WIDTH,ScreenManager.V_HEIGHT,camera);
         cardStage = new Stage(viewport);
 
         font = new BitmapFont();
@@ -69,76 +73,93 @@ public class CardStage {
         cardImages.put(CardType.ROTATE_RIGHT,new TextureRegionDrawable(cardTextures[0][6]));
         cardImages.put(CardType.CLOSED,new TextureRegionDrawable(cardTextures[0][7]));
 
-        handCardsTable = new Table();
-        handCardsTable.setFillParent(true);
-        handCardsTable.bottom();
+        handCardsGroup = new Group();
+        handCardsGroup.setSize(camera.viewportWidth,camera.viewportHeight);
+        handCardsGroup.setPosition(0,0);
 
-        cardStage.addActor(handCardsTable);
+        cardStage.addActor(handCardsGroup);
 
     }
     public void updateCards(PlayerCards localCards){
-        System.out.println(localCards.toString() + " <-- komt hit");
-        handCardsTable.clearChildren();
-        handCardsTable.bottom();
-        float scale = 0.3f;
-        Image powerDownCard = new Image(powerDown);
-        powerDownCard.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                localCards.removeAllCards();
-                handCardsTable.clearChildren();
-                gl.networkClient.sendMoves(localCards);
-                super.clicked(event, x, y);
-            }
-        });
-        handCardsTable.add(powerDownCard).size(600*scale,600*scale);
-        //Sets up dealt cards and make them clickable
-        handCardsTable.add(new Label("hand:",labelStyle)).padRight(50);
-        for(Cards card : localCards.getCardsInHand()) {
-            Stack cardStack = new Stack();
-            Image cardImg = new Image(cardImages.get(card.getType()));
-            TextButton cardButton = setupCardButton(card.getPriority()+"", cardImg);
-            cardButton.addListener(new ClickListener() {
+        if(localCards != null) {
+            this.localCards = localCards;
+            handCardsGroup.clearChildren();
+            handCardsGroup.setSize(camera.viewportWidth,camera.viewportHeight);
+            float scale = 0.3f;
+            int size = localCards.size();
+            float totalWidth = (600+380*(2+size))*scale;
+            float xDrawn = camera.position.x-totalWidth/2;
+            float bottomEdge = camera.position.y-camera.viewportHeight/2;
+            Image powerDownCard = new Image(powerDown);
+            powerDownCard.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    localCards.setLastActiveCard(card);
-                    if(localCards.getActiveCards().size() == 5){
-                        handCardsTable.clearChildren();
-                        gl.networkClient.sendMoves(localCards);
-
-                    }else{
-                        updateCards(localCards);
-                    }
+                    localCards.removeAllCards();
+                    handCardsGroup.clearChildren();
+                    gl.networkClient.sendMoves(localCards);
                     super.clicked(event, x, y);
                 }
             });
-            cardStack.add(cardImg);
-            cardStack.add(cardButton);
-            handCardsTable.add(cardStack).size(cardImg.getWidth()*scale,cardImg.getHeight()*scale);
+            powerDownCard.setBounds(xDrawn,bottomEdge,600*scale,600*scale);
+            xDrawn += 600*scale;
 
-        }
-        handCardsTable.add(new Label("chosen:",labelStyle)).padRight(50);
-        for(Cards card : localCards.getActiveCards()){
-            Stack cardStack = new Stack();
-            Image cardImg = new Image(cardImages.get(card.getType()));
-            TextButton cardButton = setupCardButton(card.getPriority()+"", cardImg);
-            cardButton.addListener(new ClickListener() {
-                   @Override
-                   public void clicked(InputEvent event, float x, float y) {
-                       if (!localCards.getLockedCards().contains(card)) cardImg.addListener(new ClickListener() {
-                           @Override
-                           public void clicked(InputEvent event, float x, float y) {
-                               localCards.removeActiveCard(localCards.getIndexOfActiveCard(card));
-                               updateCards(localCards);
-                               super.clicked(event, x, y);
-                           }
-                       });
+            handCardsGroup.addActor(powerDownCard);
+            //Sets up dealt cards and make them clickable
+            Label handText = new Label("hand:", labelStyle);
+            handText.setBounds(xDrawn,bottomEdge,380*scale,600*scale);
+            xDrawn += 380*scale;
 
-                   }
-               });
-            cardStack.add(cardImg);
-            cardStack.add(cardButton);
-            handCardsTable.add(cardStack).size(cardImg.getWidth() * scale, cardImg.getHeight() * scale);
+            handCardsGroup.addActor(handText);
+            //Sets up the cards to be chosen.
+            for (Cards card : localCards.getCardsInHand()) {
+                Stack cardStack = new Stack();
+                Image cardImg = new Image(cardImages.get(card.getType()));
+                TextButton cardButton = setupCardButton(card.getPriority() + "", cardImg);
+                cardButton.addListener(new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        localCards.setLastActiveCard(card);
+                        if (localCards.getActiveCards().size() == 5) {
+                            handCardsGroup.clearChildren();
+                            gl.networkClient.sendMoves(localCards);
+
+                        } else {
+                            updateCards(localCards);
+                        }
+                        super.clicked(event, x, y);
+                    }
+                });
+                cardStack.add(cardImg);
+                cardStack.add(cardButton);
+                cardStack.setBounds(xDrawn,bottomEdge,380*scale,600*scale);
+                xDrawn += 380*scale;
+                handCardsGroup.addActor(cardStack);
+
+            }
+            Label chosenText = new Label("chosen:", labelStyle);
+            chosenText.setBounds(xDrawn,bottomEdge,380*scale,600*scale);
+            xDrawn += 380*scale;
+            handCardsGroup.addActor(chosenText);
+            for (Cards card : localCards.getActiveCards()) {
+                Stack cardStack = new Stack();
+                Image cardImg = new Image(cardImages.get(card.getType()));
+                TextButton cardButton = setupCardButton(card.getPriority() + "", cardImg);
+                cardButton.addListener(new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                            localCards.removeActiveCard(localCards.getIndexOfActiveCard(card));
+                            updateCards(localCards);
+                            super.clicked(event, x, y);
+
+                    }
+                });
+                cardStack.add(cardImg);
+                cardStack.add(cardButton);
+                cardStack.setBounds(xDrawn,bottomEdge,380*scale,600*scale);
+                xDrawn += 380*scale;
+                handCardsGroup.addActor(cardStack);
+            }
+
         }
 
     }

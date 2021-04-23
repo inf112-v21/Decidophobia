@@ -74,6 +74,7 @@ public class GameScreen implements Screen {
         cardStage.cardStage.getViewport().update(width,height);
         playerStage.stage.getViewport().update(width,height);
         playerStage.updatePlayerTags();
+        updateCards(cardStage.localCards);
     }
 
     @Override
