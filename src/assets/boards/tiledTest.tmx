@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="300" tileheight="300" infinite="0" nextlayerid="9" nextobjectid="18">
+<map version="1.4" tiledversion="2021.01.13" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="300" tileheight="300" infinite="0" nextlayerid="10" nextobjectid="18">
  <tileset firstgid="1" source="../boardTiles.tsx"/>
  <layer id="1" name="Board" width="10" height="10">
   <properties>
@@ -46,7 +46,7 @@
 0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="4" name="Player" width="10" height="10">
+ <layer id="9" name="Robot" width="10" height="10">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,
