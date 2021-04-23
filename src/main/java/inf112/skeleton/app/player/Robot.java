@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
-import inf112.skeleton.app.Action;
 import inf112.skeleton.app.Direction;
 import inf112.skeleton.app.GameLogic;
 import inf112.skeleton.app.cards.Cards;
@@ -167,29 +166,6 @@ public class Robot {
                 break;
         }
 
-    }
-
-    public void move(Action move) {
-        if(!activeRobot)
-            return;
-        switch (move) {
-            case FORWARD:
-                robotPosition.add(directionToVector(facingDirection));
-                break;
-            case REVERSE:
-                robotPosition.sub(directionToVector(facingDirection));
-                break;
-            case ROTATE_LEFT:
-                facingDirection = rotationToDirection(facingDirection,false);
-                break;
-            case ROTATE_RIGHT:
-                facingDirection = rotationToDirection(facingDirection,true);
-                break;
-            case U_TURN:
-                facingDirection = (rotationToDirection(facingDirection, true));
-                facingDirection = (rotationToDirection(facingDirection, true));
-                break;
-        }
     }
 
     public int getDamageTokens() {
