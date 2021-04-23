@@ -220,9 +220,4 @@ public class RoboServer {
         return playerIpToConnect;
     }
 
-    public static void main(String[] args){
-        RoboServer server = new RoboServer();
-        server.runServer();
-    }
-
 }
