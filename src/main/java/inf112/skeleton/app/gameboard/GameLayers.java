@@ -17,7 +17,7 @@ public class GameLayers {
 
     protected final TiledMap tiledMap;
 
-    protected final TiledMapTileLayer playerLayer;
+    protected final TiledMapTileLayer robotLayer;
     protected final TiledMapTileLayer flagLayer;
     protected final TiledMapTileLayer wallLayer;
     protected final TiledMapTileLayer laserLayer;
@@ -37,7 +37,7 @@ public class GameLayers {
     public GameLayers(String filename) {
         this.tiledMap = new TmxMapLoader().load(filename);
 
-        this.playerLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Player");
+        this.robotLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Player");
         this.flagLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Flag");
         this.laserLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Laser");
         this.wallLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Wall");

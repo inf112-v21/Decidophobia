@@ -124,6 +124,8 @@ public class GameLogic {
         dealCards();
     }
 
+    
+
     private List<Integer> getHighestPriorityOfNewCard(int turn, GameCards playerMoves){
         Map<Integer,PlayerCards> playerHands = playerMoves.getAllPlayerHands();
         List<Integer> playerPriority = new ArrayList<>();
