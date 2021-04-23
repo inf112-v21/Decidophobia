@@ -55,7 +55,7 @@ public class GameLogic {
         while (playerIterator.hasNext()) {
             Map.Entry player = (Map.Entry)playerIterator.next();
             // Needs update when textures and player start are implemented
-            Robot bot = new Robot(new Vector2(i, 2), Direction.NORTH, "src/assets/player.png",
+            Robot bot = new Robot(new Vector2(i, 2), Direction.NORTH, "src/assets/robots.png",
                     (TiledMapTileLayer) gameGUI.getMap().getLayers().get("Robot"),gameRules.getLifeTokens(), gameRules.getDamageTokens());
 
             bot.setRobotNr((Integer) player.getKey());

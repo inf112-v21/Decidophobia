@@ -46,10 +46,10 @@ public class Robot {
             TiledMapTileLayer.Cell robotSouth = new TiledMapTileLayer.Cell();
             TiledMapTileLayer.Cell robotEast = new TiledMapTileLayer.Cell();
 
-            robotNorth.setTile(new StaticTiledMapTile(playerTexture[0][0]));
-            robotWest.setTile(new StaticTiledMapTile(playerTexture[0][1]));
-            robotSouth.setTile(new StaticTiledMapTile(playerTexture[0][2]));
-            robotEast.setTile(new StaticTiledMapTile(playerTexture[0][3]));
+            robotNorth.setTile(new StaticTiledMapTile(playerTexture[robotNr % 6][0]));
+            robotWest.setTile(new StaticTiledMapTile(playerTexture[robotNr % 6][1]));
+            robotSouth.setTile(new StaticTiledMapTile(playerTexture[robotNr % 6][2]));
+            robotEast.setTile(new StaticTiledMapTile(playerTexture[robotNr % 6][3]));
 
             //Putting the textures in a map where orientation is the keys.
             robotOrientationToTiles = new HashMap<>();
