@@ -111,14 +111,10 @@ slik at alle får bidra, men lar hver enkelt få styre sin egen deltakelse etter
 3. GUI for å starte opp spillet, skal inneholde startside, settings og lobby for multiplayer  
 4. GUI for spillet som viser brett og lar bruker velge kort som kan bli spilt med  
   
-Vårt mål for Oblig3 var å få til mv og levere et spill som kan spilles over nettet. Vi prioriterte multiplayer og GUI fordi  
-vi er usikre på hvordan det virker og hvordan vi kan implementere de for prosjektet. Vi har klart å få server og client oppe  
-å gå sånn at det er mulig å sende informasjon over nettet. Forklaring av multiplayer finnes under Online - RoboServer & RoboClient.  
-Vi har også fått sammenkoblet RoboClient sammen med Game der gameLogic logikken skal ligge. GUI for spill, lobby og start meny  
-har ikke vært så stor framgang pågrunn av vanskeligheter med skin til kanpper og andre funksjoner som er nødvendig. Vi har  
-fått begynt på et setup med screens for alle kravene men pågrunn av vanskeligheter med skins har ikke det kommet særlig lengre. 
-  
-Brukerhistorier finner du i BrukerHistorierOblig3.md  
+Vi har samme mål som i oblig 4 som vi hadde i oblig 3. Vi har klart å få til multiplayer og vi har klart å lage en startside og lobby for spillet. Vi har også blitt ferdig med GUI til brettet som viser kort og spiller status. Du kan også bevege robot med kort.
+
+
+Brukerhistorier finner du i BrukerHistorierOblig4.md  
   
 Bugs ligger i README.md  
   
