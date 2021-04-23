@@ -61,6 +61,8 @@
         * Tested if default rules and a board were selected when starting a lobby.
         * Tested if newRules were applied by clicking the button (host) the rules changed for  
         all players.
+        * Tested if map gets correctly uploaded to the server by the host, by using println in the server-request-
+        handler.
         * Tested if a player does not have the selected board (selected in the rules) that it  
         downloads it from the server (the map is uploaded by the host). 
         * Tested if all are ready the game starts for all players.
@@ -73,10 +75,15 @@
         * Tested if board loaded equally for both computers.
         * Tested if cards load and show on screen when dealt out.
         * Tested if cards are clickable and if they get sent when 5 cards are reached.
+        * Tested if card in hand gets sent to chosen-cards, when clicked and when chosen-cards gets clicked that
+        they get put back in the hand.
         * Tested if playerTags (the icon showing each players robots status) show for all players.
         * Tested if boards (actually the boardCamera) is moveable by the mouse against the edges of the screen
         while holding right mousebutton.
         * Tested if the board can move off screen, it can only if you resize the screen.
         * Tested if scrolling zooms the board.
+        * Tested if cards and playerTags are visible for different screensizes by resizeing the window while
+        playing.
     All of these tests passed.
+
         
