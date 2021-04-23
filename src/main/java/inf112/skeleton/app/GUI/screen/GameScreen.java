@@ -73,6 +73,7 @@ public class GameScreen implements Screen {
         boardStage.boardCam.setToOrtho(false,width,height);
         cardStage.cardStage.getViewport().update(width,height);
         playerStage.stage.getViewport().update(width,height);
+        playerStage.updatePlayerTags();
     }
 
     @Override

@@ -24,6 +24,7 @@ public class PlayersStage {
     public GameScreen gameScreen;
     public Stage stage;
     public Viewport viewport;
+    OrthographicCamera pCam;
 
     RoboClient client;
 
@@ -32,41 +33,40 @@ public class PlayersStage {
     TextureRegionDrawable playerTagTexture;
     TextureRegion[][] botBoardTextures;
 
-    Table playerTagsTable;
+    Group playerTagsTable;
 
     public PlayersStage(GameScreen gameScreen){
         this.gameScreen = gameScreen;
         this.client = gameScreen.roboGame.networkClient;
         playerTagTexture = new TextureRegionDrawable(new Texture("src/assets/playerTag.png"));
         botBoardTextures = TextureRegion.split(new Texture("src/assets/botBoardTiles.png"), 300, 300);
-        viewport = new ExtendViewport(Gdx.graphics.getWidth(),Gdx.graphics.getHeight(),new OrthographicCamera());
+        pCam = new OrthographicCamera();
+        viewport = new ExtendViewport(Gdx.graphics.getWidth(),Gdx.graphics.getHeight(),pCam);
         stage = new Stage(viewport);
 
         labelStyle = new Label.LabelStyle();
         labelStyle.font = new BitmapFont();
         labelStyle.fontColor = Color.WHITE;
 
-        playerTagsTable = new Table();
-        playerTagsTable.setFillParent(true);
-        playerTagsTable.left();
+        playerTagsTable = new Group();
 
         stage.addActor(playerTagsTable);
     }
     public void updatePlayerTags(){
         playerTagsTable.clearChildren();
-        playerTagsTable.left().top().padTop(50);
         PlayerInfo localPlayer = client.getLobbyInfo().getPlayers().get(client.getClientPlayerNr());
-        playerTagSetup(localPlayer,0.5f);
+        int index = 0;
+        playerTagSetup(localPlayer,0.5f,index);
         for(PlayerInfo playerInfo : client.getLobbyInfo().getPlayers().values()){
             if(playerInfo != localPlayer){
-                playerTagsTable.row();
-                playerTagSetup(playerInfo,0.4f);
+                index++;
+                playerTagSetup(playerInfo,0.4f,index);
             }
         }
 
     }
 
-    public void playerTagSetup(PlayerInfo playerInfo, float scale){
+    public void playerTagSetup(PlayerInfo playerInfo, float scale, int index){
         Robot playerRobot = gameScreen.roboGame.robots.get(playerInfo.getPlayerNr());
 
         //Group contains all available information about players.
@@ -108,7 +108,9 @@ public class PlayersStage {
         pInfo.addActor(life);
         if(playerRobot.isPowerDown()) pInfo.addActor(powerDown);
 
+        pInfo.setPosition(pCam.position.x-pCam.viewportWidth/2 +5,pCam.position.y+pCam.viewportHeight/2-55-index*50);
+
         //stack information over frame
-        playerTagsTable.add(pInfo).size(tagFrame.getWidth()*scale,tagFrame.getHeight()*scale).padBottom(25);
+        playerTagsTable.addActor(pInfo);
     }
 }
